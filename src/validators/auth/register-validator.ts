@@ -5,13 +5,13 @@ export const registerSchema = z
     name: z.string().min(1, { message: "Nama harus diisi." }).trim(),
     email: z.string().min(1, { message: "Email harus diisi." }).trim(),
     password: z.string().min(1, { message: "Password harus diisi." }),
-    passwordConfirmation: z
+    password_confirmation: z
       .string()
       .min(1, { message: "konfirmasi password harus diisi" }),
   })
-  .refine((data) => data.password === data.passwordConfirmation, {
+  .refine((data) => data.password === data.password_confirmation, {
     message: "Konfirmasi password harus sama dengan password.",
-    path: ["passwordConfirmation"],
+    path: ["password_confirmation"],
   });
 
 export type RegisterType = z.infer<typeof registerSchema>;

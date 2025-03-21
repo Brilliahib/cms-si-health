@@ -37,7 +37,7 @@ export default function FormAuthRegister() {
       name: "",
       email: "",
       password: "",
-      passwordConfirmation: "",
+      password_confirmation: "",
     },
     mode: "onChange",
   });
@@ -162,7 +162,7 @@ export default function FormAuthRegister() {
                 />
                 <FormField
                   control={form.control}
-                  name="passwordConfirmation"
+                  name="password_confirmation"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Konfirmasi Password</FormLabel>
