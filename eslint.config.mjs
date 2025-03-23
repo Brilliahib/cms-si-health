@@ -11,6 +11,18 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    ignores: [
+      ".next",
+      ".cache",
+      "package-lock.json",
+      "public",
+      "node_modules",
+      "next-env.d.ts",
+      "next.config.ts",
+      "yarn.lock",
+    ],
+  },
 ];
 
 export default eslintConfig;
