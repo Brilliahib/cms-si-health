@@ -9,7 +9,7 @@ interface GetAllQuestionBanksResponse {
 }
 
 export const GetAllQuestionBanksHandler = async (
-  token: string
+  token: string,
 ): Promise<GetAllQuestionBanksResponse> => {
   const { data } = await api.get<GetAllQuestionBanksResponse>("/question-set", {
     headers: {
@@ -22,10 +22,10 @@ export const GetAllQuestionBanksHandler = async (
 
 export const useGetAllQuestionBanks = (
   token: string,
-  options?: Partial<UseQueryOptions<GetAllQuestionBanksResponse, AxiosError>>
+  options?: Partial<UseQueryOptions<GetAllQuestionBanksResponse, AxiosError>>,
 ) => {
   return useQuery({
-    queryKey: ["users-list"],
+    queryKey: ["question-bank-list"],
     queryFn: () => GetAllQuestionBanksHandler(token),
     ...options,
   });

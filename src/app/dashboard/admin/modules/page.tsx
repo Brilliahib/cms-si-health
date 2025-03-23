@@ -1,5 +1,11 @@
 import DashboardTitle from "@/components/atoms/typography/DashboardTitle";
+import DashboardAdminModulesWrapper from "@/components/organisms/dashboard/admin/modules/DashboardAdminModules";
 
 export default function DashboardAdminModulesPage() {
-  return <DashboardTitle head="Materi" body="Menampilkan daftar materi" />;
+  return (
+    <section>
+      <DashboardTitle head="Materi" body="Menampilkan semua daftar materi" />
+      <DashboardAdminModulesWrapper />
+    </section>
+  );
 }
