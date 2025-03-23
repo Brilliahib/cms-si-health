@@ -14,17 +14,7 @@ import {
   SidebarMenuItem,
   SidebarFooter,
 } from "@/components/ui/sidebar";
-import {
-  ArrowLeftRight,
-  Book,
-  History,
-  Info,
-  LayoutDashboard,
-  Search,
-  Shirt,
-  ShoppingBag,
-  ShoppingCart,
-} from "lucide-react";
+import { Book, History, Info, LayoutDashboard, Search } from "lucide-react";
 import { Session } from "next-auth";
 import { NavUser } from "./NavUser";
 import Image from "next/image";
