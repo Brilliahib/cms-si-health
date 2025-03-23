@@ -35,8 +35,6 @@ export default function FormAuthLogin() {
     mode: "onChange",
   });
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
 
   const onSubmit = async (body: LoginType) => {
     setIsLoading(true);
@@ -57,7 +55,7 @@ export default function FormAuthLogin() {
       description: "Selamat datang kembali!",
     });
 
-    router.push(callbackUrl);
+    router.push("/dashboard");
   };
 
   return (
