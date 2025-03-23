@@ -2,6 +2,8 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
+import { Session } from "next-auth";
 import {
   Sidebar,
   SidebarHeader,
@@ -14,51 +16,99 @@ import {
   SidebarMenuItem,
   SidebarFooter,
 } from "@/components/ui/sidebar";
-import { Book, History, Info, LayoutDashboard, Search } from "lucide-react";
-import { Session } from "next-auth";
+import {
+  LayoutDashboard,
+  Search,
+  Book,
+  History,
+  Info,
+  BookOpen,
+  ClipboardPen,
+  User,
+  ClipboardList,
+} from "lucide-react";
 import { NavUser } from "./NavUser";
-import Image from "next/image";
+import { useMemo } from "react";
 
-const monitoring = [
-  { icon: <LayoutDashboard />, name: "Dashboard", href: "/dashboard" },
-  {
-    icon: <Search />,
-    name: "Screening",
-    href: "/dashboard/screening",
-  },
-  {
-    icon: <Book />,
-    name: "Penjelasan Umum",
-    href: "/dashboard/general",
-  },
-  {
-    icon: <History />,
-    name: "Riwayat",
-    href: "/dashboard/history",
-  },
-  {
-    icon: <Info />,
-    name: "Panduan Screening",
-    href: "/dashboard/guide",
-  },
-];
-
-interface AppsidebarProps {
+interface AppSidebarProps {
   session: Session;
 }
 
-export function AppSidebar({ session }: AppsidebarProps) {
+export function AppSidebar({ session }: AppSidebarProps) {
   const pathname = usePathname();
+
+  const links = useMemo(
+    () => [
+      ...(session?.user.role === "admin"
+        ? [
+            {
+              icon: <LayoutDashboard />,
+              name: "Dashboard Admin",
+              href: "/dashboard/admin",
+            },
+            {
+              icon: <BookOpen />,
+              name: "Bank Soal",
+              href: "/dashboard/admin/question-banks",
+            },
+            {
+              icon: <Book />,
+              name: "Materi",
+              href: "/dashboard/admin/modules",
+            },
+            {
+              icon: <ClipboardPen />,
+              name: "Daftar Tes",
+              href: "/dashboard/admin/tests",
+            },
+            {
+              icon: <ClipboardList />,
+              name: "Laporan Keseluruhan",
+              href: "/dashboard/admin/reports",
+            },
+            {
+              icon: <User />,
+              name: "Pasien",
+              href: "/dashboard/admin/users",
+            },
+          ]
+        : [
+            {
+              icon: <LayoutDashboard />,
+              name: "Dashboard",
+              href: "/dashboard",
+            },
+            {
+              icon: <Search />,
+              name: "Screening",
+              href: "/dashboard/screening",
+            },
+            {
+              icon: <Book />,
+              name: "Penjelasan Umum",
+              href: "/dashboard/general",
+            },
+            { icon: <History />, name: "Riwayat", href: "/dashboard/history" },
+            {
+              icon: <Info />,
+              name: "Panduan Screening",
+              href: "/dashboard/guide",
+            },
+          ]),
+    ],
+    [session, pathname]
+  );
 
   return (
     <Sidebar>
+      {/* Header */}
       <SidebarHeader className="h-14 cursor-default justify-center border-b bg-white dark:bg-slate-950">
         <SidebarMenu>
           <SidebarMenuItem>
             <div className="ml-2 flex items-center gap-x-3">
-              <Link href={"/dashboard"} className="flex items-center gap-2">
+              <Link href="/dashboard" className="flex items-center gap-2">
                 <Image
-                  src={"/images/logo/undip.png"}
+                  src="/images/logo/undip.png"
                   alt="Sistem Informasi Kesehatan Ginjal"
                   width={30}
                   height={30}
@@ -71,18 +121,20 @@ export function AppSidebar({ session }: AppsidebarProps) {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
+
+      {/* Menu */}
       <SidebarContent className="bg-white pb-20 dark:bg-slate-950">
         <SidebarGroup>
-          <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
+          <SidebarGroupLabel>Menu</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {monitoring.map((item, i) => (
-                <SidebarMenuItem key={i}>
+              {links.map((item) => (
+                <SidebarMenuItem key={item.href}>
                   <SidebarMenuButton
                     asChild
                     className={`hover:bg-primary/10 hover:text-primary dark:hover:bg-slate-900 ${
                       pathname === item.href
-                        ? "bg-primary/10 text-primary hover:bg-primary/10 hover:text-primary dark:bg-slate-800"
+                        ? "bg-primary/10 text-primary dark:bg-slate-800"
                         : ""
                     }`}
                   >
@@ -97,8 +149,10 @@ export function AppSidebar({ session }: AppsidebarProps) {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
+      {/* Footer */}
       <SidebarFooter>
-        <NavUser session={session!} />
+        <NavUser session={session} />
       </SidebarFooter>
     </Sidebar>
   );
