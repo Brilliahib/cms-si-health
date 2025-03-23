@@ -3,11 +3,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-import {
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { Eye, SquarePen, Trash2 } from "lucide-react";
 import { QuestionBank } from "@/types/question-bank/question-bank";
@@ -27,7 +22,7 @@ export const questionBankColumns: ColumnDef<QuestionBank>[] = [
     cell: ({ row }) => {
       const data = row.original;
       return (
-        <p suppressHydrationWarning className="md:line-clamp-2 line-clamp-1">
+        <p suppressHydrationWarning className="line-clamp-1 md:line-clamp-2">
           {data.name}
         </p>
       );
