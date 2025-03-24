@@ -7,12 +7,19 @@ import { useSession } from "next-auth/react";
 
 export default function DashboardQuestionBankWrapper() {
   const { data: session, status } = useSession();
-  const { data } = useGetAllQuestionBanks(session?.access_token as string, {
-    enabled: status === "authenticated",
-  });
+  const { data, isPending } = useGetAllQuestionBanks(
+    session?.access_token as string,
+    {
+      enabled: status === "authenticated",
+    },
+  );
   return (
     <div>
-      <DataTable data={data?.data ?? []} columns={questionBankColumns} />
+      <DataTable
+        data={data?.data ?? []}
+        columns={questionBankColumns}
+        isLoading={isPending}
+      />
     </div>
   );
 }
