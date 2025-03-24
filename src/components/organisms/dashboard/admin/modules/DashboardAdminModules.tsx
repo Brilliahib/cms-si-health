@@ -7,12 +7,19 @@ import { useSession } from "next-auth/react";
 
 export default function DashboardAdminModulesWrapper() {
   const { data: session, status } = useSession();
-  const { data } = useGetAllModules(session?.access_token as string, {
-    enabled: status === "authenticated",
-  });
+  const { data, isPending } = useGetAllModules(
+    session?.access_token as string,
+    {
+      enabled: status === "authenticated",
+    },
+  );
   return (
-    <div>
-      <DataTable data={data?.data ?? []} columns={modulesColumns} />
+    <div className="space-y-4">
+      <DataTable
+        data={data?.data ?? []}
+        columns={modulesColumns}
+        isLoading={isPending}
+      />
     </div>
   );
 }
