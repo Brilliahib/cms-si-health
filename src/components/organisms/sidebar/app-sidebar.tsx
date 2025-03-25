@@ -26,9 +26,9 @@ import {
   ClipboardPen,
   User,
   ClipboardList,
+  NotebookText,
 } from "lucide-react";
 import { NavUser } from "./NavUser";
-import { useMemo } from "react";
 
 interface AppSidebarProps {
   session: Session;
@@ -37,67 +37,10 @@ interface AppSidebarProps {
 export function AppSidebar({ session }: AppSidebarProps) {
   const pathname = usePathname();
 
-  const links = useMemo(
-    () => [
-      ...(session?.user.role === "admin"
-        ? [
-            {
-              icon: <LayoutDashboard />,
-              name: "Dashboard Admin",
-              href: "/dashboard/admin",
-            },
-            {
-              icon: <BookOpen />,
-              name: "Bank Soal",
-              href: "/dashboard/admin/question-banks",
-            },
-            {
-              icon: <Book />,
-              name: "Materi",
-              href: "/dashboard/admin/modules",
-            },
-            {
-              icon: <ClipboardPen />,
-              name: "Daftar Tes",
-              href: "/dashboard/admin/tests",
-            },
-            {
-              icon: <ClipboardList />,
-              name: "Laporan Keseluruhan",
-              href: "/dashboard/admin/reports",
-            },
-            {
-              icon: <User />,
-              name: "Pasien",
-              href: "/dashboard/admin/users",
-            },
-          ]
-        : [
-            {
-              icon: <LayoutDashboard />,
-              name: "Dashboard",
-              href: "/dashboard",
-            },
-            {
-              icon: <Search />,
-              name: "Screening",
-              href: "/dashboard/screening",
-            },
-            {
-              icon: <Book />,
-              name: "Penjelasan Umum",
-              href: "/dashboard/general",
-            },
-            { icon: <History />, name: "Riwayat", href: "/dashboard/history" },
-            {
-              icon: <Info />,
-              name: "Panduan Screening",
-              href: "/dashboard/guide",
-            },
-          ]),
-    ],
-    [session, pathname]
-  );
+  const buttonClass = (href: string) =>
+    `hover:bg-primary/10 hover:text-primary dark:hover:bg-slate-900 ${
+      pathname === href ? "bg-primary/10 text-primary dark:bg-slate-800" : ""
+    }`;
 
   return (
     <Sidebar>
@@ -122,32 +65,207 @@ export function AppSidebar({ session }: AppSidebarProps) {
         </SidebarMenu>
       </SidebarHeader>
 
-      {/* Menu */}
-      <SidebarContent className="bg-white pb-20 dark:bg-slate-950">
+      <SidebarContent className="bg-white dark:bg-slate-950">
+        {/* Menu utama */}
         <SidebarGroup>
-          <SidebarGroupLabel>Menu</SidebarGroupLabel>
+          <SidebarGroupLabel>Menu Utama</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {links.map((item) => (
-                <SidebarMenuItem key={item.href}>
+              {session?.user.role === "admin" ? (
+                <SidebarMenuItem>
                   <SidebarMenuButton
                     asChild
                     className={`hover:bg-primary/10 hover:text-primary dark:hover:bg-slate-900 ${
-                      pathname === item.href
+                      pathname === "/dashboard/admin"
                         ? "bg-primary/10 text-primary dark:bg-slate-800"
                         : ""
                     }`}
                   >
-                    <Link href={item.href}>
-                      {item.icon}
-                      <span>{item.name}</span>
+                    <Link href="/dashboard/admin">
+                      <LayoutDashboard />
+                      <span>Dashboard Admin</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
-              ))}
+              ) : (
+                <>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      className={`hover:bg-primary/10 hover:text-primary dark:hover:bg-slate-900 ${
+                        pathname === "/dashboard"
+                          ? "bg-primary/10 text-primary dark:bg-slate-800"
+                          : ""
+                      }`}
+                    >
+                      <Link href="/dashboard">
+                        <LayoutDashboard />
+                        <span>Dashboard</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      className={`hover:bg-primary/10 hover:text-primary dark:hover:bg-slate-900 ${
+                        pathname === "/dashboard/screening"
+                          ? "bg-primary/10 text-primary dark:bg-slate-800"
+                          : ""
+                      }`}
+                    >
+                      <Link href="/dashboard/screening">
+                        <Search />
+                        <span>Screening</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </>
+              )}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        {/* Admin-only groups */}
+        {session?.user.role === "admin" && (
+          <>
+            {/* Konten */}
+            <SidebarGroup>
+              <SidebarGroupLabel>Manajemen Konten</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      className={buttonClass("/dashboard/admin/question-banks")}
+                    >
+                      <Link href="/dashboard/admin/question-banks">
+                        <BookOpen />
+                        <span>Bank Soal</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      className={buttonClass("/dashboard/admin/modules")}
+                    >
+                      <Link href="/dashboard/admin/modules">
+                        <Book />
+                        <span>Materi</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      className={buttonClass("/dashboard/admin/sub-modules")}
+                    >
+                      <Link href="/dashboard/admin/sub-modules">
+                        <NotebookText />
+                        <span>Sub Materi</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      className={buttonClass("/dashboard/admin/tests")}
+                    >
+                      <Link href="/dashboard/admin/tests">
+                        <ClipboardPen />
+                        <span>Pre & Post Test</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+
+            {/* Laporan */}
+            <SidebarGroup>
+              <SidebarGroupLabel>Laporan</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      className={buttonClass("/dashboard/admin/reports")}
+                    >
+                      <Link href="/dashboard/admin/reports">
+                        <ClipboardList />
+                        <span>Laporan Keseluruhan</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+
+            {/* Pengguna */}
+            <SidebarGroup>
+              <SidebarGroupLabel>Manajemen Pengguna</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      className={buttonClass("/dashboard/admin/users")}
+                    >
+                      <Link href="/dashboard/admin/users">
+                        <User />
+                        <span>Pasien</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </>
+        )}
+
+        {/* Untuk role selain admin */}
+        {session?.user.role !== "admin" && (
+          <SidebarGroup>
+            <SidebarGroupLabel>Informasi</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    asChild
+                    className={buttonClass("/dashboard/general")}
+                  >
+                    <Link href="/dashboard/general">
+                      <Book />
+                      <span>Penjelasan Umum</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    asChild
+                    className={buttonClass("/dashboard/history")}
+                  >
+                    <Link href="/dashboard/history">
+                      <History />
+                      <span>Riwayat</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    asChild
+                    className={buttonClass("/dashboard/guide")}
+                  >
+                    <Link href="/dashboard/guide">
+                      <Info />
+                      <span>Panduan Screening</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
       </SidebarContent>
 
       {/* Footer */}
