@@ -10,7 +10,7 @@ export default function DashboardAdminPage() {
     <>
       <DashboardTitle
         head="Dashboard Admin"
-        body="Selamat Datang di Dashboard Admin"
+        body="Selamat datang di Dashboard Admin!"
       />
     </>
   );
