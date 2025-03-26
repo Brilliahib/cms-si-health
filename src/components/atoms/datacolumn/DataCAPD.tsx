@@ -4,7 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import Link from "next/link";
-import { Eye, SquarePen, Trash2, Youtube } from "lucide-react";
+import { Eye, FileVideo, SquarePen, Trash2 } from "lucide-react";
 import ActionButton from "@/components/molecules/datatable/ActionButton";
 import { CAPD } from "@/types/sub-modules/sub-modules";
 
@@ -37,7 +37,7 @@ export const capdColumns: ColumnDef<CAPD>[] = [
           suppressHydrationWarning
           className="line-clamp-1 cursor-pointer md:line-clamp-2"
         >
-          <Youtube className="h-6 w-6" />
+          <FileVideo className="h-5 w-5" />
         </div>
       );
     },
