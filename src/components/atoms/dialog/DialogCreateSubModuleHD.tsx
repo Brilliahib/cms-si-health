@@ -29,26 +29,23 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
-import { capdSchema, CAPDType } from "@/validators/sub-modules/capd-validator";
-import { useAddNewCAPD } from "@/http/sub-modules/create-capd";
 import QuillEditor from "../quill/QuillEditor";
 import { useGetAllModules } from "@/http/modulels/get-all-modules";
 import { useSession } from "next-auth/react";
+import { hdSchema, HDType } from "@/validators/sub-modules/hd-validator";
+import { useAddNewHD } from "@/http/sub-modules/create-hd";
 
-interface DialogCreateArticleProps {
+interface DialogCreateHDProps {
   open: boolean;
   setOpen: (open: boolean) => void;
 }
 
-export default function DialogCreateCAPD({
-  open,
-  setOpen,
-}: DialogCreateArticleProps) {
-  const form = useForm<CAPDType>({
-    resolver: zodResolver(capdSchema),
+export default function DialogCreateHD({ open, setOpen }: DialogCreateHDProps) {
+  const form = useForm<HDType>({
+    resolver: zodResolver(hdSchema),
     defaultValues: {
       module_id: "",
-      video_url: "",
+      file_path: undefined,
       name: "",
       content: "",
     },
@@ -57,21 +54,21 @@ export default function DialogCreateCAPD({
 
   const queryClient = useQueryClient();
 
-  const { mutate: addCAPDHandler, isPending } = useAddNewCAPD({
+  const { mutate: addHDHandler, isPending } = useAddNewHD({
     onError: () => {
-      toast.error("Gagal menambahkan sub materi CAPD!");
+      toast.error("Gagal menambahkan sub materi HD!");
     },
     onSuccess: () => {
-      toast.success("Berhasil menambahkan sub materi CAPD!");
+      toast.success("Berhasil menambahkan sub materi HD!");
       queryClient.invalidateQueries({
-        queryKey: ["capd-list"],
+        queryKey: ["hd-list"],
       });
+      setOpen(false);
     },
   });
 
-  const onSubmit = (body: CAPDType) => {
-    addCAPDHandler(body);
-    setOpen(false);
+  const onSubmit = (body: HDType) => {
+    addHDHandler(body);
   };
 
   const { data: session, status } = useSession();
@@ -83,7 +80,7 @@ export default function DialogCreateCAPD({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Tambah Sub Materi CAPD</DialogTitle>
+          <DialogTitle>Tambah Sub Materi HD</DialogTitle>
         </DialogHeader>
         <ScrollArea className="max-h-[80vh]">
           <Form {...form}>
@@ -140,21 +137,28 @@ export default function DialogCreateCAPD({
               />
               <FormField
                 control={form.control}
-                name="video_url"
+                name="file_path"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>URL Video Youtube</FormLabel>
+                    <FormLabel>File Materi (PDF)</FormLabel>
                     <FormControl>
-                      <Input type="text" placeholder="V3DRb9d6eQM" {...field} />
+                      <Input
+                        type="file"
+                        accept="application/pdf"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          field.onChange(file);
+                        }}
+                      />
                     </FormControl>
                     <FormDescription>
-                      * https://www.youtube.com/watch?v=V3DRb9d6eQM, yang diisi
-                      V3DRb9d6eQM
+                      * File wajib berformat pdf dan maksimal 5 MB
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
                 name="content"

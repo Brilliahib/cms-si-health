@@ -3,6 +3,7 @@
 import { capdColumns } from "@/components/atoms/datacolumn/DataCAPD";
 import { hdColumns } from "@/components/atoms/datacolumn/DataHD";
 import DialogCreateCAPD from "@/components/atoms/dialog/DialogCreateSubModuleCAPD";
+import DialogCreateHD from "@/components/atoms/dialog/DialogCreateSubModuleHD";
 import { DataTable } from "@/components/molecules/datatable/DataTable";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -30,10 +31,16 @@ export default function DashboardAdminSubModulesWrapper() {
   );
 
   const [dialogCreateCAPDOpen, setDialogCreateCAPDOpen] = useState(false);
+  const [dialogCreateHDOpen, setDialogCreateHDOpen] = useState(false);
 
   const handleCAPDDialogOpen = () => {
     setDialogCreateCAPDOpen(true);
   };
+
+  const handleHDDialogOpen = () => {
+    setDialogCreateHDOpen(true);
+  };
+
   return (
     <>
       <div>
@@ -61,7 +68,7 @@ export default function DashboardAdminSubModulesWrapper() {
           </TabsContent>
           <TabsContent value="hd">
             <div className="mb-4">
-              <Button>
+              <Button onClick={handleHDDialogOpen}>
                 <Plus />
                 Tambah Sub Materi HD
               </Button>
@@ -77,6 +84,10 @@ export default function DashboardAdminSubModulesWrapper() {
       <DialogCreateCAPD
         open={dialogCreateCAPDOpen}
         setOpen={setDialogCreateCAPDOpen}
+      />
+      <DialogCreateHD
+        open={dialogCreateHDOpen}
+        setOpen={setDialogCreateHDOpen}
       />
     </>
   );
