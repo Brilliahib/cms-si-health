@@ -2,10 +2,13 @@
 
 import { capdColumns } from "@/components/atoms/datacolumn/DataCAPD";
 import { hdColumns } from "@/components/atoms/datacolumn/DataHD";
+import DialogCreateCAPD from "@/components/atoms/dialog/DialogCreateSubModuleCAPD";
 import { DataTable } from "@/components/molecules/datatable/DataTable";
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGetAllCAPD } from "@/http/sub-modules/get-all-capd";
 import { useGetAllHD } from "@/http/sub-modules/get-all-hd";
+import { Plus } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 
@@ -25,33 +28,56 @@ export default function DashboardAdminSubModulesWrapper() {
       enabled: isAuthenticated && selectedTab === "hd",
     },
   );
-  return (
-    <div>
-      <Tabs
-        defaultValue="capd"
-        className="space-y-4"
-        onValueChange={(value) => setSelectedTab(value)}
-      >
-        <TabsList className="grid w-full max-w-[300px] grid-cols-2">
-          <TabsTrigger value="capd">CAPD</TabsTrigger>
-          <TabsTrigger value="hd">HD</TabsTrigger>
-        </TabsList>
 
-        <TabsContent value="capd">
-          <DataTable
-            data={data?.data ?? []}
-            columns={capdColumns}
-            isLoading={isPending}
-          />
-        </TabsContent>
-        <TabsContent value="hd">
-          <DataTable
-            data={post?.data ?? []}
-            columns={hdColumns}
-            isLoading={isLoad}
-          />
-        </TabsContent>
-      </Tabs>
-    </div>
+  const [dialogCreateCAPDOpen, setDialogCreateCAPDOpen] = useState(false);
+
+  const handleCAPDDialogOpen = () => {
+    setDialogCreateCAPDOpen(true);
+  };
+  return (
+    <>
+      <div>
+        <Tabs
+          defaultValue="capd"
+          className="space-y-2"
+          onValueChange={(value) => setSelectedTab(value)}
+        >
+          <TabsList className="grid w-full max-w-[250px] grid-cols-2">
+            <TabsTrigger value="capd">CAPD</TabsTrigger>
+            <TabsTrigger value="hd">HD</TabsTrigger>
+          </TabsList>
+          <TabsContent value="capd">
+            <div className="mb-4">
+              <Button onClick={handleCAPDDialogOpen}>
+                <Plus />
+                Tambah Sub Materi CAPD
+              </Button>
+            </div>
+            <DataTable
+              data={data?.data ?? []}
+              columns={capdColumns}
+              isLoading={isPending}
+            />
+          </TabsContent>
+          <TabsContent value="hd">
+            <div className="mb-4">
+              <Button>
+                <Plus />
+                Tambah Sub Materi HD
+              </Button>
+            </div>
+            <DataTable
+              data={post?.data ?? []}
+              columns={hdColumns}
+              isLoading={isLoad}
+            />
+          </TabsContent>
+        </Tabs>
+      </div>
+      <DialogCreateCAPD
+        open={dialogCreateCAPDOpen}
+        setOpen={setDialogCreateCAPDOpen}
+      />
+    </>
   );
 }
