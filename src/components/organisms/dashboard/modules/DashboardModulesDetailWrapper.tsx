@@ -29,9 +29,9 @@ export default function DashboardModulesDetailWrapper({
         body={`Menampilkan detail module ${data?.data.module.name ?? ""}`}
       />
       <div className="space-y-4">
-        <CardListPreTest data={data!.data!} isLoading={isPending} />
-        <CardListSubModule data={data!.data!} isLoading={isPending} />
-        <CardListPostTest data={data!.data!} isLoading={isPending} />
+        <CardListPreTest data={data?.data} isLoading={isPending} />
+        <CardListSubModule data={data?.data} isLoading={isPending} />
+        <CardListPostTest data={data?.data} isLoading={isPending} />
       </div>
     </>
   );
