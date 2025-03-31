@@ -119,6 +119,21 @@ export function AppSidebar({ session }: AppSidebarProps) {
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      className={`hover:bg-primary/10 hover:text-primary dark:hover:bg-slate-900 ${
+                        pathname === "/dashboard/modules"
+                          ? "bg-primary/10 text-primary dark:bg-slate-800"
+                          : ""
+                      }`}
+                    >
+                      <Link href="/dashboard/modules">
+                        <NotebookText />
+                        <span>Modul Materi</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
                 </>
               )}
             </SidebarMenu>
