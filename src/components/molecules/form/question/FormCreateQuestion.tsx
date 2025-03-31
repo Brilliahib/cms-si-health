@@ -1,6 +1,6 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -39,16 +40,20 @@ export default function FormCreateQuestion({ id }: FormCreateQuestionProps) {
       question_set_id: id,
       question_text: "",
       type: "multiple_choice",
-      answer_key: "",
       options: [
-        { option_text: "", is_correct: false },
-        { option_text: "", is_correct: false },
+        { option_text: "", score: null },
+        { option_text: "", score: null },
       ],
     },
     mode: "onChange",
   });
 
   const questionType = form.watch("type");
+
+  const { fields, append } = useFieldArray({
+    control: form.control,
+    name: "options",
+  });
 
   const { mutate: addNewQuestionTalkHandler, isPending } = useAddNewQuestion({
     onError: () => {
@@ -123,95 +128,70 @@ export default function FormCreateQuestion({ id }: FormCreateQuestionProps) {
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="answer_key"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      Kunci Jawaban <span className="text-red-500">*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        type="text"
-                        placeholder="Masukkan jawaban yang benar"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
               {questionType === "multiple_choice" && (
-                <FormField
-                  control={form.control}
-                  name="options"
-                  render={() => (
-                    <FormItem>
-                      <FormLabel>
-                        Pilihan Jawaban <span className="text-red-500">*</span>
-                      </FormLabel>
-
-                      <RadioGroup
-                        value={form
-                          .getValues("options")
-                          .findIndex((opt) => opt.is_correct === true)
-                          .toString()}
-                        onValueChange={(val) => {
-                          const index = Number(val);
-                          const updated = form
-                            .getValues("options")
-                            .map((opt, i) => ({
-                              ...opt,
-                              is_correct: i === index,
-                            }));
-                          form.setValue("options", updated, {
-                            shouldDirty: true,
-                            shouldTouch: true,
-                            shouldValidate: true,
-                          });
-                        }}
-                        className="space-y-2"
+                <div>
+                  <FormLabel className="mb-4">
+                    Pilihan Jawaban <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <div className="space-y-4">
+                    {fields.map((field, index) => (
+                      <div
+                        key={field.id}
+                        className="grid grid-cols-2 items-start gap-4"
                       >
-                        {form.watch("options").map((_, index) => (
-                          <div key={index} className="flex items-center gap-2">
-                            <Input
-                              placeholder={`Opsi ${index + 1}`}
-                              {...form.register(`options.${index}.option_text`)}
-                            />
-                            <FormItem className="mt-1">
+                        <FormField
+                          control={form.control}
+                          name={`options.${index}.option_text`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Opsi {index + 1}</FormLabel>
                               <FormControl>
-                                <RadioGroupItem value={index.toString()} />
+                                <Input
+                                  placeholder={`Opsi jawaban ${index + 1}`}
+                                  {...field}
+                                />
                               </FormControl>
+                              <FormMessage />
                             </FormItem>
-                            <span className="text-muted-foreground text-sm">
-                              Benar
-                            </span>
-                          </div>
-                        ))}
-                      </RadioGroup>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name={`options.${index}.score`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Skor</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  placeholder="Masukan skor jawaban"
+                                  {...field}
+                                  value={field.value ?? ""}
+                                />
+                              </FormControl>
+                              <FormDescription>
+                                * Tidak usah pakai (+ atau -) langsung angka.
+                                Contoh: 4
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    ))}
+                  </div>
 
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className="mt-3"
-                        onClick={() =>
-                          form.setValue("options", [
-                            ...form.getValues("options"),
-                            { option_text: "", is_correct: false },
-                          ])
-                        }
-                      >
-                        <Plus className="mr-1 h-4 w-4" />
-                        Tambah Opsi Jawaban
-                      </Button>
-
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="mt-4"
+                    onClick={() => append({ option_text: "", score: null })}
+                  >
+                    <Plus className="mr-1 h-4 w-4" />
+                    Tambah Opsi Jawaban
+                  </Button>
+                </div>
               )}
 
               <div className="flex justify-end">

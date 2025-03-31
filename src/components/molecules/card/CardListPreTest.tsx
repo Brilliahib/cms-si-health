@@ -1,11 +1,12 @@
 "use client";
 
+import DialogStartPreTest from "@/components/atoms/dialog/DialogStartPreTest";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ModulesDetail } from "@/types/modules/modules-detail";
 import { ClipboardPen } from "lucide-react";
-import Link from "next/link";
+import { useState } from "react";
 
 interface CardListPreTestProps {
   data?: ModulesDetail;
@@ -32,6 +33,8 @@ export default function CardListPreTest({
   data,
   isLoading,
 }: CardListPreTestProps) {
+  const [dialogStartPreTestOpen, setDialogStartPreTestOpen] = useState(false);
+
   if (isLoading) {
     return (
       <div className="space-y-4">
@@ -42,33 +45,44 @@ export default function CardListPreTest({
     );
   }
 
+  const handleDialogStartPretestOpen = () => {
+    setDialogStartPreTestOpen(true);
+  };
+
   return (
-    <div className="space-y-4">
-      {data?.pre_test.map((preTest) => (
-        <Link
-          key={preTest.id}
-          href={`/work/pre-test/${preTest.id}`}
-          className="group block"
-        >
-          <div className="flex flex-row gap-6">
-            <div className="group-hover:bg-secondary bg-primary relative hidden aspect-video h-36 w-36 items-center justify-center rounded-lg md:flex">
-              <ClipboardPen className="text-background m-auto h-12 w-12" />
+    <>
+      <div className="space-y-4">
+        {data?.pre_test.map((preTest) => (
+          <div
+            key={preTest.id}
+            className="group block cursor-pointer"
+            onClick={handleDialogStartPretestOpen}
+          >
+            <div className="flex flex-row gap-6">
+              <div className="group-hover:bg-secondary bg-primary relative hidden aspect-video h-36 w-36 items-center justify-center rounded-lg md:flex">
+                <ClipboardPen className="text-background m-auto h-12 w-12" />
+              </div>
+              <Card className="border-muted group-hover:bg-muted w-full border-2 shadow-transparent">
+                <CardHeader className="flex md:flex-row md:items-center md:justify-between">
+                  <div className="space-y-2">
+                    <Badge className="bg-secondary/20 text-secondary font-semibold uppercase">
+                      Pre Test
+                    </Badge>
+                    <CardTitle className="text-md font-bold md:text-xl">
+                      {preTest.name}
+                    </CardTitle>
+                  </div>
+                </CardHeader>
+              </Card>
             </div>
-            <Card className="border-muted group-hover:bg-muted w-full border-2 shadow-transparent">
-              <CardHeader className="flex md:flex-row md:items-center md:justify-between">
-                <div className="space-y-2">
-                  <Badge className="bg-secondary/20 text-secondary font-semibold uppercase">
-                    Pre Test
-                  </Badge>
-                  <CardTitle className="text-md font-bold md:text-xl">
-                    {preTest.name}
-                  </CardTitle>
-                </div>
-              </CardHeader>
-            </Card>
+            <DialogStartPreTest
+              open={dialogStartPreTestOpen}
+              setOpen={setDialogStartPreTestOpen}
+              id={preTest.id}
+            />
           </div>
-        </Link>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   );
 }
