@@ -9,3 +9,15 @@ export type PreTest = {
   updated_at: Date;
   module: Modules;
 };
+
+export type SubmitPreTest = {
+  question_id: string;
+  selected_option_id: string;
+};
+
+export type HistoryPreTest = {
+  id: string;
+  sum_score: number;
+  created_at: Date;
+  pre_test: PreTest;
+};

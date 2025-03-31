@@ -42,7 +42,7 @@ export function AppSidebarWork({
                         </SidebarMenuButton>
                       </SidebarMenuItem>
                     ))
-                  : data?.question_set.questions.map((_, index) => (
+                  : data?.questions.map((_, index) => (
                       <SidebarMenuItem key={index}>
                         <SidebarMenuButton
                           onClick={() => onSelect(index)}

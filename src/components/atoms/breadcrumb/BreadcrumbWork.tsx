@@ -9,9 +9,13 @@ import Image from "next/image";
 
 interface BreadcrumNavWorkProps {
   data?: TesDetail;
+  onFinish: () => void;
 }
 
-export default function BreadcrumbNavWork({ data }: BreadcrumNavWorkProps) {
+export default function BreadcrumbNavWork({
+  data,
+  onFinish,
+}: BreadcrumNavWorkProps) {
   const { toggleSidebar } = useSidebar();
   return (
     <nav className="bg-sidebar fixed z-50 flex h-16 w-full items-center border-b px-6 backdrop-blur dark:bg-slate-950/50">
@@ -29,7 +33,7 @@ export default function BreadcrumbNavWork({ data }: BreadcrumNavWorkProps) {
         </div>
 
         <div className="space-x-2">
-          <Button size="lg">
+          <Button size="lg" onClick={onFinish}>
             <Check className="h-5 w-5" />
             <span className="ml-2 hidden md:inline">Selesai</span>
           </Button>
