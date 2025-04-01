@@ -27,6 +27,7 @@ import {
   User,
   ClipboardList,
   NotebookText,
+  SearchCheck,
 } from "lucide-react";
 import { NavUser } from "./NavUser";
 
@@ -39,7 +40,9 @@ export function AppSidebar({ session }: AppSidebarProps) {
 
   const buttonClass = (href: string) =>
     `hover:bg-primary/10 hover:text-primary dark:hover:bg-slate-900 ${
-      pathname === href ? "bg-primary/10 text-primary dark:bg-slate-800" : ""
+      pathname.startsWith(href)
+        ? "bg-primary/10 text-primary dark:bg-slate-800"
+        : ""
     }`;
 
   return (
@@ -57,7 +60,7 @@ export function AppSidebar({ session }: AppSidebarProps) {
                   height={30}
                 />
                 <h1 className="font-semibold tracking-tight">
-                  SI-Kesehatan Ginjal
+                  Dialisis Connect
                 </h1>
               </Link>
             </div>
@@ -107,11 +110,7 @@ export function AppSidebar({ session }: AppSidebarProps) {
                   <SidebarMenuItem>
                     <SidebarMenuButton
                       asChild
-                      className={`hover:bg-primary/10 hover:text-primary dark:hover:bg-slate-900 ${
-                        pathname === "/dashboard/screening"
-                          ? "bg-primary/10 text-primary dark:bg-slate-800"
-                          : ""
-                      }`}
+                      className={buttonClass("/dashboard/screening")}
                     >
                       <Link href="/dashboard/screening">
                         <Search />
@@ -122,11 +121,7 @@ export function AppSidebar({ session }: AppSidebarProps) {
                   <SidebarMenuItem>
                     <SidebarMenuButton
                       asChild
-                      className={`hover:bg-primary/10 hover:text-primary dark:hover:bg-slate-900 ${
-                        pathname === "/dashboard/modules"
-                          ? "bg-primary/10 text-primary dark:bg-slate-800"
-                          : ""
-                      }`}
+                      className={buttonClass("/dashboard/modules")}
                     >
                       <Link href="/dashboard/modules">
                         <NotebookText />
@@ -178,6 +173,17 @@ export function AppSidebar({ session }: AppSidebarProps) {
                       <Link href="/dashboard/admin/sub-modules">
                         <NotebookText />
                         <span>Sub Materi</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      className={buttonClass("/dashboard/admin/screening")}
+                    >
+                      <Link href="/dashboard/admin/screening">
+                        <SearchCheck />
+                        <span>Screening</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>

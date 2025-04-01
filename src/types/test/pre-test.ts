@@ -21,3 +21,29 @@ export type HistoryPreTest = {
   created_at: Date;
   pre_test: PreTest;
 };
+
+export type HistoryOptionAnswer = {
+  id: string;
+  text: string;
+  score: number;
+};
+
+export type SelectionOption = {
+  id: string;
+  text: string;
+  score: number;
+};
+
+export type HistoryQuestionAnswer = {
+  id: string;
+  question: string;
+  options: HistoryOptionAnswer[];
+  selected_option: SelectionOption;
+};
+
+export type HistoryPreTestDetail = {
+  id: string;
+  sum_score: number;
+  created_at: Date;
+  answer: HistoryQuestionAnswer[];
+};
