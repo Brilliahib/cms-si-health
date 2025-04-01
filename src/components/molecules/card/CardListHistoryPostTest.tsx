@@ -51,10 +51,10 @@ export default function CardListHistoryPostTest({
 
   return (
     <div>
-      {data.map((preTestHistory) => (
+      {data.map((postTestHistory) => (
         <Link
-          href={`/dashboard/history/pre-test/${preTestHistory.id}`}
-          key={preTestHistory.id}
+          href={`/dashboard/history/post-test/${postTestHistory.id}`}
+          key={postTestHistory.id}
           className="group block"
         >
           <div className="flex flex-row gap-6">
@@ -66,10 +66,10 @@ export default function CardListHistoryPostTest({
                 <div className="space-y-2">
                   <Badge className="bg-secondary uppercase">Post Test</Badge>
                   <CardTitle className="text-md font-bold md:text-xl">
-                    {preTestHistory.post_test.name}
+                    {postTestHistory.post_test.name}
                   </CardTitle>
                   <CardDescription className="text-muted-foreground line-clamp-2 text-sm">
-                    Nilai Skor: {preTestHistory.sum_score}
+                    Nilai Skor: {postTestHistory.sum_score}
                   </CardDescription>
                 </div>
               </CardHeader>

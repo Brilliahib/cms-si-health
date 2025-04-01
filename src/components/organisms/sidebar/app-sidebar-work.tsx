@@ -46,9 +46,9 @@ export function AppSidebarWork({
                       <SidebarMenuItem key={index}>
                         <SidebarMenuButton
                           onClick={() => onSelect(index)}
-                          className={`flex h-12 w-12 items-center justify-center rounded-lg border text-sm font-medium shadow-lg ${
+                          className={`flex h-12 w-12 cursor-pointer items-center justify-center rounded-lg border text-sm font-medium shadow-lg ${
                             selectedIndex === index
-                              ? "bg-primary text-white"
+                              ? "bg-primary hover:bg-primary text-white hover:text-white"
                               : "bg-white"
                           }`}
                         >
