@@ -8,18 +8,18 @@ import BreadcrumbNavWork from "@/components/atoms/breadcrumb/BreadcrumbWork";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import DialogConfirmSubmit from "@/components/atoms/dialog/DialogConfirmSubmitPreTest";
-import { useGetDetailScreening } from "@/http/screening/get-detail-screening";
-import { useAddSubmitScreening } from "@/http/screening/submit-screening";
-import { SubmitScreening } from "@/types/screening/screening";
+import DialogConfirmSubmit from "@/components/atoms/dialog/DialogConfirmSubmit";
+import { useGetDetailPostTest } from "@/http/test/get-detail-post-test";
+import { SubmitPostTest } from "@/types/test/post-test";
+import { useAddSubmitPostTest } from "@/http/test/submit-post-test";
 
-interface WorkScreeningProps {
+interface WorkPostTestWrapperProps {
   id: string;
 }
 
 const OPTION_LABELS = ["A", "B", "C", "D", "E", "F"];
 
-export default function WorkScreeningWrapper({ id }: WorkScreeningProps) {
+export default function WorkPostTestWrapper({ id }: WorkPostTestWrapperProps) {
   const { data: session, status } = useSession();
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(0);
   const [isConfirmDialogOpen, setConfirmDialogOpen] = useState(false);
@@ -27,7 +27,7 @@ export default function WorkScreeningWrapper({ id }: WorkScreeningProps) {
   const closeConfirmDialog = () => setConfirmDialogOpen(false);
   const router = useRouter();
 
-  const { data, isLoading } = useGetDetailScreening(
+  const { data, isLoading } = useGetDetailPostTest(
     id,
     session?.access_token as string,
     {
@@ -47,15 +47,15 @@ export default function WorkScreeningWrapper({ id }: WorkScreeningProps) {
 
   const questions = data?.data?.questions ?? [];
 
-  const [answers, setAnswers] = useState<SubmitScreening[]>([]);
+  const [answers, setAnswers] = useState<SubmitPostTest[]>([]);
 
-  const { mutate: submitScreening } = useAddSubmitScreening({
+  const { mutate: submitPretest } = useAddSubmitPostTest({
     onSuccess: () => {
-      toast.success("Screening berhasil disubmit!");
-      router.push(`/dashboard/history`);
+      toast.success("Post Test berhasil disubmit!");
+      router.push("/dashboard/history");
     },
     onError: () => {
-      toast.error("Gagal submit screening. Silakan coba lagi.");
+      toast.error("Gagal submit post test. Silakan coba lagi.");
     },
   });
 
@@ -175,8 +175,8 @@ export default function WorkScreeningWrapper({ id }: WorkScreeningProps) {
           .filter((q) => !q.isAnswered)
           .map((q) => q.number)}
         onConfirm={() => {
-          submitScreening({
-            screening_id: id,
+          submitPretest({
+            post_test_id: id,
             answers,
           });
           setConfirmDialogOpen(false);

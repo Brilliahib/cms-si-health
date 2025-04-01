@@ -24,7 +24,7 @@ export default function BreadcrumbNav() {
   const segments = pathname.split("/").filter(Boolean);
 
   return (
-    <nav className="fixed z-50 flex h-14 w-full items-center border-b bg-white/50 px-5 backdrop-blur dark:bg-slate-950/50">
+    <nav className="fixed z-50 flex h-14 w-full items-center border-b bg-white px-5 backdrop-blur">
       <div className="flex items-center gap-x-2">
         <SidebarTrigger />
         <Separator orientation="vertical" className="mr-2 h-4" />

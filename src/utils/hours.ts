@@ -6,5 +6,5 @@ export function formatTime(dateOrStr: Date | string | undefined): string {
 
   const date = typeof dateOrStr === "string" ? parseISO(dateOrStr) : dateOrStr;
 
-  return format(date, "EEEE, dd MMMM yyyy: HH:mm", { locale: id });
+  return format(date, "EEEE, dd MMMM yyyy, HH:mm", { locale: id });
 }

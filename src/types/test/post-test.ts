@@ -9,3 +9,41 @@ export type PostTest = {
   updated_at: Date;
   module: Modules;
 };
+
+export type HistoryPostTest = {
+  id: string;
+  sum_score: number;
+  created_at: Date;
+  post_test: PostTest;
+};
+
+export type SubmitPostTest = {
+  question_id: string;
+  selected_option_id: string;
+};
+
+export type HistoryOptionAnswer = {
+  id: string;
+  text: string;
+  score: number;
+};
+
+export type SelectionOption = {
+  id: string;
+  text: string;
+  score: number;
+};
+
+export type HistoryQuestionAnswer = {
+  id: string;
+  question: string;
+  options: HistoryOptionAnswer[];
+  selected_option: SelectionOption;
+};
+
+export type HistoryPostTestDetail = {
+  id: string;
+  sum_score: number;
+  created_at: Date;
+  answer: HistoryQuestionAnswer[];
+};

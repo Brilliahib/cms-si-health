@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { HistoryPreTest } from "@/types/test/pre-test";
-import { ClipboardPenLine } from "lucide-react";
+import { ClipboardPenLine, FileX2 } from "lucide-react";
 import Link from "next/link";
 
 interface CardListHistoryPreTestProps {
@@ -36,6 +36,15 @@ export default function CardListHistoryPreTest({
             </Card>
           </div>
         ))}
+      </div>
+    );
+  }
+
+  if (!data || data.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center space-y-4 py-10 text-center">
+        <FileX2 className="text-muted-foreground h-16 w-16" />
+        <p className="text-muted-foreground">Belum ada riwayat pre test.</p>
       </div>
     );
   }

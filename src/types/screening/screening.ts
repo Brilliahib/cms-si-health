@@ -24,3 +24,29 @@ export type HistoryScreening = {
   created_at: Date;
   screening: Screening;
 };
+
+export type HistoryOptionAnswer = {
+  id: string;
+  text: string;
+  score: number;
+};
+
+export type SelectionOption = {
+  id: string;
+  text: string;
+  score: number;
+};
+
+export type HistoryQuestionAnswer = {
+  id: string;
+  question: string;
+  options: HistoryOptionAnswer[];
+  selected_option: SelectionOption;
+};
+
+export type HistoryScreeningDetail = {
+  id: string;
+  sum_score: number;
+  created_at: Date;
+  answer: HistoryQuestionAnswer[];
+};

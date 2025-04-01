@@ -29,7 +29,7 @@ export default function BreadcrumbNavWork({
               height={30}
             />
           </div>
-          <h1 className="font-semibold">{data?.name}</h1>
+          <h1 className="font-semibold uppercase">{data?.name}</h1>
         </div>
 
         <div className="space-x-2">

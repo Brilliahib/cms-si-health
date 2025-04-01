@@ -52,7 +52,7 @@ export default function FormAuthLogin() {
     }
 
     toast.success("Login Berhasil", {
-      description: "Selamat datang kembali!",
+      description: "Anda akan diarahkan menuju halaman dashboard",
     });
 
     router.push("/dashboard");
