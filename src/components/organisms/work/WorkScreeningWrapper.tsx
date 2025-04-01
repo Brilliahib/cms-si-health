@@ -2,24 +2,24 @@
 
 import { useSession } from "next-auth/react";
 import { AppSidebarWork } from "../sidebar/app-sidebar-work";
-import { useGetDetailPreTest } from "@/http/test/get-detail-pre-test";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { useEffect, useState } from "react";
 import BreadcrumbNavWork from "@/components/atoms/breadcrumb/BreadcrumbWork";
 import { Skeleton } from "@/components/ui/skeleton";
-import { SubmitPreTest } from "@/types/test/pre-test";
 import { toast } from "sonner";
-import { useAddSubmitPretest } from "@/http/test/submit-pre-test";
 import { useRouter } from "next/navigation";
-import DialogConfirmSubmit from "@/components/atoms/dialog/DialogConfirmSubmit";
+import DialogConfirmSubmit from "@/components/atoms/dialog/DialogConfirmSubmitPreTest";
+import { useGetDetailScreening } from "@/http/screening/get-detail-screening";
+import { useAddSubmitScreening } from "@/http/screening/submit-screening";
+import { SubmitScreening } from "@/types/screening/screening";
 
-interface WorkPreTestWrapperProps {
+interface WorkScreeningProps {
   id: string;
 }
 
 const OPTION_LABELS = ["A", "B", "C", "D", "E", "F"];
 
-export default function WorkPreTestWrapper({ id }: WorkPreTestWrapperProps) {
+export default function WorkScreeningWrapper({ id }: WorkScreeningProps) {
   const { data: session, status } = useSession();
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(0);
   const [isConfirmDialogOpen, setConfirmDialogOpen] = useState(false);
@@ -27,7 +27,7 @@ export default function WorkPreTestWrapper({ id }: WorkPreTestWrapperProps) {
   const closeConfirmDialog = () => setConfirmDialogOpen(false);
   const router = useRouter();
 
-  const { data, isLoading } = useGetDetailPreTest(
+  const { data, isLoading } = useGetDetailScreening(
     id,
     session?.access_token as string,
     {
@@ -47,15 +47,15 @@ export default function WorkPreTestWrapper({ id }: WorkPreTestWrapperProps) {
 
   const questions = data?.data?.questions ?? [];
 
-  const [answers, setAnswers] = useState<SubmitPreTest[]>([]);
+  const [answers, setAnswers] = useState<SubmitScreening[]>([]);
 
-  const { mutate: submitPretest } = useAddSubmitPretest({
+  const { mutate: submitScreening } = useAddSubmitScreening({
     onSuccess: () => {
-      toast.success("Pre-test berhasil disubmit!");
-      router.push("/dashboard");
+      toast.success("Screening berhasil disubmit!");
+      router.push(`/dashboard/history`);
     },
     onError: () => {
-      toast.error("Gagal submit pre-test. Silakan coba lagi.");
+      toast.error("Gagal submit screening. Silakan coba lagi.");
     },
   });
 
@@ -173,8 +173,8 @@ export default function WorkPreTestWrapper({ id }: WorkPreTestWrapperProps) {
           .filter((q) => !q.isAnswered)
           .map((q) => q.number)}
         onConfirm={() => {
-          submitPretest({
-            pre_test_id: id,
+          submitScreening({
+            screening_id: id,
             answers,
           });
           setConfirmDialogOpen(false);
