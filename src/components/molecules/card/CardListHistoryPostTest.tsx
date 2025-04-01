@@ -1,19 +1,24 @@
 import { Badge } from "@/components/ui/badge";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { HistoryScreening } from "@/types/screening/screening";
+import { HistoryPostTest } from "@/types/test/post-test";
 import { ClipboardPenLine, FileX2 } from "lucide-react";
 import Link from "next/link";
 
-interface CardListHistoryScreeningProps {
-  data: HistoryScreening[];
+interface CardListPostTestProps {
+  data: HistoryPostTest[];
   isLoading: boolean;
 }
 
-export default function CardListHistoryScreening({
+export default function CardListHistoryPostTest({
   data,
   isLoading,
-}: CardListHistoryScreeningProps) {
+}: CardListPostTestProps) {
   if (isLoading) {
     return (
       <div className="space-y-4">
@@ -39,14 +44,14 @@ export default function CardListHistoryScreening({
     return (
       <div className="flex flex-col items-center justify-center space-y-4 py-10 text-center">
         <FileX2 className="text-muted-foreground h-16 w-16" />
-        <p className="text-muted-foreground">Belum ada riwayat screening.</p>
+        <p className="text-muted-foreground">Belum ada riwayat post test.</p>
       </div>
     );
   }
 
   return (
     <div>
-      {data?.map((preTestHistory) => (
+      {data.map((preTestHistory) => (
         <Link
           href={`/dashboard/history/pre-test/${preTestHistory.id}`}
           key={preTestHistory.id}
@@ -59,10 +64,13 @@ export default function CardListHistoryScreening({
             <Card className="border-muted group-hover:bg-muted w-full border-2 shadow-transparent">
               <CardHeader className="flex md:flex-row md:items-center md:justify-between">
                 <div className="space-y-2">
-                  <Badge className="bg-secondary uppercase">Pre Test</Badge>
+                  <Badge className="bg-secondary uppercase">Post Test</Badge>
                   <CardTitle className="text-md font-bold md:text-xl">
-                    {preTestHistory.screening.name}
+                    {preTestHistory.post_test.name}
                   </CardTitle>
+                  <CardDescription className="text-muted-foreground line-clamp-2 text-sm">
+                    Nilai Skor: {preTestHistory.sum_score}
+                  </CardDescription>
                 </div>
               </CardHeader>
             </Card>

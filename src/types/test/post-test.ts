@@ -9,3 +9,10 @@ export type PostTest = {
   updated_at: Date;
   module: Modules;
 };
+
+export type HistoryPostTest = {
+  id: string;
+  sum_score: number;
+  created_at: Date;
+  post_test: PostTest;
+};
