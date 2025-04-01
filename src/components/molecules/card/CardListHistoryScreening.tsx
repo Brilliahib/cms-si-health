@@ -46,10 +46,10 @@ export default function CardListHistoryScreening({
 
   return (
     <div>
-      {data?.map((preTestHistory) => (
+      {data?.map((screening) => (
         <Link
-          href={`/dashboard/history/pre-test/${preTestHistory.id}`}
-          key={preTestHistory.id}
+          href={`/dashboard/history/screening/${screening.id}`}
+          key={screening.id}
           className="group block"
         >
           <div className="flex flex-row gap-6">
@@ -61,7 +61,7 @@ export default function CardListHistoryScreening({
                 <div className="space-y-2">
                   <Badge className="bg-secondary uppercase">Pre Test</Badge>
                   <CardTitle className="text-md font-bold md:text-xl">
-                    {preTestHistory.screening.name}
+                    {screening.screening.name}
                   </CardTitle>
                 </div>
               </CardHeader>

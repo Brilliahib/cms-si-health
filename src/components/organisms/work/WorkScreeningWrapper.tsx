@@ -100,7 +100,9 @@ export default function WorkScreeningWrapper({ id }: WorkScreeningProps) {
                           <li
                             key={option.id}
                             className={`border-primary hover:bg-muted cursor-pointer rounded-md border px-3 py-2 ${
-                              isSelected ? "bg-primary text-white" : ""
+                              isSelected
+                                ? "bg-primary hover:bg-primary text-white"
+                                : ""
                             }`}
                             onClick={() => {
                               const updated = [...answers];

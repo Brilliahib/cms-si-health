@@ -29,7 +29,7 @@ export const useGetAllHistoryScreening = (
   >,
 ) => {
   return useQuery({
-    queryKey: ["post-test-list"],
+    queryKey: ["history-screening"],
     queryFn: () => GetAllHistoryScreeningHandler(token),
     ...options,
   });
