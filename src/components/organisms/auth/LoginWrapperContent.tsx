@@ -11,13 +11,13 @@ export default function LoginWrapperContent() {
         href="/"
         className={cn(
           buttonVariants({ variant: "ghost" }),
-          "absolute right-4 top-4 hidden md:right-8 md:top-8"
+          "absolute top-4 right-4 hidden md:top-8 md:right-8",
         )}
       >
         Sign In
       </Link>
-      <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
-        <div className="absolute inset-0 bg-auth-pattern bg-cover bg-no-repeat grayscale" />
+      <div className="bg-muted relative hidden h-full flex-col p-10 text-white lg:flex dark:border-r">
+        <div className="bg-auth-pattern absolute inset-0 bg-cover bg-no-repeat grayscale" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60" />
         <div className="relative z-20 flex items-center gap-x-3 text-lg font-medium">
           <Link href={"/"} className="flex items-center gap-2">
@@ -28,7 +28,7 @@ export default function LoginWrapperContent() {
               height={40}
             />
             <h1 className="font-semibold tracking-tight">
-              SI-Kesehatan Ginjal
+              Dialisis Connect Semarang
             </h1>
           </Link>
         </div>

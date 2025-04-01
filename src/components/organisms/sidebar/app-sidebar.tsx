@@ -27,6 +27,7 @@ import {
   User,
   ClipboardList,
   NotebookText,
+  SearchCheck,
 } from "lucide-react";
 import { NavUser } from "./NavUser";
 
@@ -59,7 +60,7 @@ export function AppSidebar({ session }: AppSidebarProps) {
                   height={30}
                 />
                 <h1 className="font-semibold tracking-tight">
-                  SI-Kesehatan Ginjal
+                  Dialisis Connect
                 </h1>
               </Link>
             </div>
@@ -172,6 +173,17 @@ export function AppSidebar({ session }: AppSidebarProps) {
                       <Link href="/dashboard/admin/sub-modules">
                         <NotebookText />
                         <span>Sub Materi</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      className={buttonClass("/dashboard/admin/screening")}
+                    >
+                      <Link href="/dashboard/admin/screening">
+                        <SearchCheck />
+                        <span>Screening</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>

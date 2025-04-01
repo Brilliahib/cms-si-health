@@ -4,7 +4,6 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-
 import {
   Form,
   FormControl,
@@ -26,6 +25,8 @@ import {
 
 import { useAddNewQuestion } from "@/http/question/create-question";
 import { Plus } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface FormCreateQuestionProps {
   id: string;
@@ -33,6 +34,7 @@ interface FormCreateQuestionProps {
 
 export default function FormCreateQuestion({ id }: FormCreateQuestionProps) {
   const router = useRouter();
+  const [isScreening, setIsScreening] = useState(false);
 
   const form = useForm<QuestionType>({
     resolver: zodResolver(questionSchema),
@@ -54,6 +56,14 @@ export default function FormCreateQuestion({ id }: FormCreateQuestionProps) {
     control: form.control,
     name: "options",
   });
+
+  useEffect(() => {
+    if (isScreening) {
+      fields.forEach((_, index) => {
+        form.setValue(`options.${index}.score`, null);
+      });
+    }
+  }, [isScreening, fields, form]);
 
   const { mutate: addNewQuestionTalkHandler, isPending } = useAddNewQuestion({
     onError: () => {
@@ -128,6 +138,23 @@ export default function FormCreateQuestion({ id }: FormCreateQuestionProps) {
                 )}
               />
 
+              <div className="mb-6 space-y-2">
+                <FormLabel className="mb-4">
+                  Tipe Screening <span className="text-red-500">*</span>
+                </FormLabel>
+                <div className="flex items-center gap-3">
+                  <Checkbox
+                    checked={isScreening}
+                    onCheckedChange={(checked) => setIsScreening(!!checked)}
+                  />
+                  <p className="text-sm">Ya, Screening</p>
+                </div>
+                <FormDescription>
+                  *Jika bukan screening abaikan saja (tidak usah dicentang)
+                  karena screening tidak ada skor.
+                </FormDescription>
+              </div>
+
               {questionType === "multiple_choice" && (
                 <div>
                   <FormLabel className="mb-4">
@@ -155,28 +182,31 @@ export default function FormCreateQuestion({ id }: FormCreateQuestionProps) {
                             </FormItem>
                           )}
                         />
-                        <FormField
-                          control={form.control}
-                          name={`options.${index}.score`}
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Skor</FormLabel>
-                              <FormControl>
-                                <Input
-                                  type="number"
-                                  placeholder="Masukan skor jawaban"
-                                  {...field}
-                                  value={field.value ?? ""}
-                                />
-                              </FormControl>
-                              <FormDescription>
-                                * Tidak usah pakai (+ atau -) langsung angka.
-                                Contoh: 4
-                              </FormDescription>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
+
+                        {!isScreening && (
+                          <FormField
+                            control={form.control}
+                            name={`options.${index}.score`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Skor</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    type="number"
+                                    placeholder="Masukkan skor jawaban"
+                                    {...field}
+                                    value={field.value ?? ""}
+                                  />
+                                </FormControl>
+                                <FormDescription>
+                                  * Tidak usah pakai (+ atau -), langsung angka.
+                                  Contoh: 4
+                                </FormDescription>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        )}
                       </div>
                     ))}
                   </div>

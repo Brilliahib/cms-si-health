@@ -76,9 +76,8 @@ export default function FormAuthRegister() {
         return;
       }
 
-      toast.success("Register Successful", {
-        description:
-          "Your account has been created and automatically logged in.",
+      toast.success("Berhasil Mendaftar", {
+        description: "Anda akan otomatis masuk ke halaman dashboard",
       });
       return router.push("/dashboard");
     },
@@ -90,7 +89,7 @@ export default function FormAuthRegister() {
 
   return (
     <div className="flex h-full items-center justify-center">
-      <Card className="border-0 shadow-transparent w-full">
+      <Card className="w-full border-0 shadow-transparent">
         <div className="w-full">
           <CardHeader className="text-center">
             <CardTitle className="text-2xl font-bold tracking-tight">
