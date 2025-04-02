@@ -6,9 +6,9 @@ import { id } from "date-fns/locale";
 import Link from "next/link";
 import { Eye, SquarePen, Trash2 } from "lucide-react";
 import ActionButton from "@/components/molecules/datatable/ActionButton";
-import { SubModules } from "@/types/modules/modules";
+import { ModuleContent } from "@/types/modules/modules";
 
-export const subModuleColumns: ColumnDef<SubModules>[] = [
+export const moduleContentColumns: ColumnDef<ModuleContent>[] = [
   {
     accessorKey: "index",
     header: "No",
@@ -29,13 +29,28 @@ export const subModuleColumns: ColumnDef<SubModules>[] = [
     },
   },
   {
-    accessorKey: "module",
-    header: "Materi",
+    accessorKey: "type",
+    header: "Tipe",
+    cell: ({ row }) => {
+      const data = row.original;
+      return (
+        <p
+          suppressHydrationWarning
+          className="line-clamp-1 uppercase md:line-clamp-2"
+        >
+          {data.type}
+        </p>
+      );
+    },
+  },
+  {
+    accessorKey: "video_url",
+    header: "Video",
     cell: ({ row }) => {
       const data = row.original;
       return (
         <p suppressHydrationWarning className="line-clamp-1 md:line-clamp-2">
-          {data.module.name}
+          {data.video_url}
         </p>
       );
     },
