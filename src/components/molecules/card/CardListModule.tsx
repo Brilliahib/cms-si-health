@@ -3,12 +3,12 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { SubModules } from "@/types/modules/modules";
+import { Modules } from "@/types/modules/modules";
 import { Book, FileX2 } from "lucide-react";
 import Link from "next/link";
 
-interface CardListSubModuleProps {
-  data?: SubModules[];
+interface CardListModuleProps {
+  data?: Modules[];
   isLoading?: boolean;
 }
 
@@ -28,10 +28,10 @@ function SubModuleSkeleton() {
   );
 }
 
-export default function CardListSubModule({
+export default function CardListModule({
   data,
   isLoading,
-}: CardListSubModuleProps) {
+}: CardListModuleProps) {
   if (isLoading) {
     return (
       <div className="space-y-4">
@@ -53,10 +53,10 @@ export default function CardListSubModule({
 
   return (
     <div className="space-y-4">
-      {data?.map((subModule) => (
+      {data?.map((module) => (
         <Link
-          key={subModule.id}
-          href={`/dashboard/modules/sub/${subModule.id}`}
+          key={module.id}
+          href={`/dashboard/modules/${module.id}`}
           className="group block"
         >
           <div className="flex flex-row gap-6">
@@ -66,11 +66,11 @@ export default function CardListSubModule({
             <Card className="border-muted group-hover:bg-muted w-full border-2 shadow-transparent">
               <CardHeader className="flex md:flex-row md:items-center md:justify-between">
                 <div className="space-y-2">
-                  <Badge className="bg-secondary/20 text-secondary font-semibold">
-                    Sub Materi
+                  <Badge className="bg-secondary/20 text-secondary font-semibold uppercase">
+                    {module.type}
                   </Badge>
                   <CardTitle className="text-md font-bold md:text-xl">
-                    {subModule.name}
+                    {module.name}
                   </CardTitle>
                 </div>
               </CardHeader>

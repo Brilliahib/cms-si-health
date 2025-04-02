@@ -3,12 +3,12 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { SubModules } from "@/types/modules/modules";
+import { ModuleContent } from "@/types/modules/modules";
 import { Book, FileX2 } from "lucide-react";
 import Link from "next/link";
 
-interface CardListSubModuleProps {
-  data?: SubModules[];
+interface CardListModuleContentProps {
+  data?: ModuleContent[];
   isLoading?: boolean;
 }
 
@@ -28,10 +28,10 @@ function SubModuleSkeleton() {
   );
 }
 
-export default function CardListSubModule({
+export default function CardListModuleContent({
   data,
   isLoading,
-}: CardListSubModuleProps) {
+}: CardListModuleContentProps) {
   if (isLoading) {
     return (
       <div className="space-y-4">
@@ -53,10 +53,10 @@ export default function CardListSubModule({
 
   return (
     <div className="space-y-4">
-      {data?.map((subModule) => (
+      {data?.map((moduleContent) => (
         <Link
-          key={subModule.id}
-          href={`/dashboard/modules/sub/${subModule.id}`}
+          key={moduleContent.id}
+          href={`/dashboard/modules/sub/${moduleContent.id}`}
           className="group block"
         >
           <div className="flex flex-row gap-6">
@@ -67,10 +67,10 @@ export default function CardListSubModule({
               <CardHeader className="flex md:flex-row md:items-center md:justify-between">
                 <div className="space-y-2">
                   <Badge className="bg-secondary/20 text-secondary font-semibold">
-                    Sub Materi
+                    Booklet Materi
                   </Badge>
                   <CardTitle className="text-md font-bold md:text-xl">
-                    {subModule.name}
+                    {moduleContent.name}
                   </CardTitle>
                 </div>
               </CardHeader>

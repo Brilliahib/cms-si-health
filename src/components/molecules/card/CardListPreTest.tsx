@@ -4,12 +4,12 @@ import DialogStartPreTest from "@/components/atoms/dialog/DialogStartPreTest";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ModulesDetail } from "@/types/modules/modules-detail";
-import { ClipboardPen } from "lucide-react";
+import { PreTest } from "@/types/test/pre-test";
+import { ClipboardPen, FileX2 } from "lucide-react";
 import { useState } from "react";
 
 interface CardListPreTestProps {
-  data?: ModulesDetail;
+  data?: PreTest[];
   isLoading?: boolean;
 }
 
@@ -38,9 +38,18 @@ export default function CardListPreTest({
   if (isLoading) {
     return (
       <div className="space-y-4">
-        {Array.from({ length: 2 }).map((_, i) => (
+        {Array.from({ length: 4 }).map((_, i) => (
           <PreTestSkeleton key={i} />
         ))}
+      </div>
+    );
+  }
+
+  if (!data || data.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center space-y-4 py-10 text-center">
+        <FileX2 className="text-muted-foreground h-16 w-16" />
+        <p className="text-muted-foreground">Data belum ada.</p>
       </div>
     );
   }
@@ -52,7 +61,7 @@ export default function CardListPreTest({
   return (
     <>
       <div className="space-y-4">
-        {data?.pre_test.map((preTest) => (
+        {data?.map((preTest) => (
           <div
             key={preTest.id}
             className="group block cursor-pointer"
@@ -65,7 +74,7 @@ export default function CardListPreTest({
               <Card className="border-muted group-hover:bg-muted w-full border-2 shadow-transparent">
                 <CardHeader className="flex md:flex-row md:items-center md:justify-between">
                   <div className="space-y-2">
-                    <Badge className="bg-secondary/20 text-secondary font-semibold uppercase">
+                    <Badge className="bg-secondary/20 text-secondary font-semibold">
                       Pre Test
                     </Badge>
                     <CardTitle className="text-md font-bold md:text-xl">
