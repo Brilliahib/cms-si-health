@@ -5,6 +5,7 @@ export const moduleContentSchema = z.object({
   content: z.string().nonempty(),
   name: z.string().nonempty(),
   video_url: z.string().nonempty(),
+  type: z.string().nonempty(),
   file_path: z
     .instanceof(File)
     .refine((file) => file.type === "application/pdf", {

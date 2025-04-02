@@ -19,6 +19,7 @@ export const addNewModuleContentHandler = async (
   formData.append("name", body.name);
   formData.append("content", body.content);
   formData.append("video_url", body.video_url);
+  formData.append("type", body.type);
 
   if (body.file_path) {
     formData.append("file_path", body.file_path);

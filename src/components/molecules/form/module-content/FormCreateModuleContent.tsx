@@ -30,10 +30,12 @@ import {
 } from "@/validators/module-contents/module-content-validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 export default function FormCreateModuleContent() {
+  const router = useRouter();
   const form = useForm<ModuleContentType>({
     resolver: zodResolver(moduleContentSchema),
     defaultValues: {
@@ -42,22 +44,10 @@ export default function FormCreateModuleContent() {
       name: "",
       content: "",
       video_url: "",
+      type: "",
     },
     mode: "onChange",
   });
-
-  const { mutate: addHDHandler, isPending } = useAddNewModuleContent({
-    onError: () => {
-      toast.error("Gagal menambahkan sub materi HD!");
-    },
-    onSuccess: () => {
-      toast.success("Berhasil menambahkan sub materi HD!");
-    },
-  });
-
-  const onSubmit = (body: ModuleContentType) => {
-    addHDHandler(body);
-  };
 
   const { data: session, status } = useSession();
   const { data } = useGetAllSubModulesNoCategory(
@@ -66,6 +56,20 @@ export default function FormCreateModuleContent() {
       enabled: status === "authenticated",
     },
   );
+
+  const { mutate: addHDHandler, isPending } = useAddNewModuleContent({
+    onError: () => {
+      toast.error("Gagal menambahkan konten materi!");
+    },
+    onSuccess: () => {
+      toast.success("Berhasil menambahkan konten materi!");
+      router.back();
+    },
+  });
+
+  const onSubmit = (body: ModuleContentType) => {
+    addHDHandler(body);
+  };
   return (
     <Card>
       <CardContent>
@@ -79,7 +83,9 @@ export default function FormCreateModuleContent() {
               name="sub_module_id"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Sub Materi</FormLabel>
+                  <FormLabel>
+                    Sub Materi <span className="text-red-500">*</span>
+                  </FormLabel>
                   <FormControl>
                     <Select value={field.value} onValueChange={field.onChange}>
                       <SelectTrigger className="w-full">
@@ -106,10 +112,39 @@ export default function FormCreateModuleContent() {
             />
             <FormField
               control={form.control}
+              name="type"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    Tipe <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Pilih tipe" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Tipe</SelectLabel>
+                          <SelectItem value="hd">HD</SelectItem>
+                          <SelectItem value="capd">CAPD</SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nama Konten Materi</FormLabel>
+                  <FormLabel>
+                    Nama Konten Materi <span className="text-red-500">*</span>
+                  </FormLabel>
                   <FormControl>
                     <Input
                       type="text"
@@ -126,7 +161,9 @@ export default function FormCreateModuleContent() {
               name="video_url"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>URL Video</FormLabel>
+                  <FormLabel>
+                    URL Video <span className="text-red-500">*</span>
+                  </FormLabel>
                   <FormControl>
                     <Input
                       type="text"
@@ -147,7 +184,9 @@ export default function FormCreateModuleContent() {
               name="file_path"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>File Materi (PDF)</FormLabel>
+                  <FormLabel>
+                    File Materi (PDF) <span className="text-red-500">*</span>
+                  </FormLabel>
                   <FormControl>
                     <Input
                       type="file"
@@ -171,7 +210,9 @@ export default function FormCreateModuleContent() {
               name="content"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Konten</FormLabel>
+                  <FormLabel>
+                    Konten <span className="text-red-500">*</span>
+                  </FormLabel>
                   <FormControl>
                     <QuillEditor
                       value={field.value}
