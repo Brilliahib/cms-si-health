@@ -27,24 +27,6 @@ export const questionBankDetailColumns: ColumnDef<Question>[] = [
     },
   },
   {
-    accessorKey: "type",
-    header: "Tipe Pertanyaan",
-    cell: ({ row }) => {
-      const data = row.original;
-
-      const typeLabel: Record<string, string> = {
-        multiple_choice: "Pilihan Ganda",
-        essay: "Essay",
-      };
-
-      return (
-        <p suppressHydrationWarning className="line-clamp-1 md:line-clamp-2">
-          {typeLabel[data.type] ?? data.type}
-        </p>
-      );
-    },
-  },
-  {
     id: "actions",
     cell: ({ row }) => {
       const data = row.original;
