@@ -1,4 +1,4 @@
-import { Modules } from "../modules/modules";
+import { SubModules } from "../modules/modules";
 
 export type PreTest = {
   id: string;
@@ -7,7 +7,7 @@ export type PreTest = {
   name: string;
   created_at: Date;
   updated_at: Date;
-  module: Modules;
+  sub_module: SubModules;
 };
 
 export type SubmitPreTest = {

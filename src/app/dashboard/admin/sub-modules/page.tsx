@@ -6,7 +6,7 @@ export default function DashboardAdminSubModulesPage() {
     <section>
       <DashboardTitle
         head="Sub Materi"
-        body="Menampilkan sub materi CAPD & HD"
+        body="Menampilkan daftar sub materi yang tersedia"
       />
       <DashboardAdminSubModulesWrapper />
     </section>

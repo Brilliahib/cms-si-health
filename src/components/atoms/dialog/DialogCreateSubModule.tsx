@@ -30,71 +30,60 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import {
-  preTestSchema,
-  PreTestType,
-} from "@/validators/test/pre-test-validator";
-import { useAddNewPreTest } from "@/http/test/create-pre-test";
-import { useGetAllQuestionBanks } from "@/http/question-banks/get-all-question-bank";
-import { useGetAllSubModulesNoCategory } from "@/http/sub-modules/get-all-sub-modules-no-category";
+  subModuleSchema,
+  SubModuleType,
+} from "@/validators/sub-modules/sub-modules-validator";
+import { useAddNewSubModules } from "@/http/sub-modules/create-sub-modules";
+import { useGetAllModules } from "@/http/modulels/get-all-modules";
 
-interface DialogCreateArticleProps {
+interface DialogCreateSubModulesProps {
   open: boolean;
   setOpen: (open: boolean) => void;
 }
 
-export default function DialogCreatePreTest({
+export default function DialogCreateSubModules({
   open,
   setOpen,
-}: DialogCreateArticleProps) {
-  const form = useForm<PreTestType>({
-    resolver: zodResolver(preTestSchema),
+}: DialogCreateSubModulesProps) {
+  const form = useForm<SubModuleType>({
+    resolver: zodResolver(subModuleSchema),
     defaultValues: {
-      sub_module_id: "",
-      question_set_id: "",
+      module_id: "",
       name: "",
+      description: "",
     },
     mode: "onChange",
   });
 
   const queryClient = useQueryClient();
 
-  const { mutate: addCAPDHandler, isPending } = useAddNewPreTest({
+  const { mutate: addNewSubModulesHandler, isPending } = useAddNewSubModules({
     onError: () => {
-      toast.error("Gagal menambahkan pre test!");
+      toast.error("Gagal menambahkan sub-materi!");
     },
     onSuccess: () => {
-      toast.success("Berhasil menambahkan pre test!");
+      toast.success("Berhasil menambahkan sub-materi!");
       queryClient.invalidateQueries({
-        queryKey: ["pre-test-list"],
+        queryKey: ["sub-modules"],
       });
       setOpen(false);
     },
   });
 
-  const onSubmit = (body: PreTestType) => {
-    addCAPDHandler(body);
+  const onSubmit = (body: SubModuleType) => {
+    addNewSubModulesHandler(body);
   };
 
   const { data: session, status } = useSession();
-  const { data } = useGetAllSubModulesNoCategory(
-    session?.access_token as string,
-    {
-      enabled: status === "authenticated",
-    },
-  );
-
-  const { data: questionBank } = useGetAllQuestionBanks(
-    session?.access_token as string,
-    {
-      enabled: status === "authenticated",
-    },
-  );
+  const { data } = useGetAllModules(session?.access_token as string, {
+    enabled: status === "authenticated",
+  });
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Tambah Pre Test</DialogTitle>
+          <DialogTitle>Tambah Sub Materi</DialogTitle>
         </DialogHeader>
         <ScrollArea className="max-h-[80vh]">
           <Form {...form}>
@@ -104,17 +93,19 @@ export default function DialogCreatePreTest({
             >
               <FormField
                 control={form.control}
-                name="sub_module_id"
+                name="module_id"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Sub Materi</FormLabel>
+                    <FormLabel>
+                      Materi <span className="text-red-500">*</span>
+                    </FormLabel>
                     <FormControl>
                       <Select
                         value={field.value}
                         onValueChange={field.onChange}
                       >
                         <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Pilih sub materi yang tersedia" />
+                          <SelectValue placeholder="Pilih materi yang tersedia" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
@@ -134,32 +125,18 @@ export default function DialogCreatePreTest({
               />
               <FormField
                 control={form.control}
-                name="question_set_id"
+                name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Bank Soal</FormLabel>
+                    <FormLabel>
+                      Nama Sub Materi <span className="text-red-500">*</span>
+                    </FormLabel>
                     <FormControl>
-                      <Select
-                        value={field.value}
-                        onValueChange={field.onChange}
-                      >
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Pilih bank soal yang tersedia" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectGroup>
-                            <SelectLabel>Bank Soal</SelectLabel>
-                            {questionBank?.data.map((questionBank) => (
-                              <SelectItem
-                                key={questionBank.id}
-                                value={questionBank.id}
-                              >
-                                {questionBank.name}
-                              </SelectItem>
-                            ))}
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
+                      <Input
+                        type="text"
+                        placeholder="Ketidaknyamanan"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -167,15 +144,16 @@ export default function DialogCreatePreTest({
               />
               <FormField
                 control={form.control}
-                name="name"
+                name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Nama Pre Test</FormLabel>
+                    <FormLabel>Deskripsi</FormLabel>
                     <FormControl>
                       <Input
                         type="text"
-                        placeholder="Pre Test Anatomi Ginjal"
+                        placeholder="Masukkan deskripsi"
                         {...field}
+                        value={field.value ?? ""}
                       />
                     </FormControl>
                     <FormMessage />
