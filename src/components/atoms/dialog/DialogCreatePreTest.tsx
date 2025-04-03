@@ -28,7 +28,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
-import { useGetAllModules } from "@/http/modulels/get-all-modules";
 import { useSession } from "next-auth/react";
 import {
   preTestSchema,
@@ -36,6 +35,7 @@ import {
 } from "@/validators/test/pre-test-validator";
 import { useAddNewPreTest } from "@/http/test/create-pre-test";
 import { useGetAllQuestionBanks } from "@/http/question-banks/get-all-question-bank";
+import { useGetAllSubModulesNoCategory } from "@/http/sub-modules/get-all-sub-modules-no-category";
 
 interface DialogCreateArticleProps {
   open: boolean;
@@ -49,7 +49,7 @@ export default function DialogCreatePreTest({
   const form = useForm<PreTestType>({
     resolver: zodResolver(preTestSchema),
     defaultValues: {
-      module_id: "",
+      sub_module_id: "",
       question_set_id: "",
       name: "",
     },
@@ -76,9 +76,12 @@ export default function DialogCreatePreTest({
   };
 
   const { data: session, status } = useSession();
-  const { data } = useGetAllModules(session?.access_token as string, {
-    enabled: status === "authenticated",
-  });
+  const { data } = useGetAllSubModulesNoCategory(
+    session?.access_token as string,
+    {
+      enabled: status === "authenticated",
+    },
+  );
 
   const { data: questionBank } = useGetAllQuestionBanks(
     session?.access_token as string,
@@ -101,17 +104,17 @@ export default function DialogCreatePreTest({
             >
               <FormField
                 control={form.control}
-                name="module_id"
+                name="sub_module_id"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Materi</FormLabel>
+                    <FormLabel>Sub Materi</FormLabel>
                     <FormControl>
                       <Select
                         value={field.value}
                         onValueChange={field.onChange}
                       >
                         <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Pilih materi yang tersedia" />
+                          <SelectValue placeholder="Pilih sub materi yang tersedia" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>

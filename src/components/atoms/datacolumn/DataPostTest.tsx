@@ -30,12 +30,12 @@ export const postTestColumns: ColumnDef<PostTest>[] = [
   },
   {
     accessorKey: "modules",
-    header: "Materi",
+    header: "Sub Materi",
     cell: ({ row }) => {
       const data = row.original;
       return (
         <p suppressHydrationWarning className="line-clamp-1 md:line-clamp-2">
-          {data.module.name}
+          {data.sub_module.name}
         </p>
       );
     },

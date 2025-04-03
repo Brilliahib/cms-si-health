@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Screening } from "@/types/screening/screening";
-import { FileSearch } from "lucide-react";
+import { FileSearch, FileX2 } from "lucide-react";
 import { useState } from "react";
 
 interface CardListScreeningProps {
@@ -21,7 +21,7 @@ export default function CardListScreening({
   if (isLoading) {
     return (
       <div className="space-y-4">
-        {[...Array(3)].map((_, i) => (
+        {[...Array(4)].map((_, i) => (
           <div className="flex flex-row gap-6" key={i}>
             <Skeleton className="hidden aspect-video h-36 w-36 rounded-lg md:flex" />
             <Card className="border-muted w-full border-2 shadow-transparent">
@@ -35,6 +35,15 @@ export default function CardListScreening({
             </Card>
           </div>
         ))}
+      </div>
+    );
+  }
+
+  if (!data || data.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center space-y-4 py-10 text-center">
+        <FileX2 className="text-muted-foreground h-16 w-16" />
+        <p className="text-muted-foreground">Data belum ada.</p>
       </div>
     );
   }

@@ -1,0 +1,61 @@
+"use client";
+
+import DashboardTitleBold from "@/components/atoms/typography/DashboardTitleBold";
+import VideoYoutubeEmbed from "@/components/atoms/video/VideoYoutubeEmbed";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useGetDetailBooklet } from "@/http/booklet/get-detail-booklet";
+import { BASE_URL } from "@/lib/url";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+
+interface DashboardModulesBookletWrapperProps {
+  id: string;
+}
+
+export default function DashboardModulesBookletWrapper({
+  id,
+}: DashboardModulesBookletWrapperProps) {
+  const { data: session, status } = useSession();
+  const { data, isPending } = useGetDetailBooklet(
+    id,
+    session?.access_token as string,
+    {
+      enabled: status === "authenticated",
+    },
+  );
+  return (
+    <>
+      <DashboardTitleBold head={data?.data.name ?? ""} />
+      <div className="space-y-6">
+        <VideoYoutubeEmbed
+          url={data?.data.video_url ?? ""}
+          isLoading={isPending}
+        />
+        <Tabs defaultValue="module-contents" className="w-full">
+          <TabsList className="mb-4 grid w-fit max-w-sm grid-cols-2">
+            <TabsTrigger value="content">Konten Materi</TabsTrigger>
+            <TabsTrigger value="module-contents">File Booklet</TabsTrigger>
+          </TabsList>
+          <TabsContent value="content">
+            <div
+              dangerouslySetInnerHTML={{ __html: data?.data.content ?? "" }}
+            />
+          </TabsContent>
+          <TabsContent value="module-contents">
+            <div className="space-y-4">
+              <p>{`${BASE_URL}/public/${data?.data.file_path}`}</p>
+              <Link
+                href={`${BASE_URL}/public/${data?.data.file_path}`}
+                target="_blank"
+              >
+                <Button>Lihat Booklet</Button>
+              </Link>
+            </div>
+            {/* <PdfViewer url={`${BASE_URL}/storage/${data?.data.file_path}`} /> */}
+          </TabsContent>
+        </Tabs>
+      </div>
+    </>
+  );
+}
