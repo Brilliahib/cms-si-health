@@ -64,7 +64,7 @@ export default function CardListHistoryPostTest({
             <Card className="border-muted group-hover:bg-muted w-full border-2 shadow-transparent">
               <CardHeader className="flex md:flex-row md:items-center md:justify-between">
                 <div className="space-y-2">
-                  <Badge className="bg-secondary uppercase">Post Test</Badge>
+                  <Badge className="bg-secondary">Post Test</Badge>
                   <CardTitle className="text-md font-bold md:text-xl">
                     {postTestHistory.post_test.name}
                   </CardTitle>
