@@ -56,7 +56,7 @@ export default function CardListModuleContent({
       {data?.map((moduleContent) => (
         <Link
           key={moduleContent.id}
-          href={`/dashboard/modules/sub/${moduleContent.id}`}
+          href={`/dashboard/modules/booklet/${moduleContent.id}`}
           className="group block"
         >
           <div className="flex flex-row gap-6">
