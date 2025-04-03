@@ -84,64 +84,54 @@ export default function WorkScreeningWrapper({ id }: WorkScreeningProps) {
                 </h1>
                 <p>{questions[selectedQuestionIndex].question_text}</p>
 
-                {questions[selectedQuestionIndex].type ===
-                  "multiple_choice" && (
-                  <ul className="space-y-3">
-                    {questions[selectedQuestionIndex].options.map(
-                      (option, index) => {
-                        const isSelected = answers.find(
-                          (ans) =>
-                            ans.question_id ===
-                              questions[selectedQuestionIndex].id &&
-                            ans.selected_option_id === option.id,
-                        );
+                <ul className="space-y-3">
+                  {questions[selectedQuestionIndex].options.map(
+                    (option, index) => {
+                      const isSelected = answers.find(
+                        (ans) =>
+                          ans.question_id ===
+                            questions[selectedQuestionIndex].id &&
+                          ans.selected_option_id === option.id,
+                      );
 
-                        return (
-                          <li
-                            key={option.id}
-                            className={`border-primary hover:bg-muted cursor-pointer rounded-md border px-3 py-2 ${
-                              isSelected
-                                ? "bg-primary hover:bg-primary text-white"
-                                : ""
-                            }`}
-                            onClick={() => {
-                              const updated = [...answers];
-                              const existingIndex = updated.findIndex(
-                                (a) =>
-                                  a.question_id ===
+                      return (
+                        <li
+                          key={option.id}
+                          className={`border-primary hover:bg-muted cursor-pointer rounded-md border px-3 py-2 ${
+                            isSelected
+                              ? "bg-primary hover:bg-primary text-white"
+                              : ""
+                          }`}
+                          onClick={() => {
+                            const updated = [...answers];
+                            const existingIndex = updated.findIndex(
+                              (a) =>
+                                a.question_id ===
+                                questions[selectedQuestionIndex].id,
+                            );
+
+                            if (existingIndex !== -1) {
+                              updated[existingIndex].selected_option_id =
+                                option.id;
+                            } else {
+                              updated.push({
+                                question_id:
                                   questions[selectedQuestionIndex].id,
-                              );
-
-                              if (existingIndex !== -1) {
-                                updated[existingIndex].selected_option_id =
-                                  option.id;
-                              } else {
-                                updated.push({
-                                  question_id:
-                                    questions[selectedQuestionIndex].id,
-                                  selected_option_id: option.id,
-                                });
-                              }
-                              setAnswers(updated);
-                            }}
-                          >
-                            <span className="mr-2 font-semibold">
-                              {OPTION_LABELS[index]}.
-                            </span>
-                            {option.option_text}
-                          </li>
-                        );
-                      },
-                    )}
-                  </ul>
-                )}
-
-                {questions[selectedQuestionIndex].type === "essay" && (
-                  <textarea
-                    placeholder="Tulis jawabanmu..."
-                    className="w-full rounded border p-3"
-                  />
-                )}
+                                selected_option_id: option.id,
+                              });
+                            }
+                            setAnswers(updated);
+                          }}
+                        >
+                          <span className="mr-2 font-semibold">
+                            {OPTION_LABELS[index]}.
+                          </span>
+                          {option.option_text}
+                        </li>
+                      );
+                    },
+                  )}
+                </ul>
               </div>
             ) : (
               <div className="space-y-4">
