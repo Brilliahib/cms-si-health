@@ -17,6 +17,9 @@ export default function CardListScreening({
 }: CardListScreeningProps) {
   const [dialogStartScreeningOpen, setDialogStartScreeningOpen] =
     useState(false);
+  const [selectedScreeningId, setSelectedScreeningId] = useState<string | null>(
+    null,
+  );
 
   if (isLoading) {
     return (
@@ -48,15 +51,16 @@ export default function CardListScreening({
     );
   }
 
-  const handleDialogStartPretestOpen = () => {
+  const handleDialogStartPretestOpen = (id: string) => {
+    setSelectedScreeningId(id);
     setDialogStartScreeningOpen(true);
   };
   return (
     <div>
       {data?.map((screening) => (
         <div
-          onClick={handleDialogStartPretestOpen}
           key={screening.id}
+          onClick={() => handleDialogStartPretestOpen(screening.id)}
           className="group block cursor-pointer"
         >
           <div className="flex flex-row gap-6">
@@ -74,13 +78,15 @@ export default function CardListScreening({
               </CardHeader>
             </Card>
           </div>
-          <DialogStartScreening
-            open={dialogStartScreeningOpen}
-            setOpen={setDialogStartScreeningOpen}
-            id={screening.id}
-          />
         </div>
       ))}
+      {selectedScreeningId && (
+        <DialogStartScreening
+          open={dialogStartScreeningOpen}
+          setOpen={setDialogStartScreeningOpen}
+          id={selectedScreeningId}
+        />
+      )}
     </div>
   );
 }

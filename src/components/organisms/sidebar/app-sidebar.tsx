@@ -28,6 +28,7 @@ import {
   ClipboardList,
   NotebookText,
   SearchCheck,
+  Settings2,
 } from "lucide-react";
 import { NavUser } from "./NavUser";
 
@@ -287,6 +288,29 @@ export function AppSidebar({ session }: AppSidebarProps) {
             </SidebarGroupContent>
           </SidebarGroup>
         )}
+
+        <SidebarGroup>
+          <SidebarGroupLabel>Pengaturan Akun</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  className={`hover:bg-primary/10 hover:text-primary dark:hover:bg-slate-900 ${
+                    pathname === "/dashboard/settings"
+                      ? "bg-primary/10 text-primary dark:bg-slate-800"
+                      : ""
+                  }`}
+                >
+                  <Link href="/dashboard/settings">
+                    <Settings2 />
+                    <span>Pengaturan</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
 
       {/* Footer */}
