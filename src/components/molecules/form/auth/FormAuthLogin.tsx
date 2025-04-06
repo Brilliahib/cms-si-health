@@ -31,7 +31,7 @@ export default function FormAuthLogin() {
   const [isLoading, setIsLoading] = useState(false);
   const form = useForm<LoginType>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: "", password: "" },
+    defaultValues: { login: "", password: "" },
     mode: "onChange",
   });
   const router = useRouter();
@@ -74,10 +74,10 @@ export default function FormAuthLogin() {
             <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
               <FormField
                 control={form.control}
-                name="email"
+                name="login"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>Email / Username / Nomor Telepon</FormLabel>
                     <FormControl>
                       <Input
                         type="text"

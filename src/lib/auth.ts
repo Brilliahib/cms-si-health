@@ -21,16 +21,16 @@ export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       credentials: {
-        email: { label: "Email", type: "text" },
+        login: { label: "Email / Username / Nomor Telepon", type: "text" },
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-        const { email, password } = credentials as LoginType;
-        if (!email || !password) return null;
+        const { login, password } = credentials as LoginType;
+        if (!login || !password) return null;
 
         try {
           const user = await loginApiHandler({
-            email,
+            login,
             password,
           });
 

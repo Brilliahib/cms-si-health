@@ -36,6 +36,8 @@ export default function FormAuthRegister() {
     defaultValues: {
       name: "",
       email: "",
+      username: "",
+      phone_number: "",
       password: "",
       password_confirmation: "",
     },
@@ -64,7 +66,7 @@ export default function FormAuthRegister() {
 
     onSuccess: async () => {
       const res = await signIn("credentials", {
-        email: form.getValues("email"),
+        login: form.getValues("email"),
         password: form.getValues("password"),
         redirect: false,
       });
@@ -134,6 +136,42 @@ export default function FormAuthRegister() {
                           type="text"
                           id="email"
                           placeholder="Masukkan email"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="username"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Username</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="text"
+                          id="email"
+                          placeholder="Masukkan username"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="phone_number"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Nomor Telepon</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="text"
+                          id="email"
+                          placeholder="Masukkan nomor telepon"
                           {...field}
                         />
                       </FormControl>

@@ -2,7 +2,7 @@ import LoginWrapperContent from "@/components/organisms/auth/LoginWrapperContent
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Masuk | Sistem Informasi Kesehatan Ginjal",
+  title: "Masuk | Dialisis Connect Edu",
   description: "Masuk untuk mengakses fitur-fitur yang tersedia.",
 };
 
