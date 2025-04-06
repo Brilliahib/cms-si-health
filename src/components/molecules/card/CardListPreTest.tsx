@@ -34,6 +34,9 @@ export default function CardListPreTest({
   isLoading,
 }: CardListPreTestProps) {
   const [dialogStartPreTestOpen, setDialogStartPreTestOpen] = useState(false);
+  const [selectedPreTestId, setSelectedPreTestId] = useState<string | null>(
+    null,
+  );
 
   if (isLoading) {
     return (
@@ -54,7 +57,8 @@ export default function CardListPreTest({
     );
   }
 
-  const handleDialogStartPretestOpen = () => {
+  const handleDialogStartPretestOpen = (id: string) => {
+    setSelectedPreTestId(id);
     setDialogStartPreTestOpen(true);
   };
 
@@ -65,7 +69,7 @@ export default function CardListPreTest({
           <div
             key={preTest.id}
             className="group block cursor-pointer"
-            onClick={handleDialogStartPretestOpen}
+            onClick={() => handleDialogStartPretestOpen(preTest.id)}
           >
             <div className="flex flex-row gap-6">
               <div className="group-hover:bg-secondary bg-primary relative hidden aspect-video h-36 w-36 items-center justify-center rounded-lg md:flex">
@@ -84,13 +88,15 @@ export default function CardListPreTest({
                 </CardHeader>
               </Card>
             </div>
-            <DialogStartPreTest
-              open={dialogStartPreTestOpen}
-              setOpen={setDialogStartPreTestOpen}
-              id={preTest.id}
-            />
           </div>
         ))}
+        {selectedPreTestId && (
+          <DialogStartPreTest
+            open={dialogStartPreTestOpen}
+            setOpen={setDialogStartPreTestOpen}
+            id={selectedPreTestId}
+          />
+        )}
       </div>
     </>
   );
