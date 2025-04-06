@@ -121,6 +121,10 @@ body {
   font-family: var(--font-paytone-one);
 }
 
+.rdp-vhidden {
+  @apply hidden;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

@@ -28,7 +28,7 @@ export default function LoginWrapperContent() {
               height={40}
             />
             <h1 className="font-semibold tracking-tight">
-              Dialisis Connect Semarang
+              Dialisis Connect Edu
             </h1>
           </Link>
         </div>

@@ -2,7 +2,7 @@ import RegisterWrapperContent from "@/components/organisms/auth/RegisterWrapperC
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Daftar | Sistem Informasi Kesehatan Ginjal",
+  title: "Daftar | Dialisis Connect Edu",
   description: "Daftar untuk mengakses fitur-fitur yang tersedia.",
 };
 
