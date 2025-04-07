@@ -29,6 +29,7 @@ import {
   NotebookText,
   SearchCheck,
   Settings2,
+  Users,
 } from "lucide-react";
 import { NavUser } from "./NavUser";
 
@@ -196,6 +197,17 @@ export function AppSidebar({ session }: AppSidebarProps) {
                       <Link href="/dashboard/admin/tests">
                         <ClipboardPen />
                         <span>Pre & Post Test</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      className={buttonClass("/dashboard/admin/discussions")}
+                    >
+                      <Link href="/dashboard/admin/discussions">
+                        <Users />
+                        <span>Forum Komunitas</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>

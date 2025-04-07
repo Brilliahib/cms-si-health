@@ -1,0 +1,27 @@
+import { User } from "../user/user";
+
+export type Discussion = {
+  id: string;
+  title: string;
+  created_at: Date;
+  updated_at: Date;
+};
+
+export type DiscussionDetail = {
+  id: string;
+  title: string;
+  created_at: Date;
+  updated_at: Date;
+  comments: DiscussionComment[];
+};
+
+export type DiscussionComment = {
+  id: string;
+  discussion_id: string;
+  user_id: string;
+  comment: string;
+  image_path: string;
+  created_at: Date;
+  updated_at: Date;
+  user: User;
+};
