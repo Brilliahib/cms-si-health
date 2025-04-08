@@ -6,12 +6,15 @@ import { useSession } from "next-auth/react";
 
 export default function DashboardDiscussionWrapper() {
   const { data: session, status } = useSession();
-  const { data } = useGetAllDiscussion(session?.access_token as string, {
-    enabled: status === "authenticated",
-  });
+  const { data, isPending } = useGetAllDiscussion(
+    session?.access_token as string,
+    {
+      enabled: status === "authenticated",
+    },
+  );
   return (
     <div>
-      <CardListTopicDiscussion data={data?.data || []} />
+      <CardListTopicDiscussion data={data?.data || []} isLoading={isPending} />
     </div>
   );
 }

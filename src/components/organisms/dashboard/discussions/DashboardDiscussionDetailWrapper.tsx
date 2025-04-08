@@ -14,14 +14,21 @@ export default function DashboardDiscussionDetailWrapper({
   id,
 }: DashboardDiscussionDetailWrapperProps) {
   const { data: session, status } = useSession();
-  const { data } = useGetDetailDiscussion(id, session?.access_token as string, {
-    enabled: status === "authenticated",
-  });
+  const { data, isPending } = useGetDetailDiscussion(
+    id,
+    session?.access_token as string,
+    {
+      enabled: status === "authenticated",
+    },
+  );
   return (
     <section>
       <DashboardTitleBold head={`# ${data?.data.title ?? ""}`} />
       <MessageDiscussion id={id} />
-      <CardListDiscussionComment data={data?.data.comments || []} />
+      <CardListDiscussionComment
+        data={data?.data.comments || []}
+        isLoading={isPending}
+      />
     </section>
   );
 }
