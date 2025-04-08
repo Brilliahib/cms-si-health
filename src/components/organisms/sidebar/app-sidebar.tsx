@@ -29,6 +29,7 @@ import {
   NotebookText,
   SearchCheck,
   Settings2,
+  Users,
 } from "lucide-react";
 import { NavUser } from "./NavUser";
 
@@ -199,6 +200,17 @@ export function AppSidebar({ session }: AppSidebarProps) {
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      asChild
+                      className={buttonClass("/dashboard/admin/discussions")}
+                    >
+                      <Link href="/dashboard/admin/discussions">
+                        <Users />
+                        <span>Forum Komunitas</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
                 </SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>
@@ -281,6 +293,27 @@ export function AppSidebar({ session }: AppSidebarProps) {
                     <Link href="/dashboard/guide">
                       <Info />
                       <span>Panduan Screening</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
+
+        {session?.user.role !== "admin" && (
+          <SidebarGroup>
+            <SidebarGroupLabel>Diskusi</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    asChild
+                    className={buttonClass("/dashboard/discussions")}
+                  >
+                    <Link href="/dashboard/discussions">
+                      <Users />
+                      <span>Forum Komunitas</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
