@@ -301,6 +301,27 @@ export function AppSidebar({ session }: AppSidebarProps) {
           </SidebarGroup>
         )}
 
+        {session?.user.role !== "admin" && (
+          <SidebarGroup>
+            <SidebarGroupLabel>Diskusi</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    asChild
+                    className={buttonClass("/dashboard/discussions")}
+                  >
+                    <Link href="/dashboard/discussions">
+                      <Users />
+                      <span>Forum Komunitas</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
+
         <SidebarGroup>
           <SidebarGroupLabel>Pengaturan Akun</SidebarGroupLabel>
           <SidebarGroupContent>

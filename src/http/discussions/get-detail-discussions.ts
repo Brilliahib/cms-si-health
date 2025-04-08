@@ -29,7 +29,7 @@ export const useGetDetailDiscussion = (
   options?: Partial<UseQueryOptions<GetDetailDiscussionResponse, AxiosError>>,
 ) => {
   return useQuery({
-    queryKey: ["discussion-list", id],
+    queryKey: ["discussion-detail", id],
     queryFn: () => GetDetailDiscussionHandler(id, token),
     ...options,
   });

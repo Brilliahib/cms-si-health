@@ -5,6 +5,7 @@ export type Discussion = {
   title: string;
   created_at: Date;
   updated_at: Date;
+  comments: DiscussionComment[];
 };
 
 export type DiscussionDetail = {
