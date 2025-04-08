@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { BASE_URL } from "@/lib/url";
 import { DiscussionComment } from "@/types/discussions/discussion";
 import { getAvatarColor } from "@/utils/generate-color-avatar";
@@ -10,11 +11,37 @@ import Image from "next/image";
 
 interface CardListDiscussionCommentProps {
   data: DiscussionComment[];
+  isLoading: boolean;
 }
 
 export default function CardListDiscussionComment({
   data,
+  isLoading,
 }: CardListDiscussionCommentProps) {
+  if (isLoading) {
+    return (
+      <div className="space-y-4">
+        {[...Array(3)].map((_, i) => (
+          <Card key={i} className="shadow-none">
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <Skeleton className="h-10 w-10 rounded-full" />
+                  <div className="space-y-1">
+                    <Skeleton className="h-4 w-32" />
+                    <Skeleton className="h-3 w-24" />
+                  </div>
+                </div>
+                <Skeleton className="h-48 w-full rounded-xl md:max-w-2xl" />
+                <Skeleton className="h-4 w-full" />
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-4">
       {data.length === 0 ? (
@@ -33,7 +60,9 @@ export default function CardListDiscussionComment({
                   <div className="flex items-center gap-2">
                     <Avatar className="h-10 w-10 rounded-full">
                       <AvatarFallback
-                        className={`${getAvatarColor(comment.user.id)} rounded-full text-xs font-semibold text-white`}
+                        className={`${getAvatarColor(
+                          comment.user.id,
+                        )} rounded-full text-xs font-semibold text-white`}
                       >
                         {generateFallbackFromName(comment.user.name)}
                       </AvatarFallback>
