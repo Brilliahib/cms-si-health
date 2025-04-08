@@ -91,6 +91,44 @@ export default function CardListDiscussionComment({
                     />
                   )}
                   <h1>{comment.comment}</h1>
+                  <div className="flex flex-col gap-2 md:flex-row md:items-center">
+                    {comment.answers.length > 0 && (
+                      <div className="flex items-center gap-1">
+                        {[
+                          ...new Map(
+                            comment.answers.map((comment) => [
+                              comment.user.id,
+                              comment,
+                            ]),
+                          ).values(),
+                        ].map((comment) => (
+                          <div key={comment.user.id}>
+                            <Avatar className="h-8 w-8 rounded-full">
+                              <AvatarFallback
+                                className={`rounded-full text-xs font-semibold text-white ${getAvatarColor(comment.user.id)}`}
+                              >
+                                {generateFallbackFromName(comment.user.name)}
+                              </AvatarFallback>
+                            </Avatar>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    <p className="text-muted-foreground text-sm">
+                      {comment.answers.length} Balasan
+                    </p>
+                    {comment.answers.length > 0 && (
+                      <span className="text-muted-foreground hidden text-xs md:flex">
+                        •
+                      </span>
+                    )}
+                    {comment.answers.length > 0 && (
+                      <p className="text-muted-foreground hidden text-sm md:flex">
+                        Balasan terakhir{" "}
+                        {formatRelativeTime(comment.answers[0].created_at)}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </CardContent>
             </Card>

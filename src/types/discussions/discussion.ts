@@ -25,6 +25,7 @@ export type DiscussionComment = {
   created_at: Date;
   updated_at: Date;
   user: User;
+  answers: DiscussionCommentAnswer[];
 };
 
 export type DiscussionCommentAnswer = {
