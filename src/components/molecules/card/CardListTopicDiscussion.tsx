@@ -75,7 +75,7 @@ export default function CardListTopicDiscussion({
                     </div>
                   )}
                   <p className="text-muted-foreground text-sm">
-                    {discussion.comments.length} Komentar
+                    {discussion.comments.length} Balasan
                   </p>
                   {discussion.comments.length > 0 && (
                     <span className="text-muted-foreground hidden text-xs md:flex">

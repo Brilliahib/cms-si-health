@@ -5,6 +5,7 @@
 
 @theme inline {
   --auth-pattern: url("/images/background/bg-undip.jpg");
+  --bg-footer-pattern: url("/images/assets/bg-footer.png");
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -137,5 +138,17 @@ body {
 @layer utilities {
   .bg-auth-pattern {
     background-image: var(--auth-pattern);
+  }
+  .bg-footer-pattern {
+    background-image: var(--bg-footer-pattern);
+  }
+}
+
+@layer components {
+  .pad-x {
+    @apply mx-auto max-w-[1280px] px-4 md:px-[4%];
+  }
+  .pad-x-xl {
+    @apply px-4 md:px-[6%] lg:px-[10%] xl:px-[12%];
   }
 }
