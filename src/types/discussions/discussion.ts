@@ -26,3 +26,12 @@ export type DiscussionComment = {
   updated_at: Date;
   user: User;
 };
+
+export type DiscussionCommentAnswer = {
+  id: string;
+  comment: string;
+  image_path: string;
+  created_at: Date;
+  updated_at: Date;
+  user: User;
+};
