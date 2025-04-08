@@ -13,16 +13,23 @@ export default function DashboardAdminDetailDiscussionWrapper({
   id,
 }: DashboardAdminDetailDiscussionWrapperProps) {
   const { data: session, status } = useSession();
-  const { data } = useGetDetailDiscussion(id, session?.access_token as string, {
-    enabled: status === "authenticated",
-  });
+  const { data, isPending } = useGetDetailDiscussion(
+    id,
+    session?.access_token as string,
+    {
+      enabled: status === "authenticated",
+    },
+  );
   return (
     <div>
       <DashboardTitle
         head={data?.data.title ?? ""}
         body="Menampilkan detail topik disuksi beserta list diskusi dari topik"
       />
-      <CardListDiscussionComment data={data?.data.comments || []} />
+      <CardListDiscussionComment
+        data={data?.data.comments || []}
+        isLoading={isPending}
+      />
     </div>
   );
 }
