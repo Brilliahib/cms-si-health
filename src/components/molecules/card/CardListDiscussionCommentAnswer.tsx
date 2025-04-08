@@ -1,24 +1,30 @@
+import MessageDiscussionAnswer from "@/components/atoms/message/MessageDiscussionAnswer";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { BASE_URL } from "@/lib/url";
-import { DiscussionComment } from "@/types/discussions/discussion";
+import { DiscussionCommentAnswer } from "@/types/discussions/discussion";
 import { getAvatarColor } from "@/utils/generate-color-avatar";
 import { generateFallbackFromName } from "@/utils/generate-name";
 import { formatRelativeTime } from "@/utils/time-relative";
 import { MessagesSquare } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { useState } from "react";
 
-interface CardListDiscussionCommentProps {
-  data: DiscussionComment[];
+interface CardListDiscussionCommentAnswerProps {
+  data: DiscussionCommentAnswer[];
   isLoading: boolean;
+  id: string;
 }
 
-export default function CardListDiscussionComment({
+export default function CardListDiscussionCommentAnswer({
   data,
+  id,
   isLoading,
-}: CardListDiscussionCommentProps) {
+}: CardListDiscussionCommentAnswerProps) {
+  const [showReplyForm, setShowReplyForm] = useState(false);
+
   if (isLoading) {
     return (
       <div className="space-y-4">
@@ -44,21 +50,27 @@ export default function CardListDiscussionComment({
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      {data.length === 0 ? (
-        <div className="text-muted-foreground flex flex-col items-center justify-center gap-2 rounded-xl border border-dashed p-6 text-center">
-          <MessagesSquare className="h-10 w-10" />
-          <p className="text-sm">
-            Belum ada obrolan diskusi nih! Mulai diskusi yuk ✨
-          </p>
-        </div>
-      ) : (
-        data.map((comment) => (
-          <Link
-            key={comment.id}
-            href={`/dashboard/discussions/${comment.id}/answers`}
-          >
-            <Card className="shadow-none">
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-xl font-semibold">Balasan</h1>
+        <Button onClick={() => setShowReplyForm((prev) => !prev)}>
+          {showReplyForm ? "Tutup" : "Beri Balasan"}
+        </Button>
+      </div>
+
+      {showReplyForm && <MessageDiscussionAnswer id={id} />}
+
+      <div className="flex flex-col gap-4">
+        {data.length === 0 ? (
+          <div className="text-muted-foreground flex flex-col items-center justify-center gap-2 rounded-xl border border-dashed p-6 text-center">
+            <MessagesSquare className="h-10 w-10" />
+            <p className="text-sm">
+              Belum ada balasan diskusi nih! Mulai bales diskusinya yuk ✨
+            </p>
+          </div>
+        ) : (
+          data.map((comment) => (
+            <Card className="shadow-none" key={comment.id}>
               <CardContent>
                 <div className="space-y-4">
                   <div className="flex justify-between">
@@ -94,9 +106,9 @@ export default function CardListDiscussionComment({
                 </div>
               </CardContent>
             </Card>
-          </Link>
-        ))
-      )}
+          ))
+        )}
+      </div>
     </div>
   );
 }
