@@ -292,7 +292,7 @@ export function AppSidebar({ session }: AppSidebarProps) {
                   >
                     <Link href="/dashboard/guide">
                       <Info />
-                      <span>Panduan Screening</span>
+                      <span>Panduan Website</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
