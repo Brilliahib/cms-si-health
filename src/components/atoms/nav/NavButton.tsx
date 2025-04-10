@@ -26,12 +26,12 @@ export default function NavButton({ links }: NavHeaderProps) {
         ) : (
           <div className="flex items-center gap-4">
             <Link href="/login">
-              <Button variant={"outline"} size={"lg"}>
+              <Button variant={"outline"} size={"lg"} className="font-semibold">
                 Masuk
               </Button>
             </Link>
             <Link href="/register">
-              <Button variant={"default"} size={"lg"}>
+              <Button variant={"default"} size={"lg"} className="font-semibold">
                 Daftar
               </Button>
             </Link>

@@ -3,12 +3,12 @@ import Image from "next/image";
 
 export default function HomeJumbotron() {
   return (
-    <div className="flex min-h-screen items-center">
-      <div className="flex min-h-screen w-full flex-col items-center gap-16 lg:flex-row lg:items-center">
+    <div className="flex items-center md:min-h-screen">
+      <div className="flex w-full flex-col items-center gap-16 md:min-h-screen lg:flex-row lg:items-center">
         <div className="flex w-full flex-col gap-10 text-start md:text-center lg:w-1/2 lg:text-start">
-          <h1 className="font-paytone text-4xl leading-[72px] font-bold uppercase lg:-mt-24 lg:text-5xl">
+          <h1 className="font-paytone mt-12 text-3xl font-bold uppercase md:leading-[72px] lg:-mt-24 lg:text-5xl">
             <span>Platform Edukasi</span>
-            <span className="from-primary to-secondary inline-block bg-gradient-to-r bg-clip-text text-5xl text-transparent md:text-6xl">
+            <span className="from-primary to-secondary inline-block bg-gradient-to-r bg-clip-text text-4xl text-transparent md:text-6xl">
               Dialisis Connect Edu
             </span>
           </h1>
