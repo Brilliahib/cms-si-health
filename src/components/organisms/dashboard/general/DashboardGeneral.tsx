@@ -18,7 +18,7 @@ export default function DashboardGeneral() {
               width={1000}
               height={1000}
               loading="lazy"
-              className="rounded-xl md:max-w-[500px]"
+              className="rounded-xl md:max-w-[700px]"
             />
             <div className="text-justify">
               Penyakit ginjal kronis (PGK) adalah gangguan fungsi ginjal
@@ -34,17 +34,44 @@ export default function DashboardGeneral() {
               penanganan terapi pengganti ginjal seperti Hemodialisis atau
               Continuous Ambulatory Peritoneal Dialysis (CAPD).
             </div>
+            <div className="text-justify">
+              PGK seringkali berkembang secara perlahan dan tidak menunjukkan
+              gejala pada tahap awal, sehingga banyak penderita yang baru
+              mengetahui kondisi ini ketika sudah memasuki tahap lanjut. Gejala
+              umum yang dapat muncul antara lain kelelahan, pembengkakan di
+              tangan dan kaki, perubahan frekuensi buang air kecil, dan tekanan
+              darah tinggi. Faktor risiko utama dari PGK meliputi diabetes
+              melitus, hipertensi, riwayat penyakit ginjal dalam keluarga, serta
+              gaya hidup yang tidak sehat seperti merokok, konsumsi alkohol, dan
+              pola makan tinggi garam. Penting untuk melakukan skrining dan
+              pemeriksaan rutin, terutama bagi individu dengan risiko tinggi,
+              untuk mencegah progresivitas penyakit.
+            </div>
+            <div className="text-justify">
+              Penanganan PGK memerlukan pendekatan multidisiplin yang mencakup
+              pengelolaan penyakit penyerta, pengaturan pola makan rendah
+              protein dan garam, serta pemantauan fungsi ginjal secara berkala.
+              Pada tahap akhir, pasien PGK biasanya membutuhkan terapi pengganti
+              ginjal seperti hemodialisis yang dilakukan beberapa kali dalam
+              seminggu, CAPD yang dapat dilakukan secara mandiri di rumah, atau
+              transplantasi ginjal jika tersedia donor yang cocok. Pencegahan
+              dan edukasi masyarakat mengenai pentingnya menjaga kesehatan
+              ginjal, seperti dengan cukup minum air putih, menghindari
+              penggunaan obat-obatan tanpa resep secara berlebihan, serta
+              menjaga tekanan darah dan gula darah tetap stabil, merupakan
+              langkah krusial dalam menekan angka kejadian PGK di Indonesia.
+            </div>
           </div>
         </TabsContent>
         <TabsContent value="capd">
           <div className="space-y-4 text-justify">
             <Image
-              src={"/images/content/capd.jpg"}
+              src={"/images/content/capd.jpeg"}
               alt="CAPD"
               width={1000}
               height={1000}
               loading="lazy"
-              className="rounded-xl md:max-w-[500px]"
+              className="rounded-xl md:max-w-[700px]"
             />
             <div>
               Continuous Ambulatory Peritoneal Dialysis (CAPD) merupakan jenis
