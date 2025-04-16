@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  BadgeCheck,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  Home,
-  LogOut,
-} from "lucide-react";
+import { ChevronsUpDown, Home, LogOut } from "lucide-react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
@@ -93,24 +86,9 @@ export function NavUser({ session }: NavUserProps) {
               </Link>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Bell />
-                Notifications
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={() => signOut({ callbackUrl: "/" })}
-              className="cursor-pointer text-destructive focus:bg-destructive/20 focus:text-destructive"
+              className="text-destructive focus:bg-destructive/20 focus:text-destructive cursor-pointer"
             >
               <LogOut />
               Log out
