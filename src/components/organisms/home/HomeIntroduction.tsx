@@ -5,11 +5,13 @@ export default function HomeIntroduction() {
   return (
     <div className="space-y-12">
       <SectionTitle title="Penjelasan Secara Umum" />
-      <div className="grid w-full grid-cols-1 flex-wrap place-items-center items-center justify-center gap-10 md:grid-cols-2 lg:flex">
+      <div className="flex grid grid-cols-1 place-items-center items-center justify-center">
         <CardIntroduction
           title="Penyakit Ginjal Kronik"
           description="Penyakit ginjal kronik (PGK) adalah kondisi di mana kerusakan ginjal berlangsung lama dan mengurangi kemampuan ginjal untuk menyaring darah (LFG). Banyak pasien PGK tidak menunjukkan gejala hingga fungsi ginjal menurun di bawah 15%.(1) PGK bersifat progresif dan irreversible, sering memerlukan terapi penggantian ginjal seperti dialisis atau transplantasi. "
         />
+      </div>
+      <div className="flex grid grid-cols-1 place-items-center items-center justify-center gap-10 md:grid-cols-2">
         <CardIntroduction
           title="CAPD"
           description="Pada perawatan CAPD, pasien penyakit ginjal kronik dipasangkan kateter melalui sayatan kecil di bawah umbilikus. Pemasangan kateter CAPD dilakukan dengan cara memasukkan cairan dialisis dan mengeluarkan effluent, serta keberhasilan perawatan CAPD bergantung pada pencegahan infeksi, kelancaran aliran, dan ketiadaan kebocoran kateter. "
