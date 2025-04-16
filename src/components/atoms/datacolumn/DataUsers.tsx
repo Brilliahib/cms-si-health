@@ -29,18 +29,6 @@ export const usersColumns: ColumnDef<User>[] = [
     },
   },
   {
-    accessorKey: "email",
-    header: "Email",
-    cell: ({ row }) => {
-      const data = row.original;
-      return (
-        <p suppressHydrationWarning className="line-clamp-1 md:line-clamp-2">
-          {data.email}
-        </p>
-      );
-    },
-  },
-  {
     accessorKey: "created_at",
     header: "Tanggal Bergabung",
     cell: ({ row }) => {
