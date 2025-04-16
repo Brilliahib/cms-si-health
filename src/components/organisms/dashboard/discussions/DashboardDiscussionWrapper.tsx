@@ -1,5 +1,6 @@
 "use client";
 
+import MessageTopicDiscussion from "@/components/atoms/message/MessageTopicDiscussion";
 import CardListTopicDiscussion from "@/components/molecules/card/CardListTopicDiscussion";
 import { useGetAllDiscussion } from "@/http/discussions/get-all-discussions";
 import { useSession } from "next-auth/react";
@@ -14,6 +15,7 @@ export default function DashboardDiscussionWrapper() {
   );
   return (
     <div>
+      <MessageTopicDiscussion />
       <CardListTopicDiscussion data={data?.data || []} isLoading={isPending} />
     </div>
   );
