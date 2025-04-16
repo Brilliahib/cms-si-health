@@ -1,10 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { HistoryPreTest } from "@/types/test/pre-test";
 import { ClipboardPenLine, FileX2 } from "lucide-react";
@@ -68,9 +63,6 @@ export default function CardListHistoryPreTest({
                   <CardTitle className="text-md font-bold md:text-xl">
                     {preTestHistory.pre_test.name}
                   </CardTitle>
-                  <CardDescription className="text-muted-foreground line-clamp-2 text-sm">
-                    Nilai Skor: {preTestHistory.sum_score}
-                  </CardDescription>
                 </div>
               </CardHeader>
             </Card>

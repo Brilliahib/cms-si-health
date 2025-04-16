@@ -66,7 +66,6 @@ export default function CardListHistoryQuestion({
                       </span>
                       <span>{option.text}</span>
                       {isSelected && <Check className="ml-1 h-4 w-4" />}
-                      <span className="text-primary">+ {option.score}</span>
                     </div>
                   );
                 })}

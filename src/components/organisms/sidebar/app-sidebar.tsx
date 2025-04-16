@@ -118,42 +118,44 @@ export function AppSidebar({ session }: AppSidebarProps) {
 
         {!isCompleted ? null : (
           <>
-            {/* Menu utama */}
-            <SidebarGroup>
-              <SidebarGroupLabel>Menu Utama</SidebarGroupLabel>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  {session?.user.role === "admin" ? (
-                    <div></div>
-                  ) : (
-                    <>
-                      <SidebarMenuItem>
-                        <SidebarMenuButton
-                          asChild
-                          className={buttonClass("/dashboard/screening")}
-                        >
-                          <Link href="/dashboard/screening">
-                            <Search />
-                            <span>Screening</span>
-                          </Link>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                      <SidebarMenuItem>
-                        <SidebarMenuButton
-                          asChild
-                          className={buttonClass("/dashboard/modules")}
-                        >
-                          <Link href="/dashboard/modules">
-                            <NotebookText />
-                            <span>Modul Materi</span>
-                          </Link>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    </>
-                  )}
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
+            {session?.user.role !== "admin" && (
+              <>
+                {/* Menu utama */}
+                <SidebarGroup>
+                  <SidebarGroupLabel>Menu Utama</SidebarGroupLabel>
+                  <SidebarGroupContent>
+                    <SidebarMenu>
+                      {session?.user.role !== "admin" && (
+                        <>
+                          <SidebarMenuItem>
+                            <SidebarMenuButton
+                              asChild
+                              className={buttonClass("/dashboard/screening")}
+                            >
+                              <Link href="/dashboard/screening">
+                                <Search />
+                                <span>Screening</span>
+                              </Link>
+                            </SidebarMenuButton>
+                          </SidebarMenuItem>
+                          <SidebarMenuItem>
+                            <SidebarMenuButton
+                              asChild
+                              className={buttonClass("/dashboard/modules")}
+                            >
+                              <Link href="/dashboard/modules">
+                                <NotebookText />
+                                <span>Modul Materi</span>
+                              </Link>
+                            </SidebarMenuButton>
+                          </SidebarMenuItem>
+                        </>
+                      )}
+                    </SidebarMenu>
+                  </SidebarGroupContent>
+                </SidebarGroup>
+              </>
+            )}
 
             {/* Admin-only groups */}
             {session?.user.role === "admin" && (
