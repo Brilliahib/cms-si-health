@@ -4,6 +4,7 @@ import BreadcrumbNav from "@/components/atoms/breadcrumb/Breadcrumb";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import ClientDashboardWrapper from "@/components/organisms/client/ClientDashboardWrapper";
 
 export default async function DashboardLayout({
   children,
@@ -19,7 +20,12 @@ export default async function DashboardLayout({
       <AppSidebar session={session!} />
       <SidebarInset>
         <BreadcrumbNav />
-        <div className="px-5 py-20">{children}</div>
+        <ClientDashboardWrapper
+          accessToken={session.access_token}
+          role={session.user.role}
+        >
+          <div className="px-5 py-20">{children}</div>
+        </ClientDashboardWrapper>
       </SidebarInset>
     </SidebarProvider>
   );

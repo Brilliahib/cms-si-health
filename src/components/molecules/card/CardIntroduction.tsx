@@ -10,7 +10,7 @@ export default function CardIntroduction({
   description,
 }: CardIntroductionProps) {
   return (
-    <div className="bg-card text-card-foreground relative flex w-full max-w-[26rem] flex-col justify-between overflow-hidden rounded-xl shadow-xl">
+    <div className="bg-card text-card-foreground relative flex w-full max-w-[40rem] flex-col justify-between overflow-hidden rounded-xl shadow-xl">
       <div className="z-10 flex flex-col space-y-5 p-6">
         <div className="from-primary to-secondary relative flex min-h-36 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-tr p-5">
           <h3 className="text-2xl font-bold tracking-tight break-words text-white">

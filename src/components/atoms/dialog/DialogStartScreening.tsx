@@ -57,7 +57,7 @@ export default function DialogStartScreening({
           </ul>
         </div>
         <DialogFooter>
-          <Link href={`/work/screening/${id}/personal`}>
+          <Link href={`/work/screening/${id}`}>
             <Button>Kerjakan Sekarang</Button>
           </Link>
         </DialogFooter>

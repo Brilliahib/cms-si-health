@@ -35,21 +35,13 @@ import {
   PersonalInformationType,
 } from "@/validators/personal-information/personal-information-validator";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-interface FormCreatePersonalInformationProps {
-  id: string;
-}
-
-export default function FormCreatePersonalInformation({
-  id,
-}: FormCreatePersonalInformationProps) {
-  const router = useRouter();
-
+export default function FormCreatePersonalInformation() {
   const form = useForm<PersonalInformationType>({
     resolver: zodResolver(personalInformationSchema),
     defaultValues: {
@@ -68,16 +60,18 @@ export default function FormCreatePersonalInformation({
     mode: "onChange",
   });
 
+  const queryClient = useQueryClient();
+
   const { mutate: addNewQuestionTalkHandler, isPending } =
     useAddNewPersonalInformation({
       onError: () => {
         toast.error("Gagal mengisi informasi pribadi!");
       },
       onSuccess: () => {
-        toast.success(
-          "Berhasil mengisi informasi pribadi! Anda akan diarahkan untuk mengisi screening",
-        );
-        router.push(`/work/screening/${id}`);
+        toast.success("Berhasil mengisi informasi pribadi!");
+        queryClient.invalidateQueries({
+          queryKey: ["check-personal-information"],
+        });
       },
     });
 
