@@ -1,10 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { HistoryPostTest } from "@/types/test/post-test";
 import { ClipboardPenLine, FileX2 } from "lucide-react";
@@ -68,9 +63,6 @@ export default function CardListHistoryPostTest({
                   <CardTitle className="text-md font-bold md:text-xl">
                     {postTestHistory.post_test.name}
                   </CardTitle>
-                  <CardDescription className="text-muted-foreground line-clamp-2 text-sm">
-                    Nilai Skor: {postTestHistory.sum_score}
-                  </CardDescription>
                 </div>
               </CardHeader>
             </Card>

@@ -46,24 +46,31 @@ export default function FormAuthRegister() {
 
   const router = useRouter();
 
+  const errorMessages: Record<string, string> = {
+    email: "Email sudah digunakan.",
+    username: "Username sudah digunakan.",
+    phone_number: "Nomor telepon sudah digunakan.",
+  };
+
   const { mutate: registerRequestHandler, isPending } = useRegister({
     onError: (error) => {
-      const errors = error.response?.data;
-
-      if (errors) {
-        Object.keys(errors).forEach((k) => {
-          form.setError(k as keyof RegisterType, {
-            type: "manual",
-            message: errors[k][0],
-          });
+      const errors = error.response?.data?.errors;
+      if (errors && typeof errors === "object") {
+        Object.entries(errors).forEach(([key, value]) => {
+          if (Array.isArray(value)) {
+            const translatedMessage = errorMessages[key] || value[0];
+            form.setError(key as keyof RegisterType, {
+              type: "manual",
+              message: translatedMessage,
+            });
+          }
+        });
+      } else {
+        toast.error("Pendaftaran Gagal", {
+          description: "Terjadi kesalahan, silakan periksa kembali data Anda.",
         });
       }
-
-      toast.error("Register Failed", {
-        description: "Check again the data you entered.",
-      });
     },
-
     onSuccess: async () => {
       const res = await signIn("credentials", {
         login: form.getValues("email"),
