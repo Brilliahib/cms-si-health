@@ -27,23 +27,32 @@ export default function CardListDiscussionCommentAnswer({
 
   if (isLoading) {
     return (
-      <div className="space-y-4">
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <Skeleton className="h-6 w-32" /> {/* Judul "Balasan" */}
+          <Skeleton className="h-8 w-24 rounded-md" />{" "}
+          {/* Tombol "Beri Balasan" */}
+        </div>
+
         {[...Array(3)].map((_, i) => (
-          <Card key={i} className="shadow-none">
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                  <Skeleton className="h-10 w-10 rounded-full" />
-                  <div className="space-y-1">
-                    <Skeleton className="h-4 w-32" />
-                    <Skeleton className="h-3 w-24" />
-                  </div>
-                </div>
-                <Skeleton className="h-48 w-full rounded-xl md:max-w-2xl" />
-                <Skeleton className="h-4 w-full" />
+          <div className="flex w-full gap-3 space-y-4" key={i}>
+            <div className="flex justify-between">
+              <div className="flex gap-2">
+                <Skeleton className="h-10 w-10 rounded-full" />
               </div>
-            </CardContent>
-          </Card>
+            </div>
+            <div className="w-full space-y-2">
+              <Card className="bg-muted w-fit border-0 p-2 shadow-none">
+                <CardContent className="space-y-4 px-3 py-2">
+                  <Skeleton className="h-4 w-32" /> {/* Nama user */}
+                  <Skeleton className="h-48 w-full rounded-xl md:max-w-xs" />{" "}
+                  {/* Gambar */}
+                  <Skeleton className="h-4 w-64" /> {/* Komentar */}
+                </CardContent>
+              </Card>
+              <Skeleton className="h-3 w-24" /> {/* Waktu */}
+            </div>
+          </div>
         ))}
       </div>
     );
@@ -60,7 +69,7 @@ export default function CardListDiscussionCommentAnswer({
 
       {showReplyForm && <MessageDiscussionAnswer id={id} />}
 
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-6">
         {data.length === 0 ? (
           <div className="text-muted-foreground flex flex-col items-center justify-center gap-2 rounded-xl border border-dashed p-6 text-center">
             <MessagesSquare className="h-10 w-10" />
@@ -70,42 +79,45 @@ export default function CardListDiscussionCommentAnswer({
           </div>
         ) : (
           data.map((comment) => (
-            <Card className="shadow-none" key={comment.id}>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex justify-between">
-                    <div className="flex items-center gap-2">
-                      <Avatar className="h-10 w-10 rounded-full">
-                        <AvatarFallback
-                          className={`${getAvatarColor(
-                            comment.user.id,
-                          )} rounded-full text-xs font-semibold text-white`}
-                        >
-                          {generateFallbackFromName(comment.user.name)}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <h1>{comment.user.name}</h1>
-                        <p className="text-muted-foreground text-sm">
-                          {formatRelativeTime(comment.created_at)}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {comment.image_path && (
-                    <Image
-                      src={`${BASE_URL}/storage/${comment.image_path}`}
-                      alt="Foto"
-                      width={1000}
-                      height={1000}
-                      className="rounded-xl md:max-w-2xl"
-                    />
-                  )}
-                  <h1>{comment.comment}</h1>
+            <div className="flex w-full gap-3 space-y-4" key={comment.id}>
+              <div className="flex justify-between">
+                <div className="flex gap-2">
+                  <Avatar className="h-10 w-10 rounded-full">
+                    <AvatarFallback
+                      className={`${getAvatarColor(
+                        comment.user.id,
+                      )} rounded-full text-xs font-semibold text-white`}
+                    >
+                      {generateFallbackFromName(comment.user.name)}
+                    </AvatarFallback>
+                  </Avatar>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+              <div className="w-full space-y-2">
+                <Card className="bg-muted w-fit border-0 p-2 shadow-none">
+                  <CardContent className="px-3 py-2">
+                    <div className="md:mb-1">
+                      <h1 className="font-semibold">{comment.user.name}</h1>
+                    </div>
+                    <div className="space-y-4">
+                      {comment.image_path && (
+                        <Image
+                          src={`${BASE_URL}/storage/${comment.image_path}`}
+                          alt="Foto"
+                          width={1000}
+                          height={1000}
+                          className="mt-3 rounded-xl md:max-w-xs"
+                        />
+                      )}
+                      <h1>{comment.comment}</h1>
+                    </div>
+                  </CardContent>
+                </Card>
+                <p className="text-muted-foreground text-sm">
+                  {formatRelativeTime(comment.created_at)}
+                </p>
+              </div>
+            </div>
           ))
         )}
       </div>
