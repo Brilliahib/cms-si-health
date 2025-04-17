@@ -65,7 +65,9 @@ export default function CardListHistoryQuestionScreening({
                         {optionLabels[idx] || String.fromCharCode(65 + idx)}.
                       </span>
                       <span>{option.text}</span>
-                      {isSelected && <Check className="ml-1 h-4 w-4" />}
+                      {isSelected && (
+                        <Check className="ml-1 h-4 w-4 flex-shrink-0" />
+                      )}
                     </div>
                   );
                 })}
