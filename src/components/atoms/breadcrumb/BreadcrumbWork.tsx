@@ -3,46 +3,60 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { TesDetail } from "@/types/test/test-detail";
-import { useSidebar } from "@/components/ui/sidebar";
-import { Check, LayoutGrid } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
+import { Progress } from "@/components/ui/progress";
 
 interface BreadcrumNavWorkProps {
   data?: TesDetail;
-  onFinish: () => void;
+  onBack: () => void;
+  currentIndex: number;
+  totalQuestions: number;
 }
 
 export default function BreadcrumbNavWork({
   data,
-  onFinish,
+  onBack,
+  currentIndex,
+  totalQuestions,
 }: BreadcrumNavWorkProps) {
-  const { toggleSidebar } = useSidebar();
-  return (
-    <nav className="bg-sidebar fixed z-50 flex h-16 w-full items-center border-b px-6 backdrop-blur dark:bg-slate-950/50">
-      <div className="flex w-full items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-2">
-            <Image
-              src="/images/logo/undip.png"
-              alt="Sistem Informasi Kesehatan Ginjal"
-              width={30}
-              height={30}
-            />
-          </div>
-          <h1 className="font-semibold capitalize">{data?.name}</h1>
-        </div>
+  const progressPercent =
+    totalQuestions > 0 ? ((currentIndex + 1) / totalQuestions) * 100 : 0;
 
-        <div className="space-x-2">
-          <Button size="lg" onClick={onFinish}>
-            <Check className="h-5 w-5" />
-            <span className="ml-2 hidden md:inline">Selesai</span>
-          </Button>
-          <Button size="lg" variant="secondary" onClick={() => toggleSidebar()}>
-            <LayoutGrid className="h-5 w-5" />
-            <span className="ml-2 hidden md:inline">Daftar Soal</span>
-          </Button>
+  return (
+    <>
+      <nav className="fixed z-50 flex w-full items-center py-2 backdrop-blur dark:bg-slate-950/50">
+        <div className="pad-x-xl w-full space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              {onBack && (
+                <Button variant="ghost" size="icon" onClick={onBack}>
+                  <ArrowLeft className="h-5 w-5" />
+                </Button>
+              )}
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Image
+                src="/images/logo/undip.png"
+                alt="Sistem Informasi Kesehatan Ginjal"
+                width={30}
+                height={30}
+              />
+              <h1 className="font-semibold uppercase">{data?.name}</h1>
+            </div>
+
+            <div>
+              <span className="text-muted-foreground text-sm font-medium">
+                {currentIndex + 1} / {totalQuestions}
+              </span>
+            </div>
+          </div>
+          <div>
+            <Progress value={progressPercent} className="w-full" />
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 }

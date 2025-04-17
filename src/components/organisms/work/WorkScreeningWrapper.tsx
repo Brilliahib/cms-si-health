@@ -1,7 +1,6 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { AppSidebarWork } from "../sidebar/app-sidebar-work";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { useEffect, useState } from "react";
 import BreadcrumbNavWork from "@/components/atoms/breadcrumb/BreadcrumbWork";
@@ -12,12 +11,11 @@ import DialogConfirmSubmit from "@/components/atoms/dialog/DialogConfirmSubmitPr
 import { useGetDetailScreening } from "@/http/screening/get-detail-screening";
 import { useAddSubmitScreening } from "@/http/screening/submit-screening";
 import { SubmitScreening } from "@/types/screening/screening";
+import { Button } from "@/components/ui/button";
 
 interface WorkScreeningProps {
   id: string;
 }
-
-const OPTION_LABELS = ["A", "B", "C", "D", "E", "F"];
 
 export default function WorkScreeningWrapper({ id }: WorkScreeningProps) {
   const { data: session, status } = useSession();
@@ -64,9 +62,18 @@ export default function WorkScreeningWrapper({ id }: WorkScreeningProps) {
       <SidebarProvider>
         <SidebarInset>
           {data?.data && (
-            <BreadcrumbNavWork data={data.data} onFinish={openConfirmDialog} />
+            <BreadcrumbNavWork
+              data={data.data}
+              onBack={() => {
+                if (selectedQuestionIndex > 0) {
+                  setSelectedQuestionIndex((prev) => prev - 1);
+                }
+              }}
+              currentIndex={selectedQuestionIndex}
+              totalQuestions={data.data.questions.length}
+            />
           )}
-          <div className="p-6 py-20">
+          <div className="pad-x-xl pt-28">
             {isLoading ? (
               <div className="space-y-4">
                 <Skeleton className="h-6 w-1/3" />
@@ -79,59 +86,65 @@ export default function WorkScreeningWrapper({ id }: WorkScreeningProps) {
               </div>
             ) : questions.length > 0 ? (
               <div className="space-y-4">
-                <h1 className="text-xl font-semibold">
-                  Soal No. {selectedQuestionIndex + 1}
-                </h1>
-                <p>{questions[selectedQuestionIndex].question_text}</p>
+                <p className="text-xl font-semibold capitalize">
+                  {questions[selectedQuestionIndex].question_text}
+                </p>
 
                 <ul className="space-y-3">
-                  {questions[selectedQuestionIndex].options.map(
-                    (option, index) => {
-                      const isSelected = answers.find(
-                        (ans) =>
-                          ans.question_id ===
-                            questions[selectedQuestionIndex].id &&
-                          ans.selected_option_id === option.id,
-                      );
+                  {questions[selectedQuestionIndex].options.map((option) => {
+                    const isSelected = answers.find(
+                      (ans) =>
+                        ans.question_id ===
+                          questions[selectedQuestionIndex].id &&
+                        ans.selected_option_id === option.id,
+                    );
 
-                      return (
-                        <li
-                          key={option.id}
-                          className={`border-primary hover:bg-muted cursor-pointer rounded-md border px-3 py-2 ${
-                            isSelected
-                              ? "bg-primary hover:bg-primary text-white"
-                              : ""
-                          }`}
-                          onClick={() => {
-                            const updated = [...answers];
-                            const existingIndex = updated.findIndex(
-                              (a) =>
-                                a.question_id ===
-                                questions[selectedQuestionIndex].id,
-                            );
+                    return (
+                      <li
+                        key={option.id}
+                        className={`bg-muted hover:bg-primary/10 cursor-pointer rounded-md p-3 font-semibold capitalize hover:text-black ${
+                          isSelected
+                            ? "bg-primary/10 hover:bg-primary/10 border-primary border text-black"
+                            : "text-muted-foreground"
+                        }`}
+                        onClick={() => {
+                          const updated = [...answers];
+                          const existingIndex = updated.findIndex(
+                            (a) =>
+                              a.question_id ===
+                              questions[selectedQuestionIndex].id,
+                          );
 
-                            if (existingIndex !== -1) {
-                              updated[existingIndex].selected_option_id =
-                                option.id;
-                            } else {
-                              updated.push({
-                                question_id:
-                                  questions[selectedQuestionIndex].id,
-                                selected_option_id: option.id,
-                              });
-                            }
-                            setAnswers(updated);
-                          }}
-                        >
-                          <span className="mr-2 font-semibold">
-                            {OPTION_LABELS[index]}.
-                          </span>
-                          {option.option_text}
-                        </li>
-                      );
-                    },
-                  )}
+                          if (existingIndex !== -1) {
+                            updated[existingIndex].selected_option_id =
+                              option.id;
+                          } else {
+                            updated.push({
+                              question_id: questions[selectedQuestionIndex].id,
+                              selected_option_id: option.id,
+                            });
+                          }
+
+                          setAnswers(updated);
+
+                          if (selectedQuestionIndex < questions.length - 1) {
+                            setSelectedQuestionIndex((prev) => prev + 1);
+                          }
+                        }}
+                      >
+                        {option.option_text}
+                      </li>
+                    );
+                  })}
                 </ul>
+                {selectedQuestionIndex === questions.length - 1 &&
+                  answers.length === questions.length && (
+                    <div className="pt-4">
+                      <Button onClick={openConfirmDialog} className="w-full">
+                        Selesai
+                      </Button>
+                    </div>
+                  )}
               </div>
             ) : (
               <div className="space-y-4">
@@ -146,13 +159,6 @@ export default function WorkScreeningWrapper({ id }: WorkScreeningProps) {
             )}
           </div>
         </SidebarInset>
-
-        <AppSidebarWork
-          data={data?.data}
-          isLoading={isLoading || !data?.data}
-          selectedIndex={selectedQuestionIndex}
-          onSelect={(index) => setSelectedQuestionIndex(index)}
-        />
       </SidebarProvider>
       <DialogConfirmSubmit
         open={isConfirmDialogOpen}
