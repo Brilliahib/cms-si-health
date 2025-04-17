@@ -1,10 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import DashboardTitle from "@/components/atoms/typography/DashboardTitle";
 import CardListModuleContent from "@/components/molecules/card/CardListModuleContent";
 import CardListPreTest from "@/components/molecules/card/CardListPreTest";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGetDetailSubModule } from "@/http/sub-modules/get-detail-sub-module";
 import { useGetAllPreTestBySubModule } from "@/http/test/get-pre-test-by-submodule";
 import { useSession } from "next-auth/react";
@@ -19,24 +17,23 @@ export default function DashboardSubModulesWrapper({
   id,
 }: DashboardSubModulesWrapper) {
   const { data: session, status } = useSession();
-  const [activeTab, setActiveTab] = useState("module-contents");
 
   const { data, isPending } = useGetDetailSubModule(
     id,
     session?.access_token as string,
     {
-      enabled: status === "authenticated" && activeTab !== "pre-test",
+      enabled: status === "authenticated",
     },
   );
 
   const { data: preTest, isPending: preTestIsPending } =
     useGetAllPreTestBySubModule(id, session?.access_token as string, {
-      enabled: status === "authenticated" && activeTab === "pre-test",
+      enabled: status === "authenticated",
     });
 
   const { data: postTest, isPending: postTestIsPending } =
     useGetAllPostTestBySubModule(id, session?.access_token as string, {
-      enabled: status === "authenticated" && activeTab === "post-test",
+      enabled: status === "authenticated",
     });
 
   return (
@@ -45,35 +42,20 @@ export default function DashboardSubModulesWrapper({
         head={data?.data.name ?? "Detail Sub Materi"}
         body={`Menampilkan detail sub materi dari ${data?.data.name ?? ""}`}
       />
-      <Tabs
-        defaultValue="module-contents"
-        onValueChange={setActiveTab}
-        className="w-full"
-      >
-        <TabsList className="mb-4 grid w-full max-w-sm grid-cols-3">
-          <TabsTrigger value="pre-test">Pre Test</TabsTrigger>
-          <TabsTrigger value="module-contents">Booklet Materi</TabsTrigger>
-          <TabsTrigger value="post-test">Post Test</TabsTrigger>
-        </TabsList>
-        <TabsContent value="pre-test">
-          <CardListPreTest
-            data={preTest?.data || []}
-            isLoading={preTestIsPending}
-          />
-        </TabsContent>
-        <TabsContent value="module-contents">
-          <CardListModuleContent
-            data={data?.data.module_contents}
-            isLoading={isPending}
-          />
-        </TabsContent>
-        <TabsContent value="post-test">
-          <CardListPostTest
-            data={postTest?.data || []}
-            isLoading={postTestIsPending}
-          />
-        </TabsContent>
-      </Tabs>
+      <div className="space-y-4">
+        <CardListPreTest
+          data={preTest?.data || []}
+          isLoading={preTestIsPending}
+        />
+        <CardListModuleContent
+          data={data?.data.module_contents}
+          isLoading={isPending}
+        />
+        <CardListPostTest
+          data={postTest?.data || []}
+          isLoading={postTestIsPending}
+        />
+      </div>
     </div>
   );
 }

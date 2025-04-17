@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PreTest } from "@/types/test/pre-test";
-import { ClipboardPen, FileX2 } from "lucide-react";
+import { ClipboardPen } from "lucide-react";
 import { useState } from "react";
 
 interface CardListPreTestProps {
@@ -41,18 +41,9 @@ export default function CardListPreTest({
   if (isLoading) {
     return (
       <div className="space-y-4">
-        {Array.from({ length: 4 }).map((_, i) => (
+        {Array.from({ length: 1 }).map((_, i) => (
           <PreTestSkeleton key={i} />
         ))}
-      </div>
-    );
-  }
-
-  if (!data || data.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center space-y-4 py-10 text-center">
-        <FileX2 className="text-muted-foreground h-16 w-16" />
-        <p className="text-muted-foreground">Data belum ada.</p>
       </div>
     );
   }

@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ModuleContent } from "@/types/modules/modules";
-import { Book, FileX2 } from "lucide-react";
+import { Book } from "lucide-react";
 import Link from "next/link";
 
 interface CardListModuleContentProps {
@@ -35,18 +35,9 @@ export default function CardListModuleContent({
   if (isLoading) {
     return (
       <div className="space-y-4">
-        {Array.from({ length: 4 }).map((_, i) => (
+        {Array.from({ length: 1 }).map((_, i) => (
           <SubModuleSkeleton key={i} />
         ))}
-      </div>
-    );
-  }
-
-  if (!data || data.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center space-y-4 py-10 text-center">
-        <FileX2 className="text-muted-foreground h-16 w-16" />
-        <p className="text-muted-foreground">Data belum ada.</p>
       </div>
     );
   }
