@@ -1,4 +1,5 @@
 import { SubModules } from "../modules/modules";
+import { User } from "../user/user";
 
 export type PostTest = {
   id: string;
@@ -15,6 +16,7 @@ export type HistoryPostTest = {
   sum_score: number;
   created_at: Date;
   post_test: PostTest;
+  user: User;
 };
 
 export type SubmitPostTest = {
@@ -46,4 +48,5 @@ export type HistoryPostTestDetail = {
   sum_score: number;
   created_at: Date;
   answer: HistoryQuestionAnswer[];
+  user: User;
 };

@@ -1,4 +1,5 @@
 import { SubModules } from "../modules/modules";
+import { User } from "../user/user";
 
 export type PreTest = {
   id: string;
@@ -20,6 +21,7 @@ export type HistoryPreTest = {
   sum_score: number;
   created_at: Date;
   pre_test: PreTest;
+  user: User;
 };
 
 export type HistoryOptionAnswer = {
@@ -46,4 +48,5 @@ export type HistoryPreTestDetail = {
   sum_score: number;
   created_at: Date;
   answer: HistoryQuestionAnswer[];
+  user: User;
 };

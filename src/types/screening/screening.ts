@@ -1,4 +1,5 @@
 import { Question } from "../questions/question";
+import { User } from "../user/user";
 
 export type Screening = {
   id: string;
@@ -23,6 +24,7 @@ export type HistoryScreening = {
   id: string;
   created_at: Date;
   screening: Screening;
+  user: User;
 };
 
 export type HistoryOptionAnswer = {
@@ -49,4 +51,5 @@ export type HistoryScreeningDetail = {
   sum_score: number;
   created_at: Date;
   answer: HistoryQuestionAnswer[];
+  user: User;
 };
