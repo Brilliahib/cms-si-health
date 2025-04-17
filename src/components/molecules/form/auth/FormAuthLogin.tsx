@@ -42,10 +42,10 @@ export default function FormAuthLogin() {
     setIsLoading(false);
 
     if (!res || res.error) {
-      toast.error("Login Failed", {
+      toast.error("Login Gagal", {
         description:
           res?.error === "CredentialsSignin"
-            ? "Email or password is wrong."
+            ? "Email atau password salah."
             : "An error occurred, please try again.",
       });
       return;
