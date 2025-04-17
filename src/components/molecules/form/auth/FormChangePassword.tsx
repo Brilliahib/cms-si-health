@@ -28,16 +28,17 @@ export default function FormChangePassword() {
     defaultValues: {
       current_password: "",
       new_password: "",
+      new_password_confirmation: "",
     },
     mode: "onChange",
   });
 
   const { mutate: changePasswordHandler, isPending } = useChangePassword({
     onError: () => {
-      toast.error("Gagal mengupdate akun!");
+      toast.error("Gagal mengganti password baru!");
     },
     onSuccess: () => {
-      toast.success("Berhasil mengupdate akun!");
+      toast.success("Berhasil mengganti password baru!");
       router.refresh();
     },
   });
@@ -81,6 +82,27 @@ export default function FormChangePassword() {
                   <Input
                     type="password"
                     placeholder="Masukkan password baru"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="new_password_confirmation"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  Konfirmasi Password Baru{" "}
+                  <span className="text-red-500">*</span>
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="Masukkan konfirmasi password baru"
                     {...field}
                   />
                 </FormControl>
