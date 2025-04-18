@@ -13,7 +13,8 @@ export default function ClientDashboardWrapper({
   role: string;
   children: ReactNode;
 }) {
-  const shouldCheckPersonalInfo = role !== "admin";
+  const shouldCheckPersonalInfo =
+    role !== "admin" && role !== "medical_personal";
 
   const { data, isLoading } = useGetCheckPersonalInformation(accessToken, {
     enabled: !!accessToken && shouldCheckPersonalInfo,

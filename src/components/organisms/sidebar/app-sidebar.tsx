@@ -57,7 +57,8 @@ export function AppSidebar({ session }: AppSidebarProps) {
   );
 
   const isCompleted =
-    session?.user.role === "admin" ? true : (data?.data.is_completed ?? false);
+    ["admin", "medical_personal"].includes(session?.user.role) ||
+    (data?.data.is_completed ?? false);
 
   return (
     <Sidebar>
@@ -118,14 +119,14 @@ export function AppSidebar({ session }: AppSidebarProps) {
 
         {!isCompleted ? null : (
           <>
-            {session?.user.role !== "admin" && (
+            {session?.user.role === "user" && (
               <>
                 {/* Menu utama */}
                 <SidebarGroup>
                   <SidebarGroupLabel>Menu Utama</SidebarGroupLabel>
                   <SidebarGroupContent>
                     <SidebarMenu>
-                      {session?.user.role !== "admin" && (
+                      {session?.user.role === "user" && (
                         <>
                           <SidebarMenuItem>
                             <SidebarMenuButton
@@ -283,8 +284,32 @@ export function AppSidebar({ session }: AppSidebarProps) {
               </>
             )}
 
-            {/* Untuk role selain admin */}
-            {session?.user.role !== "admin" && (
+            {/* Medical personal groups */}
+            {session?.user.role === "medical_personal" && (
+              <>
+                <SidebarGroup>
+                  <SidebarGroupLabel>Diskusi</SidebarGroupLabel>
+                  <SidebarGroupContent>
+                    <SidebarMenu>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton
+                          asChild
+                          className={buttonClass("/dashboard/discussions")}
+                        >
+                          <Link href="/dashboard/discussions">
+                            <Users />
+                            <span>Forum Komunitas</span>
+                          </Link>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    </SidebarMenu>
+                  </SidebarGroupContent>
+                </SidebarGroup>
+              </>
+            )}
+
+            {/* Untuk role user */}
+            {session?.user.role === "user" && (
               <SidebarGroup>
                 <SidebarGroupLabel>Informasi</SidebarGroupLabel>
                 <SidebarGroupContent>
@@ -316,7 +341,7 @@ export function AppSidebar({ session }: AppSidebarProps) {
               </SidebarGroup>
             )}
 
-            {session?.user.role !== "admin" && (
+            {session?.user.role === "user" && (
               <SidebarGroup>
                 <SidebarGroupLabel>Diskusi</SidebarGroupLabel>
                 <SidebarGroupContent>
