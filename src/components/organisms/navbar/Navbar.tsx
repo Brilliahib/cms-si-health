@@ -20,7 +20,7 @@ export default function Navbar() {
   const links = useMemo(
     () => [
       {
-        href: "#",
+        href: "/about-us",
         label: "Tentang Kami",
         active: pathname.startsWith("/woman"),
       },
