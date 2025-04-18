@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function HomeScreeningInvitation() {
   return (
@@ -18,7 +19,9 @@ export default function HomeScreeningInvitation() {
                 doloremque animi neque repellat quisquam vitae provident quod
                 excepturi beatae repudiandae unde?
               </p>
-              <Button className="md:max-w-[200px]">Mulai Sekarang</Button>
+              <Link href={"/dashboard/screening"} className="w-full">
+                <Button className="md:max-w-[200px]">Mulai Sekarang</Button>
+              </Link>
             </div>
           </div>
           <div className="flex justify-center lg:w-1/2">

@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function CardComunity() {
   return (
@@ -13,12 +14,14 @@ export default function CardComunity() {
               <p className="text-center text-lg text-white">
                 Berbagi pengalaman dan Saling Bertanya!
               </p>
-              <Button
-                className="text-primary hover:text-primary bg-white text-base font-semibold hover:bg-white"
-                size={"lg"}
-              >
-                Bergabung Sekarang
-              </Button>
+              <Link href={"/dashboard/discussions"}>
+                <Button
+                  className="text-primary hover:text-primary bg-white text-base font-semibold hover:bg-white"
+                  size={"lg"}
+                >
+                  Bergabung Sekarang
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

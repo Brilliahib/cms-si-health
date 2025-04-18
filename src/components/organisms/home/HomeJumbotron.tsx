@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function HomeJumbotron() {
   return (
@@ -20,9 +21,11 @@ export default function HomeJumbotron() {
             pengetahuan, dan kepatuhan dalam perawatan gagal ginjal kronis.
           </p>
           <div>
-            <Button size={"lg"} className="min-w-[200px]">
-              Coba Sekarang
-            </Button>
+            <Link href={"/dashboard"}>
+              <Button size={"lg"} className="min-w-[200px]">
+                Coba Sekarang
+              </Button>
+            </Link>
           </div>
         </div>
         <div className="hidden w-full md:block lg:w-1/2">
