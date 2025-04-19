@@ -45,7 +45,7 @@ export default function CardListHistoryPreTest({
   }
 
   return (
-    <div>
+    <div className="space-y-4">
       {data?.map((preTestHistory) => (
         <Link
           href={`/dashboard/history/pre-test/${preTestHistory.id}`}
