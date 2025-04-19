@@ -20,6 +20,11 @@ export default function DashboardSubModulesWrapper({
 }: DashboardSubModulesWrapper) {
   const { data: session, status } = useSession();
 
+  const { data: preTest, isPending: preTestIsPending } =
+    useGetAllPreTestBySubModule(id, session?.access_token as string, {
+      enabled: status === "authenticated",
+    });
+
   const { data, isPending } = useGetDetailSubModule(
     id,
     session?.access_token as string,
@@ -27,11 +32,6 @@ export default function DashboardSubModulesWrapper({
       enabled: status === "authenticated",
     },
   );
-
-  const { data: preTest, isPending: preTestIsPending } =
-    useGetAllPreTestBySubModule(id, session?.access_token as string, {
-      enabled: status === "authenticated",
-    });
 
   const { data: postTest, isPending: postTestIsPending } =
     useGetAllPostTestBySubModule(id, session?.access_token as string, {
@@ -52,6 +52,9 @@ export default function DashboardSubModulesWrapper({
     },
   );
 
+  const isPreTestCompleted =
+    (historyPreTest?.data && historyPreTest.data.length > 0) ?? false;
+
   return (
     <div>
       <DashboardTitle
@@ -67,11 +70,13 @@ export default function DashboardSubModulesWrapper({
         <CardListModuleContent
           data={data?.data.module_contents}
           isLoading={isPending}
+          isLocked={!isPreTestCompleted}
         />
         <CardListPostTest
           data={postTest?.data || []}
           isLoading={postTestIsPending}
           history={HistoryPostTest?.data || []}
+          isLocked={!isPreTestCompleted}
         />
       </div>
     </div>

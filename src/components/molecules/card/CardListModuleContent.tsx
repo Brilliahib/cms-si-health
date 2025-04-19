@@ -4,12 +4,13 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ModuleContent } from "@/types/modules/modules";
-import { Book } from "lucide-react";
+import { Book, Lock } from "lucide-react";
 import Link from "next/link";
 
 interface CardListModuleContentProps {
   data?: ModuleContent[];
   isLoading?: boolean;
+  isLocked?: boolean;
 }
 
 function SubModuleSkeleton() {
@@ -31,6 +32,7 @@ function SubModuleSkeleton() {
 export default function CardListModuleContent({
   data,
   isLoading,
+  isLocked = false,
 }: CardListModuleContentProps) {
   if (isLoading) {
     return (
@@ -44,14 +46,14 @@ export default function CardListModuleContent({
 
   return (
     <div className="space-y-4">
-      {data?.map((moduleContent) => (
-        <Link
-          key={moduleContent.id}
-          href={`/dashboard/modules/booklet/${moduleContent.id}`}
-          className="group block"
-        >
+      {data?.map((moduleContent) => {
+        const content = (
           <div className="flex flex-row gap-6">
-            <div className="group-hover:bg-secondary bg-primary relative hidden aspect-video h-36 w-36 items-center justify-center rounded-lg md:flex">
+            <div
+              className={`${
+                isLocked ? "bg-gray-300" : "group-hover:bg-secondary bg-primary"
+              } relative hidden aspect-video h-36 w-36 items-center justify-center rounded-lg md:flex`}
+            >
               <Book className="text-background m-auto h-12 w-12" />
             </div>
             <Card className="border-muted group-hover:bg-muted w-full border-2 shadow-transparent">
@@ -63,12 +65,35 @@ export default function CardListModuleContent({
                   <CardTitle className="text-md font-bold md:text-xl">
                     {moduleContent.name}
                   </CardTitle>
+                  {isLocked && (
+                    <div className="text-muted-foreground flex items-center gap-2 text-sm font-medium">
+                      <Lock className="text-muted-foreground h-4 w-4" />{" "}
+                      Kerjakan Pre Test terlebih dahulu
+                    </div>
+                  )}
                 </div>
               </CardHeader>
             </Card>
           </div>
-        </Link>
-      ))}
+        );
+
+        return isLocked ? (
+          <div
+            key={moduleContent.id}
+            className="group block cursor-not-allowed opacity-70"
+          >
+            {content}
+          </div>
+        ) : (
+          <Link
+            key={moduleContent.id}
+            href={`/dashboard/modules/booklet/${moduleContent.id}`}
+            className="group block"
+          >
+            {content}
+          </Link>
+        );
+      })}
     </div>
   );
 }
