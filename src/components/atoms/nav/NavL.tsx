@@ -13,7 +13,7 @@ export default function NavL() {
               width={30}
               height={30}
             />
-            <h1 className="font-bold">Dialisis Connect</h1>
+            <h1 className="font-bold">Dialisis Connect Edu</h1>
           </Link>
         </div>
       </div>
