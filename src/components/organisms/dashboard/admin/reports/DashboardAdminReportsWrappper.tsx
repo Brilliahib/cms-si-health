@@ -1,65 +1,113 @@
 "use client";
 
-import { historyPostTestColumns } from "@/components/atoms/datacolumn/DataHistoryPostTestAdmin";
-import { historyPreTestColumns } from "@/components/atoms/datacolumn/DataHistoryPreTestAdmin";
-import { historyScreeningColumns } from "@/components/atoms/datacolumn/DataHistoryScreeningAdmin";
-import { DataTable } from "@/components/molecules/datatable/DataTable";
+import CardListReportHistoryPostTest from "@/components/molecules/card/CardListReportHistoryPostTest";
+import CardListReportHistoryPreTest from "@/components/molecules/card/CardListReportHistoryPreTest";
+import CardListReportHistoryScreening from "@/components/molecules/card/CardListReportHistoryScreening";
+import ReportSearchAndFilter from "@/components/molecules/search/ReportSearchFilter";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useGetAllHistoryPostTestAdmin } from "@/http/admin/history/post-test/get-all-history-post-test-admin";
-import { useGetAllHistoryPreTestAdmin } from "@/http/admin/history/pre-test/get-all-history-pre-test-admin";
-import { useGetAllHistoryScreeningAdmin } from "@/http/admin/history/screening/get-all-history-screening-admin";
+import { useGetAllScreening } from "@/http/screening/get-all-screening";
+import { useGetAllPostTest } from "@/http/test/get-all-post-test";
+import { useGetAllPreTest } from "@/http/test/get-all-pre-test";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 export default function DashboardAdminReportWrapper() {
   const { data: session, status } = useSession();
   const [activeTab, setActiveTab] = useState("screening");
-  const { data, isPending } = useGetAllHistoryScreeningAdmin(
+  const [search, setSearch] = useState("");
+  const [typeFilter, setTypeFilter] = useState("all");
+
+  const { data, isPending } = useGetAllScreening(
     session?.access_token as string,
     {
       enabled: status === "authenticated" && activeTab === "screening",
     },
   );
 
-  const { data: preTest, isPending: preTestIsPending } =
-    useGetAllHistoryPreTestAdmin(session?.access_token as string, {
+  const { data: preTest, isPending: preTestIsPending } = useGetAllPreTest(
+    session?.access_token as string,
+    {
       enabled: status === "authenticated" && activeTab === "pre-test",
-    });
+    },
+  );
 
-  const { data: postTest, isPending: postTestIsPending } =
-    useGetAllHistoryPostTestAdmin(session?.access_token as string, {
+  const { data: postTest, isPending: postTestIsPending } = useGetAllPostTest(
+    session?.access_token as string,
+    {
       enabled: status === "authenticated" && activeTab === "post-test",
+    },
+  );
+
+  const filteredPreTest = useMemo(() => {
+    return (preTest?.data ?? []).filter((item) => {
+      const matchSearch = item.name
+        .toLowerCase()
+        .includes(search.toLowerCase());
+      const matchType =
+        typeFilter === "all" || item.sub_module?.module?.type === typeFilter;
+      return matchSearch && matchType;
     });
+  }, [preTest?.data, search, typeFilter]);
+
+  const filteredPostTest = useMemo(() => {
+    return (postTest?.data ?? []).filter((item) => {
+      const matchSearch = item.name
+        .toLowerCase()
+        .includes(search.toLowerCase());
+      const matchType =
+        typeFilter === "all" || item.sub_module?.module?.type === typeFilter;
+      return matchSearch && matchType;
+    });
+  }, [postTest?.data, search, typeFilter]);
+
+  const filteredScreening = useMemo(() => {
+    return (data?.data ?? []).filter((item) =>
+      item.name.toLowerCase().includes(search.toLowerCase()),
+    );
+  }, [data?.data, search]);
+
   return (
     <div>
       <Tabs
         defaultValue="screening"
         className="w-full"
-        onValueChange={setActiveTab}
+        onValueChange={(val) => {
+          setActiveTab(val);
+          setSearch(""); // reset search
+          setTypeFilter("all"); // reset filter
+        }}
       >
         <TabsList className="mb-4 grid w-full max-w-sm grid-cols-3">
           <TabsTrigger value="screening">Screening</TabsTrigger>
           <TabsTrigger value="pre-test">Pre Test</TabsTrigger>
           <TabsTrigger value="post-test">Post Test</TabsTrigger>
         </TabsList>
+
+        <ReportSearchAndFilter
+          tab={activeTab}
+          searchValue={search}
+          onSearchChange={setSearch}
+          selectedType={typeFilter}
+          onTypeChange={setTypeFilter}
+        />
+
         <TabsContent value="screening">
-          <DataTable
-            data={data?.data ?? []}
-            columns={historyScreeningColumns}
+          <CardListReportHistoryScreening
+            data={filteredScreening}
             isLoading={isPending}
           />
         </TabsContent>
+
         <TabsContent value="pre-test">
-          <DataTable
-            data={preTest?.data ?? []}
-            columns={historyPreTestColumns}
+          <CardListReportHistoryPreTest
+            data={filteredPreTest}
             isLoading={preTestIsPending}
           />
         </TabsContent>
+
         <TabsContent value="post-test">
-          <DataTable
-            data={postTest?.data ?? []}
-            columns={historyPostTestColumns}
+          <CardListReportHistoryPostTest
+            data={filteredPostTest}
             isLoading={postTestIsPending}
           />
         </TabsContent>
