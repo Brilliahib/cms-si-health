@@ -5,13 +5,14 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { HistoryPostTest, PostTest } from "@/types/test/post-test";
-import { Check, ClipboardPen } from "lucide-react";
+import { Check, ClipboardPen, Lock } from "lucide-react";
 import { useState } from "react";
 
 interface CardListPostTestProps {
   data?: PostTest[];
   isLoading?: boolean;
   history?: HistoryPostTest[];
+  isLocked?: boolean;
 }
 
 function PostTestSkeleton() {
@@ -34,6 +35,7 @@ export default function CardListPostTest({
   data,
   isLoading,
   history,
+  isLocked = false,
 }: CardListPostTestProps) {
   const [dialogStartPostTestOpen, setDialogStartPostTestOpen] = useState(false);
   const [selectedPostTestId, setSelectedPostTestId] = useState<string | null>(
@@ -62,21 +64,22 @@ export default function CardListPostTest({
     <div className="space-y-4">
       {data?.map((postTest) => {
         const alreadyTaken = isAlreadyTaken(postTest.id);
+        const isDisabled = alreadyTaken || isLocked;
 
         return (
           <div
             key={postTest.id}
             className={`group block ${
-              alreadyTaken ? "cursor-not-allowed opacity-70" : "cursor-pointer"
+              isDisabled ? "cursor-not-allowed opacity-70" : "cursor-pointer"
             }`}
             onClick={() =>
-              !alreadyTaken && handleDialogStartPostTestOpen(postTest.id)
+              !isDisabled && handleDialogStartPostTestOpen(postTest.id)
             }
           >
             <div className="flex flex-row gap-6">
               <div
                 className={`${
-                  alreadyTaken
+                  isDisabled
                     ? "bg-gray-300"
                     : "bg-primary group-hover:bg-secondary"
                 } relative hidden aspect-video h-36 w-36 items-center justify-center rounded-lg md:flex`}
@@ -87,7 +90,7 @@ export default function CardListPostTest({
                 <CardHeader className="flex md:flex-row md:items-center md:justify-between">
                   <div className="space-y-2">
                     <Badge className="bg-secondary/20 text-secondary font-semibold">
-                      Pre Test
+                      Post Test
                     </Badge>
                     <CardTitle className="text-md font-bold md:text-xl">
                       {postTest.name}
@@ -96,6 +99,12 @@ export default function CardListPostTest({
                       <div className="text-muted-foreground flex items-center gap-2 text-sm font-medium">
                         <Check className="h-4 w-4 text-green-500" /> Sudah
                         mengerjakan
+                      </div>
+                    )}
+                    {isLocked && !alreadyTaken && (
+                      <div className="text-muted-foreground flex items-center gap-2 text-sm font-medium">
+                        <Lock className="text-muted-foreground h-4 w-4" />{" "}
+                        Kerjakan Pre Test terlebih dahulu
                       </div>
                     )}
                   </div>
