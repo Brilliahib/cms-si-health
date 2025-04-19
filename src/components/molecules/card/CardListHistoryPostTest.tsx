@@ -45,7 +45,7 @@ export default function CardListHistoryPostTest({
   }
 
   return (
-    <div>
+    <div className="space-y-4">
       {data.map((postTestHistory) => (
         <Link
           href={`/dashboard/history/post-test/${postTestHistory.id}`}

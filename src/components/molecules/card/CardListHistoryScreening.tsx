@@ -45,7 +45,7 @@ export default function CardListHistoryScreening({
   }
 
   return (
-    <div>
+    <div className="space-y-4">
       {data?.map((screening) => (
         <Link
           href={`/dashboard/history/screening/${screening.id}`}
