@@ -52,8 +52,13 @@ export default function DashboardSubModulesWrapper({
     },
   );
 
-  const isPreTestCompleted =
-    (historyPreTest?.data && historyPreTest.data.length > 0) ?? false;
+  const preTestIds = preTest?.data.map((p) => p.id) || [];
+
+  const completedPreTests =
+    historyPreTest?.data.filter((h) => preTestIds.includes(h.pre_test.id)) ||
+    [];
+
+  const isPreTestCompleted = completedPreTests.length === preTestIds.length;
 
   return (
     <div>
