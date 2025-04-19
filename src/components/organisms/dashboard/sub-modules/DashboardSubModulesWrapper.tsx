@@ -8,6 +8,8 @@ import { useGetAllPreTestBySubModule } from "@/http/test/get-pre-test-by-submodu
 import { useSession } from "next-auth/react";
 import { useGetAllPostTestBySubModule } from "@/http/test/get-post-test-by-submodule";
 import CardListPostTest from "@/components/molecules/card/CardListPostTest";
+import { useGetAllHistoryPreTest } from "@/http/test/get-history-pre-test";
+import { useGetAllHistoryPostTest } from "@/http/history/post-test/get-history-post-test";
 
 interface DashboardSubModulesWrapper {
   id: string;
@@ -36,6 +38,20 @@ export default function DashboardSubModulesWrapper({
       enabled: status === "authenticated",
     });
 
+  const { data: historyPreTest } = useGetAllHistoryPreTest(
+    session?.access_token as string,
+    {
+      enabled: status === "authenticated",
+    },
+  );
+
+  const { data: HistoryPostTest } = useGetAllHistoryPostTest(
+    session?.access_token as string,
+    {
+      enabled: status === "authenticated",
+    },
+  );
+
   return (
     <div>
       <DashboardTitle
@@ -46,6 +62,7 @@ export default function DashboardSubModulesWrapper({
         <CardListPreTest
           data={preTest?.data || []}
           isLoading={preTestIsPending}
+          history={historyPreTest?.data || []}
         />
         <CardListModuleContent
           data={data?.data.module_contents}
@@ -54,6 +71,7 @@ export default function DashboardSubModulesWrapper({
         <CardListPostTest
           data={postTest?.data || []}
           isLoading={postTestIsPending}
+          history={HistoryPostTest?.data || []}
         />
       </div>
     </div>

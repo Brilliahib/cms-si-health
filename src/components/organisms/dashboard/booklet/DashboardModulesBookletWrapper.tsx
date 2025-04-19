@@ -44,9 +44,9 @@ export default function DashboardModulesBookletWrapper({
           </TabsContent>
           <TabsContent value="module-contents">
             <div className="space-y-4">
-              <p>{`${BASE_URL}/public/${data?.data.file_path}`}</p>
+              <p>{`${BASE_URL}/storage/${data?.data.file_path}`}</p>
               <Link
-                href={`${BASE_URL}/public/${data?.data.file_path}`}
+                href={`${BASE_URL}/storage/${data?.data.file_path}`}
                 target="_blank"
               >
                 <Button>Lihat Booklet</Button>
