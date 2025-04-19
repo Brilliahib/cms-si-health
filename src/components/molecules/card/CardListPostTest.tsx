@@ -1,15 +1,17 @@
 "use client";
 
+import DialogStartPostTest from "@/components/atoms/dialog/DialogStartPostTest";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { PostTest } from "@/types/test/post-test";
-import { ClipboardPen } from "lucide-react";
-import Link from "next/link";
+import { HistoryPostTest, PostTest } from "@/types/test/post-test";
+import { Check, ClipboardPen } from "lucide-react";
+import { useState } from "react";
 
 interface CardListPostTestProps {
   data?: PostTest[];
   isLoading?: boolean;
+  history?: HistoryPostTest[];
 }
 
 function PostTestSkeleton() {
@@ -31,7 +33,12 @@ function PostTestSkeleton() {
 export default function CardListPostTest({
   data,
   isLoading,
+  history,
 }: CardListPostTestProps) {
+  const [dialogStartPostTestOpen, setDialogStartPostTestOpen] = useState(false);
+  const [selectedPostTestId, setSelectedPostTestId] = useState<string | null>(
+    null,
+  );
   if (isLoading) {
     return (
       <div className="space-y-4">
@@ -42,33 +49,69 @@ export default function CardListPostTest({
     );
   }
 
+  const handleDialogStartPostTestOpen = (id: string) => {
+    setSelectedPostTestId(id);
+    setDialogStartPostTestOpen(true);
+  };
+
+  const isAlreadyTaken = (postTestId: string) => {
+    return history?.some((h) => h.post_test.id === postTestId);
+  };
+
   return (
     <div className="space-y-4">
-      {data?.map((postTest) => (
-        <Link
-          href={`/work/post-test/${postTest.id}`}
-          key={postTest.id}
-          className="group block"
-        >
-          <div className="flex flex-row gap-6">
-            <div className="group-hover:bg-secondary bg-primary relative hidden aspect-video h-36 w-36 items-center justify-center rounded-lg md:flex">
-              <ClipboardPen className="text-background m-auto h-12 w-12" />
+      {data?.map((postTest) => {
+        const alreadyTaken = isAlreadyTaken(postTest.id);
+
+        return (
+          <div
+            key={postTest.id}
+            className={`group block ${
+              alreadyTaken ? "cursor-not-allowed opacity-70" : "cursor-pointer"
+            }`}
+            onClick={() =>
+              !alreadyTaken && handleDialogStartPostTestOpen(postTest.id)
+            }
+          >
+            <div className="flex flex-row gap-6">
+              <div
+                className={`${
+                  alreadyTaken
+                    ? "bg-gray-300"
+                    : "bg-primary group-hover:bg-secondary"
+                } relative hidden aspect-video h-36 w-36 items-center justify-center rounded-lg md:flex`}
+              >
+                <ClipboardPen className="text-background m-auto h-12 w-12" />
+              </div>
+              <Card className="border-muted group-hover:bg-muted w-full border-2 shadow-transparent">
+                <CardHeader className="flex md:flex-row md:items-center md:justify-between">
+                  <div className="space-y-2">
+                    <Badge className="bg-secondary/20 text-secondary font-semibold">
+                      Pre Test
+                    </Badge>
+                    <CardTitle className="text-md font-bold md:text-xl">
+                      {postTest.name}
+                    </CardTitle>
+                    {alreadyTaken && (
+                      <div className="text-muted-foreground flex items-center gap-2 text-sm font-medium">
+                        <Check className="h-4 w-4 text-green-500" /> Sudah
+                        mengerjakan
+                      </div>
+                    )}
+                  </div>
+                </CardHeader>
+              </Card>
             </div>
-            <Card className="border-muted group-hover:bg-muted w-full border-2 shadow-transparent">
-              <CardHeader className="flex md:flex-row md:items-center md:justify-between">
-                <div className="space-y-2">
-                  <Badge className="bg-secondary/20 text-secondary font-semibold">
-                    Post Test
-                  </Badge>
-                  <CardTitle className="text-md font-bold md:text-xl">
-                    {postTest.name}
-                  </CardTitle>
-                </div>
-              </CardHeader>
-            </Card>
           </div>
-        </Link>
-      ))}
+        );
+      })}
+      {selectedPostTestId && (
+        <DialogStartPostTest
+          open={dialogStartPostTestOpen}
+          setOpen={setDialogStartPostTestOpen}
+          id={selectedPostTestId}
+        />
+      )}
     </div>
   );
 }
