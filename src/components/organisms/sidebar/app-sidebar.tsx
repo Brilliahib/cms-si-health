@@ -85,7 +85,7 @@ export function AppSidebar({ session }: AppSidebarProps) {
 
       <SidebarContent className="bg-white dark:bg-slate-950">
         <SidebarGroup>
-          <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
+          <SidebarGroupLabel>Beranda</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
@@ -108,7 +108,7 @@ export function AppSidebar({ session }: AppSidebarProps) {
                     <span>
                       {session?.user.role === "admin"
                         ? "Dashboard Admin"
-                        : "Dashboard"}
+                        : "Beranda"}
                     </span>
                   </Link>
                 </SidebarMenuButton>
