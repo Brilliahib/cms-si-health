@@ -24,7 +24,7 @@ export default async function DashboardLayout({
           accessToken={session.access_token}
           role={session.user.role}
         >
-          <div className="px-5 py-20">{children}</div>
+          <div className="px-5 pt-20 pb-6">{children}</div>
         </ClientDashboardWrapper>
       </SidebarInset>
     </SidebarProvider>
