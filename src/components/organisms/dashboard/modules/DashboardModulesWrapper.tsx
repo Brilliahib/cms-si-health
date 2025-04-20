@@ -2,7 +2,7 @@
 
 import AlertInformationModule from "@/components/atoms/alert/AlertInformationModule";
 import CardListModule from "@/components/molecules/card/CardListModule";
-import { useGetAllModules } from "@/http/modulels/get-all-modules";
+import { useGetAllModulesUsers } from "@/http/modulels/get-module-users";
 import { useGetPersonalInformationUser } from "@/http/personal-information/get-personal-information";
 import { useSession } from "next-auth/react";
 
@@ -16,7 +16,7 @@ export default function DashboardModulesWrapper() {
     },
   );
 
-  const { data, isPending } = useGetAllModules(
+  const { data, isPending } = useGetAllModulesUsers(
     personal?.data.patient_type as string,
     session?.access_token as string,
     {
