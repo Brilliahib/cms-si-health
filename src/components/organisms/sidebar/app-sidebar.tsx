@@ -274,7 +274,7 @@ export function AppSidebar({ session }: AppSidebarProps) {
                         >
                           <Link href="/dashboard/admin/users">
                             <User />
-                            <span>Pasien</span>
+                            <span>Pengguna</span>
                           </Link>
                         </SidebarMenuButton>
                       </SidebarMenuItem>

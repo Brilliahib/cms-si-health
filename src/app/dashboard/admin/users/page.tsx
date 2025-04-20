@@ -4,7 +4,10 @@ import DashboardAdminUsersWrapper from "@/components/organisms/dashboard/admin/u
 export default function DashboardAdminUsersPage() {
   return (
     <section>
-      <DashboardTitle head="Pasien" body="Menampilkan daftar pasien" />
+      <DashboardTitle
+        head="Pengguna"
+        body="Menampilkan daftar pengguna yang terdaftar"
+      />
       <DashboardAdminUsersWrapper />
     </section>
   );
