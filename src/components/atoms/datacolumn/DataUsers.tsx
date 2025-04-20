@@ -29,6 +29,25 @@ export const usersColumns: ColumnDef<User>[] = [
     },
   },
   {
+    accessorKey: "role",
+    header: "Peran",
+    cell: ({ row }) => {
+      const data = row.original;
+
+      const roleLabels: Record<string, string> = {
+        user: "Pasien",
+        medical_personal: "Tenaga Medis",
+        admin: "Admin",
+      };
+
+      return (
+        <p suppressHydrationWarning className="line-clamp-1 md:line-clamp-2">
+          {roleLabels[data.role] || data.role}
+        </p>
+      );
+    },
+  },
+  {
     accessorKey: "created_at",
     header: "Tanggal Bergabung",
     cell: ({ row }) => {
