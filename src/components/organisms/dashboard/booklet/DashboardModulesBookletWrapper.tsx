@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGetDetailBooklet } from "@/http/booklet/get-detail-booklet";
 import { BASE_URL } from "@/lib/url";
+import { ArrowDownToLine } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 
@@ -44,15 +45,22 @@ export default function DashboardModulesBookletWrapper({
           </TabsContent>
           <TabsContent value="module-contents">
             <div className="space-y-4">
-              <p>{`${BASE_URL}/storage/${data?.data.file_path}`}</p>
-              <Link
-                href={`${BASE_URL}/storage/${data?.data.file_path}`}
-                target="_blank"
-              >
-                <Button>Lihat Booklet</Button>
-              </Link>
+              <div>
+                <Link
+                  href={`${BASE_URL}/storage/${data?.data.file_path}`}
+                  target="_blank"
+                >
+                  <Button>
+                    <ArrowDownToLine /> Download Booklet
+                  </Button>
+                </Link>
+              </div>
+              <iframe
+                src={`${BASE_URL}/storage/${data?.data.file_path}#toolbar=0`}
+                className="w-full rounded border md:h-[800px] md:rounded-xl"
+                loading="lazy"
+              />
             </div>
-            {/* <PdfViewer url={`${BASE_URL}/storage/${data?.data.file_path}`} /> */}
           </TabsContent>
         </Tabs>
       </div>
