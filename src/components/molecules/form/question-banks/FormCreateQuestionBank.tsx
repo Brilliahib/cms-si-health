@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -63,10 +64,13 @@ export default function FormCreateQuestionBank() {
                     <FormControl>
                       <Input
                         type="text"
-                        placeholder="Masukkan bank soal"
+                        placeholder="Masukkan nama bank soal"
                         {...field}
                       />
                     </FormControl>
+                    <FormDescription>
+                      * Misalnya: Pre Test Manajemen Diri.
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
