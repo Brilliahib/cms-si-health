@@ -50,7 +50,9 @@ export default function CardListTopicDiscussion({
           <Card className="shadow-none">
             <CardContent>
               <div className="space-y-4">
-                <h1 className="font-medium">{discussion.title}</h1>
+                <h1 className="max-w-xl font-medium break-words whitespace-normal">
+                  {discussion.title}
+                </h1>
                 <div className="flex flex-col gap-2 md:flex-row md:items-center">
                   {discussion.comments.length > 0 && (
                     <div className="flex items-center gap-1">

@@ -1,7 +1,8 @@
 "use client";
 
 import CardDetailNameOnTest from "@/components/molecules/card/CardDetailNameOnTest";
-import CardListHistoryQuestion from "@/components/molecules/card/CardListHistoryQuestion";
+import CardListHistoryQuestionAdmin from "@/components/molecules/card/CardListHistoryQuestionAdmin";
+import CardScoreHistoryPreTest from "@/components/molecules/card/CardScoreHistoryPreTest";
 import { useGetDetailHistoryPreTest } from "@/http/history/pre-test/get-detail-pre-test";
 import { useSession } from "next-auth/react";
 
@@ -23,7 +24,8 @@ export default function DashboardAdminReportDetailPreTestWrapper({
   return (
     <div className="space-y-4">
       <CardDetailNameOnTest name={data?.data.user.name ?? ""} />
-      <CardListHistoryQuestion data={data?.data} isLoading={isPending} />
+      <CardScoreHistoryPreTest data={data?.data} isLoading={isPending} />
+      <CardListHistoryQuestionAdmin data={data?.data} isLoading={isPending} />
     </div>
   );
 }

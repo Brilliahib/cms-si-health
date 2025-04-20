@@ -76,7 +76,9 @@ export default function CardListDiscussionComment({
               <Card className="bg-muted w-fit border-0 p-2 shadow-none">
                 <CardContent className="px-3 py-2">
                   <div className="md:mb-1">
-                    <h1 className="font-semibold">{comment.user.name}</h1>
+                    <h1 className="font-semibold break-words">
+                      {comment.user.name}
+                    </h1>
                   </div>
                   <div className="space-y-4">
                     {comment.image_path && (
