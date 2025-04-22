@@ -1,5 +1,6 @@
 "use client";
 
+import AlertDetailBookletModule from "@/components/atoms/alert/AlertDetailBookletModule";
 import DashboardTitleBold from "@/components/atoms/typography/DashboardTitleBold";
 import VideoYoutubeEmbed from "@/components/atoms/video/VideoYoutubeEmbed";
 import { Button } from "@/components/ui/button";
@@ -45,6 +46,7 @@ export default function DashboardModulesBookletWrapper({
           </TabsContent>
           <TabsContent value="module-contents">
             <div className="space-y-4">
+              <AlertDetailBookletModule />
               <div>
                 <Link
                   href={`${BASE_URL}/storage/${data?.data.file_path}`}
@@ -56,8 +58,8 @@ export default function DashboardModulesBookletWrapper({
                 </Link>
               </div>
               <iframe
-                src={`${BASE_URL}/storage/${data?.data.file_path}#toolbar=0`}
-                className="w-full rounded border md:h-[800px] md:rounded-xl"
+                src={`https://docs.google.com/gview?url=${BASE_URL}/storage/${data?.data.file_path}&embedded=true`}
+                className="h-[500px] w-full rounded border md:h-[800px] md:rounded-xl"
                 loading="lazy"
               />
             </div>
