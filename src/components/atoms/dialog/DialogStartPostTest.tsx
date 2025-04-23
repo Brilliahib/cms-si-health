@@ -27,7 +27,7 @@ export default function DialogStartPostTest({
           <DialogTitle>Kerjakan Post Test?</DialogTitle>
         </DialogHeader>
 
-        <ScrollArea className="h-64 pr-4">
+        <ScrollArea className="h-72 pr-4">
           <div className="text-muted-foreground space-y-2 text-sm">
             <p>
               Pastikan anda memahami hal berikut sebelum mengerjakan post test:
