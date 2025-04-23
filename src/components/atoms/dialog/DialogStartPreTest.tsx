@@ -6,6 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
 
 interface DialogStartPreTestProps {
@@ -25,48 +26,30 @@ export default function DialogStartPreTest({
         <DialogHeader>
           <DialogTitle>Kerjakan Pre Test?</DialogTitle>
         </DialogHeader>
-        <div className="text-muted-foreground">
-          <p
-            id="radix-:r2k:"
-            className="text-muted-foreground list-outside list-decimal text-sm leading-6"
-            data-sentry-element="AlertDialogDescription"
-            data-sentry-source-file="StartTryoutAlertDialog.tsx"
-          >
-            <li>Pastikan koneksi internet anda stabil.</li>
-            <li>
-              Anda hanya memiliki 1 (satu) kali kesempatan mengerjakan tryout.
-            </li>
-            <li>
-              Anda dapat menekan tombol pause di layar bagian kanan atas apabila
-              ingin keluar sementara dari tryout.
-            </li>
-            <li>
-              Begitu pula jika koneksi internet anda terputus, anda dapat
-              melanjutkan kembali tanpa mengulang dari awal.
-            </li>
-            <li>
-              Gambar dapat anda zoom dengan pinch di smartphone/tablet, dan
-              fitur zoom in di browser laptop/pc anda
-            </li>
-            <li>
-              Anda dapat menandai soal dengan menekan tombol flag di atas soal.
-            </li>
-            <li>
-              Navigasi seluruh soal tryout anda ada di bawah soal (pengguna
-              smartphone/tablet) atau di samping soal (pengguna laptop/pc).
-            </li>
-            <li>
-              Anda dapat menggunakan mengaktifkan menu Auto Scroll untuk next
-              secara otomatis setiap selesai menjawab soal
-            </li>
-            <li>
-              Setelah anda pilih Selesai &gt; Selesai dan Kumpulkan untuk
-              dinilai, tryout dianggap selesai dan tidak dapat diulang. Anda
-              akan mendapat penilaian dan jawaban benar.
-            </li>
-            <li>Jawaban dapat anda lihat setelah selesai mengerjakan.</li>
-          </p>
-        </div>
+        <ScrollArea className="h-64 pr-4">
+          <div className="text-muted-foreground space-y-2 text-sm">
+            <p>
+              Pastikan anda memahami hal berikut sebelum mengerjakan pre test:
+            </p>
+            <ol className="ml-5 list-outside list-decimal space-y-1">
+              <li>Pastikan koneksi internet anda stabil.</li>
+              <li>
+                Anda hanya memiliki 1 (satu) kali kesempatan mengerjakan pre
+                test.
+              </li>
+              <li>
+                Begitu pula jika koneksi internet anda terputus, anda dapat
+                melanjutkan kembali tanpa mengulang dari awal.
+              </li>
+              <li>
+                Setelah anda memilih &quot;Selesai untuk Dinilai&quot;, pre test
+                dianggap selesai dan tidak dapat diulang. Anda akan mendapat
+                penilaian dan jawaban benar.
+              </li>
+              <li>Jawaban dapat anda lihat setelah selesai mengerjakan.</li>
+            </ol>
+          </div>
+        </ScrollArea>
         <DialogFooter>
           <Link href={`/work/pre-test/${id}`}>
             <Button>Kerjakan Sekarang</Button>
