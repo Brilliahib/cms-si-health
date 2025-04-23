@@ -38,8 +38,8 @@ export default function DialogStartPreTest({
                 test.
               </li>
               <li>
-                Begitu pula jika koneksi internet anda terputus, anda dapat
-                melanjutkan kembali tanpa mengulang dari awal.
+                Jika koneksi internet anda terputus, anda harus mengulang pre
+                test dari awal.
               </li>
               <li>
                 Setelah anda memilih &quot;Selesai untuk Dinilai&quot;, pre test
