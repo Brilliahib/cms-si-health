@@ -27,32 +27,27 @@ export default function DialogStartScreening({
         </DialogHeader>
         <div className="text-muted-foreground">
           <p className="text-muted-foreground text-sm leading-6">
-            Kuesioner ini bertujuan untuk mengidentifikasi tanda-tanda atau
-            faktor risiko yang mungkin mengarah pada masalah ginjal. Untuk hasil
-            yang lebih akurat, pemeriksaan lebih lanjut oleh dokter atau
-            spesialis diperlukan.
+            Formulir screening ini dirancang untuk membantu mengidentifikasi
+            tanda atau faktor risiko yang dapat mengarah pada masalah ginjal.
+            Hasil dari screening ini bukan merupakan diagnosis medis. Untuk
+            kepastian lebih lanjut, disarankan berkonsultasi dengan dokter atau
+            tenaga kesehatan. Sebelum mengisi, perhatikan hal berikut:
           </p>
           <ul className="list-outside list-decimal pl-5 text-sm leading-6">
-            <li>Pastikan koneksi internet Anda stabil.</li>
+            <li>Pastikan koneksi internet Anda stabil selama pengisian.</li>
+            <li>Formulir ini hanya bisa diisi satu kali.</li>
+            <li>Jika koneksi terputus, pengisian harus dimulai dari awal.</li>
             <li>
-              Anda hanya memiliki 1 (satu) kali kesempatan untuk mengisi
-              screening ini.
+              Jawaban Anda akan digunakan untuk analisis awal dan tidak dapat
+              diubah setelah dikirim.
             </li>
             <li>
-              Jika koneksi internet Anda terputus, Anda harus mengerjakan
-              kembali dari awal.
+              Tidak ada jawaban benar atau salah, isi sesuai kondisi Anda dengan
+              jujur.
             </li>
             <li>
-              Jawaban yang Anda berikan akan digunakan untuk analisis awal dan
-              tidak dapat diubah setelah dikumpulkan.
-            </li>
-            <li>
-              Tidak ada jawaban benar atau salah dalam screening ini. Jawablah
-              dengan jujur sesuai dengan kondisi Anda.
-            </li>
-            <li>
-              Setelah Anda menekan tombol “Selesai & Kumpulkan”, screening akan
-              dianggap selesai.
+              Setelah Anda klik “Selesai & Kumpulkan”, screening dianggap
+              selesai.
             </li>
           </ul>
         </div>

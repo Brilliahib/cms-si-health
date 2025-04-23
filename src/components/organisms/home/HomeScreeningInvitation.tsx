@@ -14,10 +14,11 @@ export default function HomeScreeningInvitation() {
                 Ayo Cek Kesehatan Anda!
               </h1>
               <p className="text-md text-muted-foreground">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. In ex,
-                praesentium facere reprehenderit laboriosam quia nisi quae at,
-                doloremque animi neque repellat quisquam vitae provident quod
-                excepturi beatae repudiandae unde?
+                Yuk, mulai peduli dengan kesehatanmu lewat screening kesehatan
+                sederhana ini. Hanya dengan menjawab beberapa pertanyaan ringan,
+                kamu sudah selangkah lebih dekat untuk mengenal kondisi tubuhmu.
+                Mudah dan bisa diakses kapan saja. Mulai sekarang, lebih peduli
+                dengan diri sendiri itu mudah!
               </p>
               <Link href={"/dashboard/screening"} className="w-full">
                 <Button className="md:max-w-[200px]">Mulai Sekarang</Button>
