@@ -35,9 +35,8 @@ export default function RegisterWrapperContent() {
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">
             <p className="max-w-md text-lg">
-              Sistem Informasi Kesehatan Ginjal
+              Website Edukatif Penyakit Ginjal Kronis
             </p>
-            <footer className="text-sm">Universitas Diponegoro</footer>
           </blockquote>
         </div>
       </div>
