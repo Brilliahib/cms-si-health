@@ -29,6 +29,8 @@ import {
 } from "@/validators/auth/register-validator";
 import { useRegister } from "@/http/auth/register";
 import { toast } from "sonner";
+import { useState } from "react";
+import DialogAgreementRegister from "@/components/atoms/dialog/DialogAgreementRegister";
 
 export default function FormAuthRegister() {
   const form = useForm<RegisterType>({
@@ -43,6 +45,8 @@ export default function FormAuthRegister() {
     },
     mode: "onChange",
   });
+  const [isDialogAgreementOpen, setIsDialogAgreementOpen] = useState(false);
+  const [formData, setFormData] = useState<RegisterType | null>(null);
 
   const router = useRouter();
 
@@ -93,7 +97,15 @@ export default function FormAuthRegister() {
   });
 
   const onSubmit = (body: RegisterType) => {
-    registerRequestHandler({ ...body });
+    setFormData(body);
+    setIsDialogAgreementOpen(true);
+  };
+
+  const handleConfirmAgreement = () => {
+    if (formData) {
+      registerRequestHandler(formData);
+      setIsDialogAgreementOpen(false);
+    }
   };
 
   return (
@@ -243,6 +255,11 @@ export default function FormAuthRegister() {
           </CardContent>
         </div>
       </Card>
+      <DialogAgreementRegister
+        open={isDialogAgreementOpen}
+        onConfirm={handleConfirmAgreement}
+        setOpen={setIsDialogAgreementOpen}
+      />
     </div>
   );
 }

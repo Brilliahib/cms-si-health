@@ -6,9 +6,18 @@ export default function DashboardGeneral() {
     <div>
       <Tabs defaultValue="pgk" className="w-full">
         <TabsList className="mb-4 grid w-fit grid-cols-3">
-          <TabsTrigger value="pgk">Penyakit Ginjal Kronik</TabsTrigger>
-          <TabsTrigger value="capd">Penjelasan CAPD</TabsTrigger>
-          <TabsTrigger value="hd">Penjelasan HD</TabsTrigger>
+          <TabsTrigger value="pgk">
+            <span className="block md:hidden">PGK</span>
+            <span className="hidden md:block">Penyakit Ginjal Kronik</span>
+          </TabsTrigger>
+          <TabsTrigger value="capd">
+            <span className="block md:hidden">CAPD</span>
+            <span className="hidden md:block">Penjelasan CAPD</span>
+          </TabsTrigger>
+          <TabsTrigger value="hd">
+            <span className="block md:hidden">HD</span>
+            <span className="hidden md:block">Penjelasan HD</span>
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="pgk">
           <div className="flex flex-col gap-8">
