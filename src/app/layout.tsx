@@ -21,9 +21,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Dialisis Connect Edu",
-  description: "Sistem Informasi Berbasis Web untuk penyakit gagal ginjal.",
+  description:
+    "Website ini menyediakan informasi terpercaya tentang terapi pengganti ginjal, seperti dialisis dan transplantasi, untuk pasien, keluarga, dan masyarakat. Dengan konten berbasis ilmu keperawatan yang mudah dipahami, kami bertujuan meningkatkan kesadaran, pengetahuan, dan kepatuhan dalam perawatan gagal ginjal kronis.",
   keywords:
-    "daycare, tempat penitipan anak, daycare terdekat, childcare, layanan anak, tempat penitipan anak terpercaya",
+    "dialisis, dialisis connect edu, hemodialisis, penelitian ginjal, universitas diponegoro, terapi ginjal, transplantasi ginjal, gagal ginjal, edukasi kesehatan, edukasi dialisis, edukasi transplantasi, edukasi ginjal, edukasi kesehatan ginjal, edukasi gagal ginjal, edukasi hemodialisis, edukasi peritoneal dialisis",
   icons: [
     { rel: "icon", url: "/images/icons/favicon.ico", sizes: "16x16" },
     { rel: "icon", url: "/images/icons/favicon-32x32.png", sizes: "32x32" },
