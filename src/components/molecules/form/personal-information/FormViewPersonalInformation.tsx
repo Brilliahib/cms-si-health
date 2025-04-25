@@ -56,7 +56,8 @@ export default function FormViewPersonalInformation({
       is_married: false,
       gender: "male",
       work: "",
-      family_status: "",
+      last_education: "",
+      origin_hospital: "",
       patient_type: "",
       disease_duration: "",
       dialisis_duration: "",
@@ -76,7 +77,8 @@ export default function FormViewPersonalInformation({
         is_married: data.data.is_married,
         gender: data.data.gender,
         work: data.data.work,
-        family_status: data.data.family_status,
+        last_education: data.data.last_education,
+        origin_hospital: data.data.origin_hospital,
         patient_type: data.data.patient_type,
         disease_duration: data.data.disease_duration,
         dialisis_duration: data.data.dialisis_duration,
@@ -277,14 +279,32 @@ export default function FormViewPersonalInformation({
           />
           <FormField
             control={form.control}
-            name="family_status"
+            name="last_education"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Status Dalam Keluarga</FormLabel>
+                <FormLabel>Pendidikan Terakhir</FormLabel>
                 <FormControl>
                   <Input
                     type="text"
-                    placeholder="Masukkan status dalam keluarga"
+                    placeholder="Masukkan pendidikan terakhir"
+                    {...field}
+                    value={field.value}
+                    disabled
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="origin_hospital"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Asal Rumah Sakit</FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    placeholder="Masukkan asal rumah sakit"
                     {...field}
                     value={field.value}
                     disabled
