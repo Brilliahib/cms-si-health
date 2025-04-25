@@ -103,12 +103,22 @@ export default function CardPersonalInformationUserId({
               </div>
             </div>
             <div className="flex flex-col gap-1">
-              <div className="text-muted-foreground">Status Berkeluarga</div>
+              <div className="text-muted-foreground">Pendidikan Terakhir</div>
               <div>
                 {isLoading ? (
                   <Skeleton className="w-32" />
                 ) : (
-                  data?.family_status
+                  data?.last_education
+                )}
+              </div>
+            </div>
+            <div className="flex flex-col gap-1">
+              <div className="text-muted-foreground">Asal Rumah Sakit</div>
+              <div>
+                {isLoading ? (
+                  <Skeleton className="w-32" />
+                ) : (
+                  data?.origin_hospital
                 )}
               </div>
             </div>
