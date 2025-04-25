@@ -8,7 +8,8 @@ export type PersonalInformation = {
   work: string;
   gender: string;
   is_married: boolean;
-  family_status: string;
+  last_education: string;
+  origin_hospital: string;
   patient_type: string;
   disease_duration: string;
   dialisis_duration: string;

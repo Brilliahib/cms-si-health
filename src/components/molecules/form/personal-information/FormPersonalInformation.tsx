@@ -51,7 +51,8 @@ export default function FormCreatePersonalInformation() {
       age: "",
       gender: undefined,
       work: "",
-      family_status: undefined,
+      last_education: "",
+      origin_hospital: "",
       is_married: false,
       patient_type: undefined,
       disease_duration: "",
@@ -282,17 +283,37 @@ export default function FormCreatePersonalInformation() {
               />
               <FormField
                 control={form.control}
-                name="family_status"
+                name="last_education"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Status Dalam Keluarga{" "}
+                      Pendidikan Terakhir{" "}
                       <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input
                         type="text"
-                        placeholder="Masukkan status dalam keluarga"
+                        placeholder="Masukkan pendidikan terakhir"
+                        {...field}
+                        value={field.value ?? ""}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="origin_hospital"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Asal Rumah Sakit <span className="text-red-500">*</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        type="text"
+                        placeholder="Masukkan asal rumah sakit"
                         {...field}
                         value={field.value ?? ""}
                       />

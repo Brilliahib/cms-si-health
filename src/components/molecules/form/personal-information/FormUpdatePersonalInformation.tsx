@@ -39,13 +39,12 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 export default function FormUpdatePersonalInformation() {
   const { data: session, status } = useSession();
-  const { data, isSuccess } = useGetPersonalInformationUser(
+  const { data } = useGetPersonalInformationUser(
     session?.access_token as string,
     {
       enabled: status === "authenticated" && !!session?.access_token,
@@ -55,47 +54,29 @@ export default function FormUpdatePersonalInformation() {
   const form = useForm<PersonalInformationType>({
     resolver: zodResolver(personalInformationSchema),
     defaultValues: {
-      name: "",
-      place_of_birth: "",
-      date_of_birth: "",
-      age: "",
-      gender: undefined,
-      work: "",
-      family_status: undefined,
-      is_married: false,
-      patient_type: undefined,
-      disease_duration: "",
-      dialisis_duration: "",
+      name: data?.data.name ?? "",
+      place_of_birth: data?.data.place_of_birth ?? "",
+      date_of_birth: data?.data.date_of_birth
+        ? format(new Date(data.data.date_of_birth), "yyyy-MM-dd")
+        : "",
+      age: data?.data.age ?? "",
+      gender:
+        data?.data.gender === "male" || data?.data.gender === "female"
+          ? data.data.gender
+          : "female",
+      work: data?.data.work ?? "",
+      last_education: data?.data.last_education ?? "",
+      origin_hospital: data?.data.origin_hospital ?? "",
+      is_married: data?.data.is_married ?? false,
+      patient_type:
+        data?.data.patient_type === "hd" || data?.data.patient_type === "capd"
+          ? data.data.patient_type
+          : "capd",
+      disease_duration: data?.data.disease_duration ?? "",
+      dialisis_duration: data?.data.dialisis_duration ?? "",
     },
     mode: "onChange",
   });
-
-  useEffect(() => {
-    if (isSuccess && data) {
-      form.reset({
-        name: data.data.name ?? "",
-        place_of_birth: data.data.place_of_birth ?? "",
-        date_of_birth: data.data.date_of_birth
-          ? format(new Date(data.data.date_of_birth), "yyyy-MM-dd")
-          : "",
-        age: data.data.age ?? "",
-        gender:
-          data.data.gender === "male" || data.data.gender === "female"
-            ? data.data.gender
-            : undefined,
-        work: data.data.work ?? "",
-        family_status: data.data.family_status ?? undefined,
-        is_married: data.data.is_married ?? false,
-        patient_type:
-          data.data.patient_type === "hd" || data.data.patient_type === "capd"
-            ? data.data.patient_type
-            : undefined,
-
-        disease_duration: data.data.disease_duration ?? "",
-        dialisis_duration: data.data.dialisis_duration ?? "",
-      });
-    }
-  }, [data, isSuccess, form]);
 
   const router = useRouter();
 
@@ -302,14 +283,31 @@ export default function FormUpdatePersonalInformation() {
               />
               <FormField
                 control={form.control}
-                name="family_status"
+                name="last_education"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Status Dalam Keluarga</FormLabel>
+                    <FormLabel>Pendidikan Terakhir</FormLabel>
                     <FormControl>
                       <Input
                         type="text"
-                        placeholder="Masukkan status dalam keluarga"
+                        placeholder="Masukkan pendidikan terakhir"
+                        {...field}
+                        value={field.value}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="origin_hospital"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Asal Rumah Sakit</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="text"
+                        placeholder="Masukkan asal rumah sakit"
                         {...field}
                         value={field.value}
                       />
