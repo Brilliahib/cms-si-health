@@ -20,6 +20,11 @@ export default function DashboardWrapper() {
     return null;
   }
 
+  if (session.user.role === "medical_personal") {
+    router.push("/dashboard/medical");
+    return null;
+  }
+
   return (
     <>
       <DashboardTitle

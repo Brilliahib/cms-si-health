@@ -294,9 +294,11 @@ export function AppSidebar({ session }: AppSidebarProps) {
                       <SidebarMenuItem>
                         <SidebarMenuButton
                           asChild
-                          className={buttonClass("/dashboard/discussions")}
+                          className={buttonClass(
+                            "/dashboard/medical/discussions",
+                          )}
                         >
-                          <Link href="/dashboard/discussions">
+                          <Link href="/dashboard/medical/discussions">
                             <Users />
                             <span>Forum Komunitas</span>
                           </Link>
