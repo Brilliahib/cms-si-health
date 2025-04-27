@@ -29,7 +29,7 @@ export const useGetDetailPostTest = (
   options?: Partial<UseQueryOptions<GetDetailPostTestResponse, AxiosError>>,
 ) => {
   return useQuery({
-    queryKey: ["pre-test-detail", id],
+    queryKey: ["post-test-detail", id],
     queryFn: () => GetDetailPostTestHandler(id, token),
     ...options,
   });

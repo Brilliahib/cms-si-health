@@ -107,14 +107,14 @@ export default function DialogCreatePostTest({
                 name="sub_module_id"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Sub Materi</FormLabel>
+                    <FormLabel>Materi</FormLabel>
                     <FormControl>
                       <Select
                         value={field.value}
                         onValueChange={field.onChange}
                       >
                         <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Pilih sub materi yang tersedia" />
+                          <SelectValue placeholder="Pilih materi yang tersedia" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>

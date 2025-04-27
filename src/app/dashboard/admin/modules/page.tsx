@@ -8,12 +8,15 @@ export default function DashboardAdminModulesPage() {
   return (
     <section>
       <div className="flex items-center justify-between">
-        <DashboardTitle head="Materi" body="Menampilkan semua daftar materi" />
+        <DashboardTitle
+          head="Modul"
+          body="Menampilkan semua daftar modul yang tersedia"
+        />
         <div>
           <Link href={`/dashboard/admin/modules/create`}>
             <Button>
               <Plus />
-              Tambah Materi
+              Tambah Modul
             </Button>
           </Link>
         </div>

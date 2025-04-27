@@ -84,7 +84,7 @@ export default function FormCreateModuleContent() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    Sub Materi <span className="text-red-500">*</span>
+                    Materi <span className="text-red-500">*</span>
                   </FormLabel>
                   <FormControl>
                     <Select value={field.value} onValueChange={field.onChange}>
@@ -93,7 +93,7 @@ export default function FormCreateModuleContent() {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
-                          <SelectLabel>Sub Materi</SelectLabel>
+                          <SelectLabel>Materi</SelectLabel>
                           {data?.data.map((module) => (
                             <SelectItem key={module.id} value={module.id}>
                               {module.name}
@@ -197,9 +197,6 @@ export default function FormCreateModuleContent() {
                       }}
                     />
                   </FormControl>
-                  <FormDescription>
-                    * File wajib berformat pdf dan maksimal 5 MB
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

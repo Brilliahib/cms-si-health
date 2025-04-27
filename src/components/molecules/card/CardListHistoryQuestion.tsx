@@ -1,7 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { HistoryPreTestDetail } from "@/types/test/pre-test";
-import { Check } from "lucide-react";
 
 interface CardListHistoryQuestionProps {
   data?: HistoryPreTestDetail;
@@ -65,7 +64,6 @@ export default function CardListHistoryQuestion({
                         {optionLabels[idx] || String.fromCharCode(65 + idx)}.
                       </span>
                       <span>{option.text}</span>
-                      {isSelected && <Check className="ml-1 h-4 w-4" />}
                     </div>
                   );
                 })}

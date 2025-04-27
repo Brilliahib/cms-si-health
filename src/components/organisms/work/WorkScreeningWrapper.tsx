@@ -50,7 +50,7 @@ export default function WorkScreeningWrapper({ id }: WorkScreeningProps) {
   const { mutate: submitScreening } = useAddSubmitScreening({
     onSuccess: () => {
       toast.success("Screening berhasil disubmit!");
-      router.push(`/dashboard/history`);
+      router.push(`/dashboard/screening`);
     },
     onError: () => {
       toast.error("Gagal submit screening. Silakan coba lagi.");
