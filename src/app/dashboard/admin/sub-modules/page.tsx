@@ -5,8 +5,8 @@ export default function DashboardAdminSubModulesPage() {
   return (
     <section>
       <DashboardTitle
-        head="Sub Materi"
-        body="Menampilkan daftar sub materi yang tersedia"
+        head="Materi"
+        body="Menampilkan daftar materi dari modul yang tersedia"
       />
       <DashboardAdminSubModulesWrapper />
     </section>

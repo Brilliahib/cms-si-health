@@ -59,10 +59,10 @@ export default function DialogCreateSubModules({
 
   const { mutate: addNewSubModulesHandler, isPending } = useAddNewSubModules({
     onError: () => {
-      toast.error("Gagal menambahkan sub-materi!");
+      toast.error("Gagal menambahkan materi baru!");
     },
     onSuccess: () => {
-      toast.success("Berhasil menambahkan sub-materi!");
+      toast.success("Berhasil menambahkan materi baru!");
       queryClient.invalidateQueries({
         queryKey: ["sub-modules"],
       });
@@ -83,7 +83,7 @@ export default function DialogCreateSubModules({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Tambah Sub Materi</DialogTitle>
+          <DialogTitle>Tambah Materi</DialogTitle>
         </DialogHeader>
         <ScrollArea className="max-h-[80vh]">
           <Form {...form}>
@@ -97,7 +97,7 @@ export default function DialogCreateSubModules({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Materi <span className="text-red-500">*</span>
+                      Modul <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
                       <Select
@@ -105,11 +105,11 @@ export default function DialogCreateSubModules({
                         onValueChange={field.onChange}
                       >
                         <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Pilih materi yang tersedia" />
+                          <SelectValue placeholder="Pilih modul yang tersedia" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            <SelectLabel>Materi</SelectLabel>
+                            <SelectLabel>Modul</SelectLabel>
                             {data?.data.map((module) => (
                               <SelectItem key={module.id} value={module.id}>
                                 {module.name}
@@ -129,7 +129,7 @@ export default function DialogCreateSubModules({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Nama Sub Materi <span className="text-red-500">*</span>
+                      Nama Materi <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input

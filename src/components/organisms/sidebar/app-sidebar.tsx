@@ -186,7 +186,7 @@ export function AppSidebar({ session }: AppSidebarProps) {
                         >
                           <Link href="/dashboard/admin/modules">
                             <Book />
-                            <span>Materi</span>
+                            <span>Modul</span>
                           </Link>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
@@ -199,7 +199,7 @@ export function AppSidebar({ session }: AppSidebarProps) {
                         >
                           <Link href="/dashboard/admin/sub-modules">
                             <NotebookText />
-                            <span>Sub Materi</span>
+                            <span>Materi</span>
                           </Link>
                         </SidebarMenuButton>
                       </SidebarMenuItem>

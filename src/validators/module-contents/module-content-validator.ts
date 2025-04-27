@@ -11,9 +11,6 @@ export const moduleContentSchema = z.object({
     .refine((file) => file.type === "application/pdf", {
       message: "File harus berformat PDF",
     })
-    .refine((file) => file.size <= 5 * 1024 * 1024, {
-      message: "Ukuran file maksimal 5MB",
-    })
     .nullable()
     .optional(),
 });

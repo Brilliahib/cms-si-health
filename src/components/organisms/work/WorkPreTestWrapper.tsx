@@ -50,7 +50,7 @@ export default function WorkPreTestWrapper({ id }: WorkPreTestWrapperProps) {
   const { mutate: submitPretest } = useAddSubmitPretest({
     onSuccess: () => {
       toast.success("Pre Test berhasil disubmit!");
-      router.push("/dashboard/history");
+      router.back();
     },
     onError: () => {
       toast.error("Gagal submit pre-test. Silakan coba lagi.");

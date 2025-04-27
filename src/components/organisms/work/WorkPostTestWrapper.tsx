@@ -50,7 +50,7 @@ export default function WorkPostTestWrapper({ id }: WorkPostTestWrapperProps) {
   const { mutate: submitPretest } = useAddSubmitPostTest({
     onSuccess: () => {
       toast.success("Post Test berhasil disubmit!");
-      router.push("/dashboard/history");
+      router.back();
     },
     onError: () => {
       toast.error("Gagal submit post test. Silakan coba lagi.");

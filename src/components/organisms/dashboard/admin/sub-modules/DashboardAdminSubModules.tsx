@@ -29,7 +29,7 @@ export default function DashboardAdminSubModulesWrapper() {
     <>
       <div className="space-y-4">
         <Button onClick={handleDialogSubModuleOpen}>
-          <Plus /> Tambah Sub Materi
+          <Plus /> Tambah Materi
         </Button>
         <DataTable
           columns={subModuleColumns}
