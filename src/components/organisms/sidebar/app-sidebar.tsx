@@ -75,7 +75,7 @@ export function AppSidebar({ session }: AppSidebarProps) {
                   height={30}
                 />
                 <h1 className="font-semibold tracking-tight">
-                  Dialisis Connect
+                  Dialisis Connect Edu
                 </h1>
               </Link>
             </div>
