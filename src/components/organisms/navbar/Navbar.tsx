@@ -25,14 +25,14 @@ export default function Navbar() {
         active: pathname.startsWith("/woman"),
       },
       {
-        href: "#",
+        href: "/dashboard/modules",
         label: "Materi",
-        active: pathname.startsWith("/man"),
+        active: pathname.startsWith("/dashboard/modules"),
       },
       {
-        href: "#",
+        href: "/dashboard/screening",
         label: "Screening",
-        active: pathname.startsWith("/kids"),
+        active: pathname.startsWith("/dashboard/screening"),
       },
     ],
     [pathname],
