@@ -4,7 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --auth-pattern: url("/images/background/bg-undip.jpg");
+  --auth-pattern: url("/images/background/bg-auth-remove.png");
   --bg-footer-pattern: url("/images/assets/bg-footer.png");
   --color-background: var(--background);
   --color-foreground: var(--foreground);
