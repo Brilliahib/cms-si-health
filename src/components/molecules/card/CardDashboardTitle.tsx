@@ -20,8 +20,8 @@ export default function CardDashboardTitle({
       <Link href={`/dashboard/${link}`}>
         <Card>
           <CardHeader>
-            <div className="w-fit rounded-md border p-4 shadow">
-              <Icon className="text-primary" {...iconProps} />
+            <div>
+              <Icon className="text-primary size-6" {...iconProps} />
             </div>
           </CardHeader>
           <CardContent>

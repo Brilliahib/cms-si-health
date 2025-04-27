@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import DashboardTitle from "@/components/atoms/typography/DashboardTitle";
 import CardCAPDMaterialCount from "@/components/molecules/card/CardDashboardTitle";
-import { History, NotebookText, Search } from "lucide-react";
+import { History, MessageSquare, NotebookText, Search } from "lucide-react";
 
 export default function DashboardWrapper() {
   const { data: session } = useSession();
@@ -32,7 +32,7 @@ export default function DashboardWrapper() {
         body="Selamat datang di halaman dashboard"
       />
       <div className="space-y-4">
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
           <CardCAPDMaterialCount
             title="Screening"
             icon={Search}
@@ -47,6 +47,11 @@ export default function DashboardWrapper() {
             title="Riwayat Pengerjaan"
             link="history"
             icon={History}
+          />
+          <CardCAPDMaterialCount
+            title="Form Komunitas"
+            link="discussions"
+            icon={MessageSquare}
           />
         </div>
       </div>
