@@ -1,5 +1,6 @@
 "use client";
 
+import AlertInformationCreateModuleContent from "@/components/atoms/alert/AlertInformationCreateModuleContent";
 import { subModuleColumns } from "@/components/atoms/datacolumn/DataSubModule";
 import DialogCreateSubModules from "@/components/atoms/dialog/DialogCreateSubModule";
 import { DataTable } from "@/components/molecules/datatable/DataTable";
@@ -28,9 +29,12 @@ export default function DashboardAdminSubModulesWrapper() {
   return (
     <>
       <div className="space-y-4">
-        <Button onClick={handleDialogSubModuleOpen}>
-          <Plus /> Tambah Materi
-        </Button>
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <AlertInformationCreateModuleContent />
+          <Button onClick={handleDialogSubModuleOpen}>
+            <Plus /> Tambah Materi
+          </Button>
+        </div>
         <DataTable
           columns={subModuleColumns}
           data={data?.data ?? []}
