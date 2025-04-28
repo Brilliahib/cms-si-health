@@ -30,7 +30,7 @@ export const useGetDetailQuestionBank = (
   options?: Partial<UseQueryOptions<GetDetailQuestionBankResponse, AxiosError>>,
 ) => {
   return useQuery({
-    queryKey: ["question-bank-list", id],
+    queryKey: ["question-bank-detail", id],
     queryFn: () => GetDetailQuestionBankHandler(id, token),
     ...options,
   });

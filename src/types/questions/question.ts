@@ -14,6 +14,7 @@ export type Options = {
   question_id: string;
   option_text: string;
   is_correct: boolean;
+  score: number | null;
   created_at: Date;
   updated_at: Date;
 };
