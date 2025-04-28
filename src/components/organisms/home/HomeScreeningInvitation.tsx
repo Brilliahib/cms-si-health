@@ -20,7 +20,7 @@ export default function HomeScreeningInvitation() {
                 Mudah dan bisa diakses kapan saja. Mulai sekarang, lebih peduli
                 dengan diri sendiri itu mudah!
               </p>
-              <Link href={"/dashboard/screening"} className="w-full">
+              <Link href={"/login"} className="w-full">
                 <Button className="md:max-w-[200px]">Mulai Sekarang</Button>
               </Link>
             </div>

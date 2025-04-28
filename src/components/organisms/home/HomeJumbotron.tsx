@@ -21,7 +21,7 @@ export default function HomeJumbotron() {
             pengetahuan, dan kepatuhan dalam perawatan gagal ginjal kronis.
           </p>
           <div>
-            <Link href={"/dashboard"}>
+            <Link href={"/login"}>
               <Button size={"lg"} className="min-w-[200px]">
                 Coba Sekarang
               </Button>

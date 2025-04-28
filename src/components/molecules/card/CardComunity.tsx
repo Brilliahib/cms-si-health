@@ -14,7 +14,7 @@ export default function CardComunity() {
               <p className="text-center text-lg text-white">
                 Berbagi pengalaman dan Saling Bertanya!
               </p>
-              <Link href={"/dashboard/discussions"}>
+              <Link href={"/login"}>
                 <Button
                   className="text-primary hover:text-primary bg-white text-base font-semibold hover:bg-white"
                   size={"lg"}

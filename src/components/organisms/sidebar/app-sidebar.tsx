@@ -92,7 +92,10 @@ export function AppSidebar({ session }: AppSidebarProps) {
                 <SidebarMenuButton
                   asChild
                   className={`hover:bg-primary/10 hover:text-primary dark:hover:bg-slate-900 ${
-                    pathname.startsWith("/dashboard")
+                    pathname ===
+                    (session?.user.role === "admin"
+                      ? "/dashboard/admin"
+                      : "/dashboard")
                       ? "bg-primary/10 text-primary dark:bg-slate-800"
                       : ""
                   }`}
