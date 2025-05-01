@@ -74,6 +74,7 @@ export default function FormUpdatePersonalInformation() {
           : "capd",
       disease_duration: data?.data.disease_duration ?? "",
       dialisis_duration: data?.data.dialisis_duration ?? "",
+      history_therapy: data?.data.history_therapy ?? "",
     },
     mode: "onChange",
   });
@@ -303,11 +304,11 @@ export default function FormUpdatePersonalInformation() {
                 name="origin_hospital"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Asal Rumah Sakit</FormLabel>
+                    <FormLabel>Riwayat rumah sakit sebelumnya</FormLabel>
                     <FormControl>
                       <Input
                         type="text"
-                        placeholder="Masukkan asal rumah sakit"
+                        placeholder="Masukkan rumah sakit sebelumnya"
                         {...field}
                         value={field.value}
                       />
@@ -320,7 +321,9 @@ export default function FormUpdatePersonalInformation() {
                 name="patient_type"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Anda termasuk pasien apa?</FormLabel>
+                    <FormLabel>
+                      Anda saat ini sedang menjalani terapi apa?
+                    </FormLabel>
                     <FormControl>
                       <Select
                         onValueChange={field.onChange}
@@ -380,6 +383,44 @@ export default function FormUpdatePersonalInformation() {
                         {...field}
                         value={field.value}
                       />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="history_therapy"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Apa terapi yang pernah dijalani sebelumnya?
+                    </FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Pilih jenis terapi" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectLabel>Jenis terapi</SelectLabel>
+                            <SelectItem value="HD">
+                              Hemodialisis (HD)
+                            </SelectItem>
+                            <SelectItem value="CAPD">
+                              Continuous Ambulatory Peritonial Dialysis (CAPD)
+                            </SelectItem>
+                            <SelectItem value="transplantasi">
+                              Transplantasi Ginjal
+                            </SelectItem>
+                            <SelectItem value="nothing">
+                              Belum Pernah
+                            </SelectItem>
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                   </FormItem>
                 )}

@@ -13,6 +13,7 @@ export type PersonalInformation = {
   patient_type: string;
   disease_duration: string;
   dialisis_duration: string;
+  history_therapy: string;
 };
 
 export type CheckPersonalInformation = {

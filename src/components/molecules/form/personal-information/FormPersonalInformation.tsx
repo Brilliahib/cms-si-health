@@ -57,6 +57,7 @@ export default function FormCreatePersonalInformation() {
       patient_type: undefined,
       disease_duration: "",
       dialisis_duration: "",
+      history_therapy: "nothing",
     },
     mode: "onChange",
   });
@@ -402,6 +403,46 @@ export default function FormCreatePersonalInformation() {
                     <FormDescription>
                       * Contoh: 1 Tahun atau 8 Bulan
                     </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="history_therapy"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Apa terapi yang pernah dijalani sebelumnya?{" "}
+                      <span className="text-red-500">*</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Pilih jenis terapi" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectLabel>Jenis Terapi</SelectLabel>
+                            <SelectItem value="HD">
+                              Hemodialisis (HD)
+                            </SelectItem>
+                            <SelectItem value="CAPD">
+                              Continuous Ambulatory Peritonial Dialysis (CAPD)
+                            </SelectItem>
+                            <SelectItem value="transplantasi">
+                              Transplantasi Ginjal
+                            </SelectItem>
+                            <SelectItem value="nothing">
+                              Belum Pernah
+                            </SelectItem>
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}

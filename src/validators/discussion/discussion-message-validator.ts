@@ -2,7 +2,9 @@ import { z } from "zod";
 
 export const discussionMessageSchema = z.object({
   discussion_id: z.string().nonempty(),
+  medical_id: z.string().nullable().optional(),
   comment: z.string().nonempty(),
+  is_private: z.boolean().default(false),
   image: z
     .instanceof(File)
     .refine(
