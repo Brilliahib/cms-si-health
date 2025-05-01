@@ -13,7 +13,7 @@ export const updateAccountHandler = async (
   body: UpdateAccountType,
   token: string,
 ): Promise<UpdateAccountResponse> => {
-  const { data } = await api.post("/auth/update-account", body, {
+  const { data } = await api.put("/auth/update-account", body, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

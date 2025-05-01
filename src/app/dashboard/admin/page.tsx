@@ -9,8 +9,8 @@ export default function DashboardAdminPage() {
   return (
     <>
       <DashboardTitle
-        head="Dashboard Admin"
-        body="Selamat datang di Dashboard Admin!"
+        head="Beranda Admin"
+        body="Selamat datang di halaman beranda admin Dialisis Connect Edu"
       />
     </>
   );

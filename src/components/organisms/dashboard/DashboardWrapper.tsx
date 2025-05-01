@@ -28,8 +28,8 @@ export default function DashboardWrapper() {
   return (
     <>
       <DashboardTitle
-        head="Dashboard"
-        body="Selamat datang di halaman dashboard"
+        head="Beranda"
+        body="Selamat datang di halaman beranda Dialisis Connect Edu"
       />
       <div className="space-y-4">
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
@@ -49,7 +49,7 @@ export default function DashboardWrapper() {
             icon={History}
           />
           <CardCAPDMaterialCount
-            title="Form Komunitas"
+            title="Forum Komunitas"
             link="discussions"
             icon={MessageSquare}
           />
