@@ -308,12 +308,13 @@ export default function FormCreatePersonalInformation() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Asal Rumah Sakit <span className="text-red-500">*</span>
+                      Riwayat rumah sakit sebelumnya{" "}
+                      <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input
                         type="text"
-                        placeholder="Masukkan asal rumah sakit"
+                        placeholder="Masukkan riwayat rumah sakit sebelumnya"
                         {...field}
                         value={field.value ?? ""}
                       />
@@ -328,7 +329,7 @@ export default function FormCreatePersonalInformation() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Anda termasuk pasien apa?{" "}
+                      Anda saat ini sedang menjalani terapi apa?{" "}
                       <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
@@ -337,11 +338,11 @@ export default function FormCreatePersonalInformation() {
                         value={field.value}
                       >
                         <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Jenis Pasien" />
+                          <SelectValue placeholder="Jenis Terapi" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            <SelectLabel>Jenis Pasien</SelectLabel>
+                            <SelectLabel>Jenis Terapi</SelectLabel>
                             <SelectItem value="hd">
                               Hemodialisis (HD)
                             </SelectItem>

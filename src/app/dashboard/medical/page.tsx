@@ -4,8 +4,8 @@ export default function MedicalDashboardPage() {
   return (
     <section>
       <DashboardTitle
-        head="Dashboard Tenaga Kesehatan"
-        body="Selamat datang nakes! Selamat datang di Dialisis Connect Edu!"
+        head="Beranda Nakes"
+        body="Selamat datang di halaman beranda Nakes Dialisis Connect Edu"
       />
     </section>
   );
