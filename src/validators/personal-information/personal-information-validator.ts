@@ -21,6 +21,7 @@ export const personalInformationSchema = z.object({
   patient_type: z.enum(["hd", "capd"]),
   disease_duration: z.string().nonempty(),
   dialisis_duration: z.string().nonempty(),
+  history_therapy: z.string().nonempty(),
 });
 
 export type PersonalInformationType = z.infer<typeof personalInformationSchema>;

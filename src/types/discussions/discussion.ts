@@ -19,6 +19,8 @@ export type DiscussionDetail = {
 export type DiscussionComment = {
   id: string;
   discussion_id: string;
+  medical_id: string | null;
+  is_private: boolean;
   user_id: string;
   comment: string;
   image_path: string;
