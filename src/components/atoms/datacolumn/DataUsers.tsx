@@ -8,7 +8,11 @@ import { Eye, KeyRound, Trash2 } from "lucide-react";
 import ActionButton from "@/components/molecules/datatable/ActionButton";
 import { User } from "@/types/user/user";
 
-export const usersColumns: ColumnDef<User>[] = [
+interface UserColumnProps {
+  resetPasswordUserHandler: (data: User) => void;
+}
+
+export const usersColumns = (props: UserColumnProps): ColumnDef<User>[] => [
   {
     accessorKey: "index",
     header: "No",
@@ -75,13 +79,13 @@ export const usersColumns: ColumnDef<User>[] = [
             <Eye className="h-4 w-4" />
             <span className="ml-2">Detail</span>
           </Link>
-          <Link
-            href={`/dashboard/admin/users/${data.id}/edit`}
-            className="flex items-center text-yellow-600 hover:text-yellow-800 hover:underline"
+          <div
+            onClick={() => props.resetPasswordUserHandler(data)}
+            className="flex cursor-pointer items-center text-yellow-600 hover:text-yellow-800 hover:underline"
           >
             <KeyRound className="h-4 w-4" />
             <span className="ml-2">Reset Password</span>
-          </Link>
+          </div>
           <Link
             href={`/dashboard/admin/users/${data.id}/edit`}
             className="flex items-center text-red-600 hover:text-red-800 hover:underline"
