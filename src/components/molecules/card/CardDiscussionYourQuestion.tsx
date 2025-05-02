@@ -44,10 +44,10 @@ export default function CardDiscussionYourQuestion({
             <CardContent className="space-y-4">
               <Badge
                 className={
-                  Boolean(comment.is_private) ? "bg-green-500" : "bg-red-500"
+                  comment.is_private === true ? "bg-red-500" : "bg-green-500"
                 }
               >
-                {Boolean(comment.is_private) ? "Publik" : "Privasi"}
+                {comment.is_private === false ? "Privasi" : "Publik"}
               </Badge>
 
               <h1 className="max-w-xl font-medium break-words whitespace-normal">

@@ -17,21 +17,42 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { useSession } from "next-auth/react";
+import { useGetAllMedicalPersonalUsers } from "@/http/users/get-medical-personal-users";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface MessageDiscussionProps {
   id: string;
 }
 
 export default function MessageDiscussion({ id }: MessageDiscussionProps) {
+  const { data: session, status } = useSession();
+  const { data } = useGetAllMedicalPersonalUsers(
+    session?.access_token as string,
+    {
+      enabled: status === "authenticated",
+    },
+  );
+
   const form = useForm<DiscussionMessageType>({
     resolver: zodResolver(discussionMessageSchema),
     defaultValues: {
       discussion_id: id,
       image: undefined,
       comment: "",
+      is_private: false,
+      medical_id: null,
     },
     mode: "onChange",
   });
@@ -67,7 +88,12 @@ export default function MessageDiscussion({ id }: MessageDiscussionProps) {
   });
 
   const onSubmit = (body: DiscussionMessageType) => {
-    addHDHandler(body);
+    const payload = {
+      ...body,
+      medical_id: body.is_private ? body.medical_id : null,
+    };
+
+    addHDHandler(payload);
   };
 
   return (
@@ -113,19 +139,71 @@ export default function MessageDiscussion({ id }: MessageDiscussionProps) {
             )}
           />
 
-          <div className="flex w-full items-center justify-end gap-x-2">
-            <button type="button" onClick={handleClickPaperclip}>
-              <Paperclip className="text-muted-foreground h-6 w-6 cursor-pointer" />
-            </button>
+          <div className="flex items-end justify-between">
+            <div className="flex flex-col gap-y-4">
+              <FormField
+                control={form.control}
+                name="is_private"
+                render={({ field }) => (
+                  <FormItem className="flex items-center space-x-2">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={(checked) => field.onChange(!!checked)}
+                      />
+                    </FormControl>
+                    <div className="text-muted-foreground text-sm">
+                      Private (hanya ke Dokter / Tenaga Medis)
+                    </div>
+                  </FormItem>
+                )}
+              />
 
-            <Button
-              type="submit"
-              disabled={isPending}
-              className="rounded-full"
-              size={"icon"}
-            >
-              <ArrowUp className="h-8 w-8" />
-            </Button>
+              {form.watch("is_private") && (
+                <FormField
+                  control={form.control}
+                  name="medical_id"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Pilih dokter / tenaga medis</FormLabel>
+                      <Select
+                        value={field.value ?? ""}
+                        onValueChange={(value) => field.onChange(value || null)}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Pilih Medical Personal" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {data?.data.map((user) => (
+                            <SelectItem key={user.id} value={user.id}>
+                              {user.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
+            </div>
+
+            <div className="flex w-full items-center justify-end gap-x-2">
+              <button type="button" onClick={handleClickPaperclip}>
+                <Paperclip className="text-muted-foreground h-6 w-6 cursor-pointer" />
+              </button>
+
+              <Button
+                type="submit"
+                disabled={isPending}
+                className="rounded-full"
+                size={"icon"}
+              >
+                <ArrowUp className="h-8 w-8" />
+              </Button>
+            </div>
           </div>
 
           <input
