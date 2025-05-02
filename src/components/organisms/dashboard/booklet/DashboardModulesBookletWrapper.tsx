@@ -49,7 +49,7 @@ export default function DashboardModulesBookletWrapper({
               <AlertDetailBookletModule />
               <div>
                 <Link
-                  href={`${BASE_URL}/storage/${data?.data.file_path}`}
+                  href={`${BASE_URL}/public/public/${data?.data.file_path}`}
                   target="_blank"
                 >
                   <Button>
@@ -58,7 +58,7 @@ export default function DashboardModulesBookletWrapper({
                 </Link>
               </div>
               <iframe
-                src={`https://docs.google.com/gview?url=${BASE_URL}/storage/${data?.data.file_path}&embedded=true`}
+                src={`https://docs.google.com/gview?url=${BASE_URL}/public/public/${data?.data.file_path}&embedded=true`}
                 className="h-[500px] w-full rounded border md:h-[800px] md:rounded-xl"
                 loading="lazy"
               />
