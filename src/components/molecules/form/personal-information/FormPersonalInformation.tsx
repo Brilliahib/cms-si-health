@@ -36,8 +36,9 @@ import {
 } from "@/validators/personal-information/personal-information-validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
-import { format } from "date-fns";
+import { differenceInYears, format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -76,6 +77,16 @@ export default function FormCreatePersonalInformation() {
         });
       },
     });
+
+  useEffect(() => {
+    const dateOfBirth = form.watch("date_of_birth");
+
+    if (dateOfBirth) {
+      const dob = new Date(dateOfBirth);
+      const age = differenceInYears(new Date(), dob);
+      form.setValue("age", String(age));
+    }
+  }, [form.watch("date_of_birth")]);
 
   const onSubmit = (body: PersonalInformationType) => {
     addNewQuestionTalkHandler({ ...body });
@@ -189,8 +200,12 @@ export default function FormCreatePersonalInformation() {
                         placeholder="Masukkan umur"
                         {...field}
                         value={field.value ?? ""}
+                        readOnly
                       />
                     </FormControl>
+                    <FormDescription>
+                      * Umur otomatis terisi ketika mengisi tanggal lahir
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
