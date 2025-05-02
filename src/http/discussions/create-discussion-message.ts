@@ -17,6 +17,11 @@ export const addNewDiscussionMesaggeHandler = async (
 
   formData.append("discussion_id", body.discussion_id);
   formData.append("comment", body.comment);
+  formData.append("is_private", body.is_private ? "1" : "0");
+
+  if (body.is_private && body.medical_id) {
+    formData.append("medical_id", body.medical_id);
+  }
 
   if (body.image) {
     formData.append("image", body.image);

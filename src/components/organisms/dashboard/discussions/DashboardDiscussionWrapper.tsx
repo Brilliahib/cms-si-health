@@ -17,12 +17,15 @@ export default function DashboardDiscussionWrapper() {
   );
   return (
     <div>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between md:gap-0">
         <DashboardTitle
           head="Forum Komunitas"
           body="Menampilkan topik diskusi di forum komunitas"
         />
-        <Link href={"/dashboard/discussions/your-question"}>
+        <Link
+          href={"/dashboard/discussions/your-question"}
+          className="mb-6 md:mb-0"
+        >
           <Button>Kelola Pertanyaan Anda</Button>
         </Link>
       </div>

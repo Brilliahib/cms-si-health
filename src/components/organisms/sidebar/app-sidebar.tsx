@@ -29,6 +29,7 @@ import {
   SearchCheck,
   Settings2,
   Users,
+  CircleHelp,
 } from "lucide-react";
 import { NavUser } from "./NavUser";
 import { useGetCheckPersonalInformation } from "@/http/personal-information/get-check-personal-information";
@@ -238,6 +239,17 @@ export function AppSidebar({ session }: AppSidebarProps) {
                           <Link href="/dashboard/admin/discussions">
                             <Users />
                             <span>Forum Komunitas</span>
+                          </Link>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton
+                          asChild
+                          className={buttonClass("/dashboard/admin/faqs")}
+                        >
+                          <Link href="/dashboard/admin/faqs">
+                            <CircleHelp />
+                            <span>FAQ</span>
                           </Link>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
