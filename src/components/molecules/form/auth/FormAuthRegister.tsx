@@ -31,6 +31,7 @@ import { useRegister } from "@/http/auth/register";
 import { toast } from "sonner";
 import { useState } from "react";
 import DialogAgreementRegister from "@/components/atoms/dialog/DialogAgreementRegister";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function FormAuthRegister() {
   const form = useForm<RegisterType>({
@@ -54,6 +55,15 @@ export default function FormAuthRegister() {
     email: "Email sudah digunakan.",
     username: "Username sudah digunakan.",
     phone_number: "Nomor telepon sudah digunakan.",
+  };
+
+  const [showPassword, setShowPassword] = useState({
+    main: false,
+    confirm: false,
+  });
+
+  const togglePassword = (key: keyof typeof showPassword) => {
+    setShowPassword((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
   const { mutate: registerRequestHandler, isPending } = useRegister({
@@ -205,17 +215,35 @@ export default function FormAuthRegister() {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input
-                          type="password"
-                          id="password"
-                          placeholder="Masukkan password"
-                          {...field}
-                        />
+                        <div className="relative">
+                          <Input
+                            type={showPassword.main ? "text" : "password"}
+                            id="password"
+                            placeholder="Masukkan password"
+                            {...field}
+                            className="pr-10"
+                          />
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="icon"
+                            className="text-muted-foreground absolute top-1/2 right-2 -translate-y-1/2"
+                            onClick={() => togglePassword("main")}
+                            tabIndex={-1}
+                          >
+                            {showPassword.main ? (
+                              <EyeOff className="h-4 w-4" />
+                            ) : (
+                              <Eye className="h-4 w-4" />
+                            )}
+                          </Button>
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
                   name="password_confirmation"
@@ -223,12 +251,29 @@ export default function FormAuthRegister() {
                     <FormItem>
                       <FormLabel>Konfirmasi Password</FormLabel>
                       <FormControl>
-                        <Input
-                          type="password"
-                          id="password"
-                          placeholder="Masukkan konfirmasi password"
-                          {...field}
-                        />
+                        <div className="relative">
+                          <Input
+                            type={showPassword.confirm ? "text" : "password"}
+                            id="password_confirmation"
+                            placeholder="Masukkan konfirmasi password"
+                            {...field}
+                            className="pr-10"
+                          />
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="icon"
+                            className="text-muted-foreground absolute top-1/2 right-2 -translate-y-1/2"
+                            onClick={() => togglePassword("confirm")}
+                            tabIndex={-1}
+                          >
+                            {showPassword.confirm ? (
+                              <EyeOff className="h-4 w-4" />
+                            ) : (
+                              <Eye className="h-4 w-4" />
+                            )}
+                          </Button>
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
