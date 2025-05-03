@@ -3,8 +3,10 @@
 import MessageDiscussion from "@/components/atoms/message/MessageDiscussion";
 import DashboardTitleBold from "@/components/atoms/typography/DashboardTitleBold";
 import CardListDiscussionComment from "@/components/molecules/card/CardListDiscussionComment";
+import DiscussionCommentSearchBar from "@/components/molecules/search/SearchDiscussionComment";
 import { useGetDetailDiscussion } from "@/http/discussions/get-detail-discussions";
 import { useSession } from "next-auth/react";
+import { useMemo, useState } from "react";
 
 interface DashboardDiscussionDetailWrapperProps {
   id: string;
@@ -21,14 +23,28 @@ export default function DashboardDiscussionDetailWrapper({
       enabled: status === "authenticated",
     },
   );
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredComments = useMemo(() => {
+    if (!data?.data?.comments) return [];
+
+    return data.data.comments.filter((comment) =>
+      comment.comment.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
+  }, [data?.data?.comments, searchTerm]);
+
   return (
     <section>
       <DashboardTitleBold head={`# ${data?.data.title ?? ""}`} />
       <MessageDiscussion id={id} />
-      <CardListDiscussionComment
-        data={data?.data.comments || []}
-        isLoading={isPending}
-      />
+      <div className="space-y-4 md:space-y-6">
+        <DiscussionCommentSearchBar onSearch={setSearchTerm} />
+        <CardListDiscussionComment
+          data={filteredComments}
+          isLoading={isPending}
+        />
+      </div>
     </section>
   );
 }
