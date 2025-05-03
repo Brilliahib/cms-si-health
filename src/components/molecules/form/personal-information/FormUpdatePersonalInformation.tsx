@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -35,10 +36,11 @@ import {
   PersonalInformationType,
 } from "@/validators/personal-information/personal-information-validator";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { format } from "date-fns";
+import { differenceInYears, format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -67,7 +69,10 @@ export default function FormUpdatePersonalInformation() {
       work: data?.data.work ?? "",
       last_education: data?.data.last_education ?? "",
       origin_hospital: data?.data.origin_hospital ?? "",
-      is_married: data?.data.is_married ?? false,
+      is_married:
+        data?.data.is_married !== undefined
+          ? Boolean(Number(data.data.is_married))
+          : false,
       patient_type:
         data?.data.patient_type === "hd" || data?.data.patient_type === "capd"
           ? data.data.patient_type
@@ -91,6 +96,16 @@ export default function FormUpdatePersonalInformation() {
         router.refresh();
       },
     });
+
+  useEffect(() => {
+    const dateOfBirth = form.watch("date_of_birth");
+
+    if (dateOfBirth) {
+      const dob = new Date(dateOfBirth);
+      const age = differenceInYears(new Date(), dob);
+      form.setValue("age", String(age));
+    }
+  }, [form.watch("date_of_birth")]);
 
   const onSubmit = (body: PersonalInformationType) => {
     editPersonalInformationHandler({ ...body });
@@ -188,15 +203,22 @@ export default function FormUpdatePersonalInformation() {
                 name="age"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Umur</FormLabel>
+                    <FormLabel>
+                      Umur <span className="text-red-500">*</span>
+                    </FormLabel>
                     <FormControl>
                       <Input
                         type="text"
                         placeholder="Masukkan umur"
                         {...field}
-                        value={field.value}
+                        value={field.value ?? ""}
+                        readOnly
                       />
                     </FormControl>
+                    <FormDescription>
+                      * Umur otomatis terisi ketika mengisi tanggal lahir
+                    </FormDescription>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
