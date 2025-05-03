@@ -70,10 +70,10 @@ export function AppSidebar({ session }: AppSidebarProps) {
             <div className="ml-2 flex items-center gap-x-3">
               <Link href="/dashboard" className="flex items-center gap-2">
                 <Image
-                  src="/images/logo/undip.png"
-                  alt="Sistem Informasi Kesehatan Ginjal"
-                  width={30}
-                  height={30}
+                  src={"/images/assets/bg-about-us.png"}
+                  alt="Dialisis Connect"
+                  width={60}
+                  height={60}
                 />
                 <h1 className="font-semibold tracking-tight">
                   Dialisis Connect Edu

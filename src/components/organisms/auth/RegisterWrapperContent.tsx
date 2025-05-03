@@ -24,10 +24,10 @@ export default function RegisterWrapperContent() {
         <div className="relative z-20 flex items-center gap-x-3 text-lg font-medium">
           <Link href={"/"} className="flex items-center gap-2">
             <Image
-              src={"/images/logo/undip.png"}
-              alt="Sistem Informasi Kesehatan Ginjal"
-              width={40}
-              height={40}
+              src={"/images/assets/bg-about-us.png"}
+              alt="Dialisis Connect"
+              width={75}
+              height={75}
             />
             <h1 className="font-semibold tracking-tight">
               Dialisis Connect Edu
