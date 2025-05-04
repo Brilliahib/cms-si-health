@@ -1,4 +1,5 @@
 import DashboardTitle from "@/components/atoms/typography/DashboardTitle";
+import DashboardAdminWrapper from "@/components/organisms/dashboard/admin/DashboardAdminWrapper";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,6 +13,7 @@ export default function DashboardAdminPage() {
         head="Beranda Admin"
         body="Selamat datang di halaman beranda admin Dialisis Connect Edu"
       />
+      <DashboardAdminWrapper />
     </>
   );
 }
