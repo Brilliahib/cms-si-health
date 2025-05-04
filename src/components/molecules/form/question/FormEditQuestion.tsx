@@ -35,9 +35,10 @@ export default function FormEditQuestion({ id, data }: FormEditQuestionProps) {
       options: data?.options?.map((option) => ({
         option_text: option.option_text || "",
         score: option.score ?? null,
+        option_index: option.option_index,
       })) ?? [
-        { option_text: "", score: null },
-        { option_text: "", score: null },
+        { option_text: "", score: null, option_index: 1 },
+        { option_text: "", score: null, option_index: 2 },
       ],
     }),
     [data],
@@ -61,7 +62,7 @@ export default function FormEditQuestion({ id, data }: FormEditQuestionProps) {
     },
     onSuccess: () => {
       toast.success("Berhasil mengupdate soal!");
-      router.refresh();
+      router.back();
     },
   });
 
@@ -108,6 +109,26 @@ export default function FormEditQuestion({ id, data }: FormEditQuestionProps) {
                   <FormItem>
                     <FormLabel>
                       Pilihan {index + 1}{" "}
+                      <span className="text-red-500">*</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder={`Masukkan pilihan ${index + 1}`}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name={`options.${index}.option_index`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Urutan Pilihan Jawaban
                       <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>

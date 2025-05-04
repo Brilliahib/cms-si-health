@@ -17,4 +17,5 @@ export type Options = {
   score: number | null;
   created_at: Date;
   updated_at: Date;
+  option_index: number;
 };

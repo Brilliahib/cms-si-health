@@ -30,6 +30,7 @@ import {
   Settings2,
   Users,
   CircleHelp,
+  UserRoundSearch,
 } from "lucide-react";
 import { NavUser } from "./NavUser";
 import { useGetCheckPersonalInformation } from "@/http/personal-information/get-check-personal-information";
@@ -309,13 +310,32 @@ export function AppSidebar({ session }: AppSidebarProps) {
                       <SidebarMenuItem>
                         <SidebarMenuButton
                           asChild
-                          className={buttonClass(
-                            "/dashboard/medical/discussions",
-                          )}
+                          className={
+                            pathname === "/dashboard/medical/discussions"
+                              ? "bg-primary/10 text-primary hover:bg-primary/10 hover:text-primary dark:bg-slate-800"
+                              : "hover:bg-primary/10 hover:text-primary dark:hover:bg-slate-900"
+                          }
                         >
                           <Link href="/dashboard/medical/discussions">
                             <Users />
                             <span>Forum Komunitas</span>
+                          </Link>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+
+                      <SidebarMenuItem>
+                        <SidebarMenuButton
+                          asChild
+                          className={
+                            pathname ===
+                            "/dashboard/medical/discussions/private"
+                              ? "bg-primary/10 text-primary hover:bg-primary/10 hover:text-primary dark:bg-slate-800"
+                              : "hover:bg-primary/10 hover:text-primary dark:hover:bg-slate-900"
+                          }
+                        >
+                          <Link href="/dashboard/medical/discussions/private">
+                            <UserRoundSearch />
+                            <span>Pertanyaan Private</span>
                           </Link>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
