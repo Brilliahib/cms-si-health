@@ -84,12 +84,10 @@ export default function CardDiscussionYourQuestion({
               <Badge
                 variant={"outline"}
                 className={
-                  comment.is_private === true
-                    ? "text-red-500"
-                    : "text-green-500"
+                  comment.is_private === "1" ? "text-red-500" : "text-green-500"
                 }
               >
-                {comment.is_private === false ? (
+                {comment.is_private === "1" ? (
                   <>
                     <Lock size={14} className="mr-1" />
                     Privasi
@@ -101,6 +99,7 @@ export default function CardDiscussionYourQuestion({
                   </>
                 )}
               </Badge>
+
               <div className="flex items-center gap-4">
                 <Link
                   href={`/dashboard/discussions/${comment.id}/answers`}
