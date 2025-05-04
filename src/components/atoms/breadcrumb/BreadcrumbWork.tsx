@@ -40,8 +40,8 @@ export default function BreadcrumbNavWork({
               <Image
                 src="/images/assets/bg-about-us.png"
                 alt="Sistem Informasi Kesehatan Ginjal"
-                width={30}
-                height={30}
+                width={70}
+                height={70}
               />
               <h1 className="font-semibold uppercase">{data?.name}</h1>
             </div>

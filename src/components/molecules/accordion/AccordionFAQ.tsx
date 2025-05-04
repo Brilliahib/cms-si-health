@@ -10,22 +10,38 @@ export default function AccordionFAQ() {
     <div>
       <Accordion type="single" collapsible className="w-full space-y-4">
         <AccordionItem value="item-1">
-          <AccordionTrigger>Is it accessible?</AccordionTrigger>
+          <AccordionTrigger>
+            Apakah pasien HD disarankan mengonsumsi buah segar?
+          </AccordionTrigger>
           <AccordionContent>
-            Yes. It adheres to the WAI-ARIA design pattern.
+            Pasien hemodialisis sebaiknya tidak mengonsumsi buah segar secara
+            langsung karena umumnya mengandung kalium dalam jumlah tinggi. Untuk
+            mengurangi kadar kalium, buah sebaiknya direndam atau dimasak
+            terlebih dahulu sebelum dikonsumsi.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-2">
-          <AccordionTrigger>Is it styled?</AccordionTrigger>
+          <AccordionTrigger>
+            Apakah saya bisa berpindah dari HD ke CAPD, atau sebaliknya?
+          </AccordionTrigger>
           <AccordionContent>
-            Yes. It comes with default styles that matches the other
-            components&apos; aesthetic.
+            Ya, pasien dapat berpindah dari Hemodialisis (HD) ke Continuous
+            Ambulatory Peritoneal Dialysis (CAPD), atau sebaliknya, jika kondisi
+            medis memungkinkan dan mendapatkan persetujuan dari dokter.
+            Perpindahan ini biasanya didasarkan pada kenyamanan, efektivitas
+            terapi, dan kemungkinan komplikasi.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-3">
-          <AccordionTrigger>Is it animated?</AccordionTrigger>
+          <AccordionTrigger>
+            Apakah kebutuhan nutrisi pada pasien CAPD dan HD sama?
+          </AccordionTrigger>
           <AccordionContent>
-            Yes. Its animated by default, but you can disable it if you prefer.
+            Kebutuhan nutrisi pasien CAPD dan HD tidak sepenuhnya sama. Hal ini
+            disebabkan oleh perbedaan mekanisme pengeluaran cairan dan zat gizi
+            dalam kedua metode dialisis, sehingga masing-masing memerlukan
+            pengaturan diet yang spesifik untuk mengurangi risiko komplikasi dan
+            menunjang kondisi tubuh secara optimal.
           </AccordionContent>
         </AccordionItem>
       </Accordion>
