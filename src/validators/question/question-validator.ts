@@ -2,6 +2,7 @@ import { z } from "zod";
 
 const optionSchema = z.object({
   option_text: z.string().nonempty(),
+  option_index: z.number().positive(),
   score: z.preprocess((val) => {
     if (val === "" || val === null || val === undefined) return null;
     const num = Number(val);

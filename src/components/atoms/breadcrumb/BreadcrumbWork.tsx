@@ -38,7 +38,7 @@ export default function BreadcrumbNavWork({
 
             <div className="flex items-center gap-2">
               <Image
-                src="/images/logo/undip.png"
+                src="/images/assets/bg-about-us.png"
                 alt="Sistem Informasi Kesehatan Ginjal"
                 width={30}
                 height={30}

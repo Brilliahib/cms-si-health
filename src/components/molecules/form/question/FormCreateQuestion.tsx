@@ -39,10 +39,11 @@ export default function FormCreateQuestion({ id }: FormCreateQuestionProps) {
       question_set_id: id,
       question_text: "",
       options: [
-        { option_text: "", score: null },
-        { option_text: "", score: null },
+        { option_text: "", score: null, option_index: 1 },
+        { option_text: "", score: null, option_index: 2 },
       ],
     },
+
     mode: "onChange",
   });
 
@@ -142,6 +143,22 @@ export default function FormCreateQuestion({ id }: FormCreateQuestionProps) {
                           </FormItem>
                         )}
                       />
+                      <FormField
+                        control={form.control}
+                        name={`options.${index}.option_index`}
+                        render={() => (
+                          <FormItem>
+                            <FormLabel>No</FormLabel>
+                            <FormControl>
+                              <Input
+                                readOnly
+                                value={Number(index + 1)}
+                                className="bg-muted cursor-not-allowed"
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
 
                       {!isScreening && (
                         <FormField
@@ -176,7 +193,13 @@ export default function FormCreateQuestion({ id }: FormCreateQuestionProps) {
                   variant="outline"
                   size="sm"
                   className="mt-4"
-                  onClick={() => append({ option_text: "", score: null })}
+                  onClick={() =>
+                    append({
+                      option_text: "",
+                      score: null,
+                      option_index: Number(fields.length + 1),
+                    })
+                  }
                 >
                   <Plus className="mr-1 h-4 w-4" />
                   Tambah Opsi Jawaban
