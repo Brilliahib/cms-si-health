@@ -3,6 +3,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DiscussionComment } from "@/types/discussions/discussion";
 import { formatRelativeTime } from "@/utils/time-relative";
+import { Globe, Lock } from "lucide-react";
 import Link from "next/link";
 
 interface CardDiscussionYourQuestionProps {
@@ -43,11 +44,24 @@ export default function CardDiscussionYourQuestion({
           <Card className="shadow-none">
             <CardContent className="space-y-4">
               <Badge
+                variant={"outline"}
                 className={
-                  comment.is_private === true ? "bg-red-500" : "bg-green-500"
+                  comment.is_private === true
+                    ? "text-red-500"
+                    : "text-green-500"
                 }
               >
-                {comment.is_private === false ? "Privasi" : "Publik"}
+                {comment.is_private === false ? (
+                  <>
+                    <Lock size={14} className="mr-1" />
+                    Privasi
+                  </>
+                ) : (
+                  <>
+                    <Globe size={14} className="mr-1" />
+                    Publik
+                  </>
+                )}
               </Badge>
 
               <h1 className="max-w-xl font-medium break-words whitespace-normal">
