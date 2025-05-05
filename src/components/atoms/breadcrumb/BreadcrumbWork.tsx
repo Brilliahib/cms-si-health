@@ -42,11 +42,14 @@ export default function BreadcrumbNavWork({
                 alt="Sistem Informasi Kesehatan Ginjal"
                 width={70}
                 height={70}
+                className="hidden md:block"
               />
-              <h1 className="font-semibold uppercase">{data?.name}</h1>
+              <h1 className="line-clamp-2 font-semibold uppercase">
+                {data?.name}
+              </h1>
             </div>
 
-            <div>
+            <div className="flex-shrink-0">
               <span className="text-muted-foreground text-sm font-medium">
                 {currentIndex + 1} / {totalQuestions}
               </span>
