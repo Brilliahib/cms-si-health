@@ -59,16 +59,16 @@ export default function NavButton({ links }: NavHeaderProps) {
             <div className="mx-auto my-8">
               <Link href={"/"} className="flex items-center gap-2">
                 <Image
-                  src={"/images/logo/undip.png"}
+                  src={"/images/assets/bg-about-us.png"}
                   alt="Dialisis Connect"
-                  width={30}
-                  height={30}
+                  width={75}
+                  height={75}
                 />
                 <h1 className="font-bold">Dialisis Connect</h1>
               </Link>
             </div>
             {session ? (
-              <div className="w-full">
+              <div className="w-full gap-2 px-4">
                 <Link href={"/dashboard"}>
                   <Button className="w-full">Dashboard</Button>
                 </Link>

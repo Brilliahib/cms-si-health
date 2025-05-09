@@ -11,32 +11,32 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { buttonVariants } from "@/components/ui/button";
-import { PreTest } from "@/types/test/pre-test";
+import { HistoryPreTest } from "@/types/test/pre-test";
 
-interface AlertDialogDeletePreTestProps {
+interface AlertDialogDeleteHistoryPreTestProps {
   confirmDelete: () => void;
   open: boolean;
   setOpen: (open: boolean) => void;
   isPending?: boolean;
-  data?: PreTest | null;
+  data?: HistoryPreTest | null;
 }
 
-const AlertDialogDeletePreTestDialog = ({
+const AlertDialogDeleteHistoryPreTestDialog = ({
   open,
   setOpen,
   confirmDelete,
   isPending,
   data,
-}: AlertDialogDeletePreTestProps) => {
+}: AlertDialogDeleteHistoryPreTestProps) => {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Hapus Data?</AlertDialogTitle>
           <AlertDialogDescription>
-            Apakah anda yakin ingin menghapus data {""}
-            <b className="text-black">{data?.name}</b>? Data yang sudah dihapus
-            tidak dapat dikembalikan.
+            Apakah anda yakin ingin menghapus history pre test dari pasien{" "}
+            <b className="text-black">{data?.user.name}</b>? Data yang sudah
+            dihapus tidak dapat dikembalikan.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -54,4 +54,4 @@ const AlertDialogDeletePreTestDialog = ({
   );
 };
 
-export default AlertDialogDeletePreTestDialog;
+export default AlertDialogDeleteHistoryPreTestDialog;

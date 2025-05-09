@@ -11,23 +11,23 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { buttonVariants } from "@/components/ui/button";
-import { PreTest } from "@/types/test/pre-test";
+import { PostTest } from "@/types/test/post-test";
 
-interface AlertDialogDeletePreTestProps {
+interface AlertDialogDeletePostTestProps {
   confirmDelete: () => void;
   open: boolean;
   setOpen: (open: boolean) => void;
   isPending?: boolean;
-  data?: PreTest | null;
+  data?: PostTest | null;
 }
 
-const AlertDialogDeletePreTestDialog = ({
+const AlertDialogDeletePostTestDialog = ({
   open,
   setOpen,
   confirmDelete,
   isPending,
   data,
-}: AlertDialogDeletePreTestProps) => {
+}: AlertDialogDeletePostTestProps) => {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogContent>
@@ -54,4 +54,4 @@ const AlertDialogDeletePreTestDialog = ({
   );
 };
 
-export default AlertDialogDeletePreTestDialog;
+export default AlertDialogDeletePostTestDialog;

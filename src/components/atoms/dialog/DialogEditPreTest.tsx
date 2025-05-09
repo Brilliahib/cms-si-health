@@ -29,61 +29,75 @@ import { useForm } from "react-hook-form";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 import { useGetAllQuestionBanks } from "@/http/question-banks/get-all-question-bank";
-import {
-  postTestSchema,
-  PostTestType,
-} from "@/validators/test/post-test-validator";
-import { useAddNewPostTest } from "@/http/test/create-post-test";
 import { useGetAllSubModulesNoCategory } from "@/http/sub-modules/get-all-sub-modules-no-category";
+import { PreTest } from "@/types/test/pre-test";
+import {
+  preTestSchema,
+  PreTestType,
+} from "@/validators/test/pre-test-validator";
+import { useEditPreTest } from "@/http/admin/test/pre-test/edit-pre-test";
 
-interface DialogCreateArticleProps {
+interface DialogEditPreTestProps {
   open: boolean;
   setOpen: (open: boolean) => void;
+  data: PreTest;
+  id: string;
 }
 
-export default function DialogCreatePostTest({
+export default function DialogEditPreTest({
   open,
   setOpen,
-}: DialogCreateArticleProps) {
-  const form = useForm<PostTestType>({
-    resolver: zodResolver(postTestSchema),
+  data,
+  id,
+}: DialogEditPreTestProps) {
+  const form = useForm<PreTestType>({
+    resolver: zodResolver(preTestSchema),
     defaultValues: {
-      sub_module_id: "",
-      question_set_id: "",
-      name: "",
+      sub_module_id: data.sub_module_id,
+      question_set_id: data.question_set_id,
+      name: data.name,
     },
     mode: "onChange",
   });
 
+  useEffect(() => {
+    form.reset({
+      question_set_id: data.question_set_id,
+      name: data.name,
+      sub_module_id: data.sub_module_id,
+    });
+  }, [data, form]);
+
   const queryClient = useQueryClient();
 
-  const { mutate: addCAPDHandler, isPending } = useAddNewPostTest({
+  const { mutate: editPreTestHandler, isPending } = useEditPreTest({
     onError: () => {
-      toast.error("Gagal menambahkan post test!");
+      toast.error("Gagal memperbarui pre test!");
     },
     onSuccess: () => {
-      toast.success("Berhasil menambahkan post test!");
+      toast.success("Berhasil memperbarui pre test!");
       queryClient.invalidateQueries({
-        queryKey: ["post-test-list"],
+        queryKey: ["pre-test-list"],
       });
       setOpen(false);
     },
   });
 
-  const onSubmit = (body: PostTestType) => {
-    addCAPDHandler(body);
+  const onSubmit = (body: PreTestType) => {
+    editPreTestHandler({ body, id });
   };
 
   const { data: session, status } = useSession();
-  const { data } = useGetAllSubModulesNoCategory(
+  const { data: modules } = useGetAllQuestionBanks(
     session?.access_token as string,
     {
       enabled: status === "authenticated",
     },
   );
 
-  const { data: questionBank } = useGetAllQuestionBanks(
+  const { data: subModules } = useGetAllSubModulesNoCategory(
     session?.access_token as string,
     {
       enabled: status === "authenticated",
@@ -94,7 +108,7 @@ export default function DialogCreatePostTest({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="sm:max-w-[800px]">
         <DialogHeader>
-          <DialogTitle>Tambah Pre Test</DialogTitle>
+          <DialogTitle>Edit Pre Test</DialogTitle>
         </DialogHeader>
         <ScrollArea className="max-h-[80vh]">
           <Form {...form}>
@@ -107,7 +121,9 @@ export default function DialogCreatePostTest({
                 name="sub_module_id"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Materi</FormLabel>
+                    <FormLabel>
+                      Materi <span className="text-red-500">*</span>
+                    </FormLabel>
                     <FormControl>
                       <Select
                         value={field.value}
@@ -119,7 +135,7 @@ export default function DialogCreatePostTest({
                         <SelectContent>
                           <SelectGroup>
                             <SelectLabel>Materi</SelectLabel>
-                            {data?.data.map((module) => (
+                            {subModules?.data.map((module) => (
                               <SelectItem key={module.id} value={module.id}>
                                 {module.name}
                               </SelectItem>
@@ -137,7 +153,9 @@ export default function DialogCreatePostTest({
                 name="question_set_id"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Bank Soal</FormLabel>
+                    <FormLabel>
+                      Bank Soal <span className="text-red-500">*</span>
+                    </FormLabel>
                     <FormControl>
                       <Select
                         value={field.value}
@@ -149,12 +167,9 @@ export default function DialogCreatePostTest({
                         <SelectContent>
                           <SelectGroup>
                             <SelectLabel>Bank Soal</SelectLabel>
-                            {questionBank?.data.map((questionBank) => (
-                              <SelectItem
-                                key={questionBank.id}
-                                value={questionBank.id}
-                              >
-                                {questionBank.name}
+                            {modules?.data.map((module) => (
+                              <SelectItem key={module.id} value={module.id}>
+                                {module.name}
                               </SelectItem>
                             ))}
                           </SelectGroup>
@@ -170,13 +185,11 @@ export default function DialogCreatePostTest({
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Nama Post Test</FormLabel>
+                    <FormLabel>
+                      Nama Materi <span className="text-red-500">*</span>
+                    </FormLabel>
                     <FormControl>
-                      <Input
-                        type="text"
-                        placeholder="Post Test Anatomi Ginjal"
-                        {...field}
-                      />
+                      <Input type="text" placeholder="Screening" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -184,7 +197,7 @@ export default function DialogCreatePostTest({
               />
               <div className="flex justify-end">
                 <Button type="submit" disabled={isPending}>
-                  {isPending ? "Loading..." : "Tambahkan"}
+                  {isPending ? "Loading..." : "Simpan"}
                 </Button>
               </div>
             </form>
