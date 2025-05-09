@@ -3,12 +3,18 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-import Link from "next/link";
-import { Eye, SquarePen, Trash2 } from "lucide-react";
+import { SquarePen, Trash2 } from "lucide-react";
 import ActionButton from "@/components/molecules/datatable/ActionButton";
 import { PreTest } from "@/types/test/pre-test";
 
-export const preTestColumns: ColumnDef<PreTest>[] = [
+interface PreTestColumnProps {
+  onEditHandler: (data: PreTest) => void;
+  deletePreTestHandler: (data: PreTest) => void;
+}
+
+export const preTestColumns = (
+  props: PreTestColumnProps,
+): ColumnDef<PreTest>[] => [
   {
     accessorKey: "index",
     header: "No",
@@ -22,9 +28,9 @@ export const preTestColumns: ColumnDef<PreTest>[] = [
     cell: ({ row }) => {
       const data = row.original;
       return (
-        <p suppressHydrationWarning className="line-clamp-1 md:line-clamp-2">
-          {data.name}
-        </p>
+        <div className="max-w-[200px] truncate">
+          <p className="truncate">{data.name}</p>
+        </div>
       );
     },
   },
@@ -34,9 +40,9 @@ export const preTestColumns: ColumnDef<PreTest>[] = [
     cell: ({ row }) => {
       const data = row.original;
       return (
-        <p suppressHydrationWarning className="line-clamp-1 md:line-clamp-2">
-          {data.sub_module.name}
-        </p>
+        <div className="max-w-[200px] truncate">
+          <p className="truncate">{data.sub_module.name}</p>
+        </div>
       );
     },
   },
@@ -75,27 +81,20 @@ export const preTestColumns: ColumnDef<PreTest>[] = [
 
       return (
         <ActionButton>
-          <Link
-            href={`/dashboard/admin/pre-test/${data.id}`}
-            className="flex items-center text-gray-700 hover:underline"
-          >
-            <Eye className="h-4 w-4" />
-            <span className="ml-2">Detail</span>
-          </Link>
-          <Link
-            href={`/dashboard/admin/pre-test/${data.id}/edit`}
-            className="flex items-center text-yellow-600 hover:text-yellow-800 hover:underline"
+          <div
+            onClick={() => props.onEditHandler(data)}
+            className="flex cursor-pointer items-center text-yellow-600 hover:text-yellow-800 hover:underline"
           >
             <SquarePen className="h-4 w-4" />
             <span className="ml-2">Edit</span>
-          </Link>
-          <Link
-            href={`/dashboard/admin/pre-test/${data.id}/edit`}
-            className="flex items-center text-red-600 hover:text-red-800 hover:underline"
+          </div>
+          <div
+            onClick={() => props.deletePreTestHandler(data)}
+            className="flex cursor-pointer items-center text-red-600 hover:text-red-800 hover:underline"
           >
             <Trash2 className="h-4 w-4" />
             <span className="ml-2">Hapus</span>
-          </Link>
+          </div>
         </ActionButton>
       );
     },

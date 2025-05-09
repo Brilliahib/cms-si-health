@@ -4,6 +4,7 @@ import { User } from "../user/user";
 export type PreTest = {
   id: string;
   module_id: string;
+  sub_module_id: string;
   question_set_id: string;
   name: string;
   created_at: Date;

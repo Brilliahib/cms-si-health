@@ -1,6 +1,6 @@
 "use client";
 
-import AlertDialogDeletePreTestDialog from "@/components/atoms/alert/AlertDialogDeletePreTest";
+import AlertDialogDeleteHistoryPreTestDialog from "@/components/atoms/alert/AlertDialogDeleteHistoryPreTest";
 import { historyPreTestColumns } from "@/components/atoms/datacolumn/DataHistoryPreTestAdmin";
 import DashboardTitleBold from "@/components/atoms/typography/DashboardTitleBold";
 import { DataTable } from "@/components/molecules/datatable/DataTable";
@@ -93,7 +93,7 @@ export default function DashboardAdminReportHistoryPreTestWrapper({
         isLoading={isPending}
       />
       {selectedHistoryPreTest && (
-        <AlertDialogDeletePreTestDialog
+        <AlertDialogDeleteHistoryPreTestDialog
           open={openAlertDelete}
           setOpen={setOpenAlertDelete}
           confirmDelete={handleDeleteQuestion}

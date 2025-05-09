@@ -92,7 +92,7 @@ export default function DialogCreatePreTest({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[800px]">
         <DialogHeader>
           <DialogTitle>Tambah Pre Test</DialogTitle>
         </DialogHeader>

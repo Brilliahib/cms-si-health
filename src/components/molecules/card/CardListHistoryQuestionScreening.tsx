@@ -5,13 +5,19 @@ import { HistoryPreTestDetail } from "@/types/test/pre-test";
 interface CardListHistoryQuestionScreeningProps {
   data?: HistoryPreTestDetail;
   isLoading?: boolean;
+  searchQuery?: string;
 }
 
 export default function CardListHistoryQuestionScreening({
   data,
   isLoading = false,
+  searchQuery,
 }: CardListHistoryQuestionScreeningProps) {
   const optionLabels = ["A", "B", "C", "D", "E", "F"];
+
+  const filteredAnswers = data?.answer.filter((answer) =>
+    answer.question.toLowerCase().includes(searchQuery?.toLowerCase() || ""),
+  );
 
   if (isLoading) {
     return (
@@ -42,7 +48,7 @@ export default function CardListHistoryQuestionScreening({
 
   return (
     <div className="space-y-4">
-      {data?.answer.map((answer, index) => (
+      {filteredAnswers?.map((answer, index) => (
         <Card key={answer.id}>
           <CardHeader>
             <CardTitle className="text-xl">{index + 1}.</CardTitle>
