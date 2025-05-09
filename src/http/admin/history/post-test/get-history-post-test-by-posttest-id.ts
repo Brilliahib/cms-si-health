@@ -32,7 +32,7 @@ export const useGetHistoryPostTestByPostTestId = (
 ) => {
   return useQuery({
     queryKey: ["history-posttest-by-posttest-id", id],
-    queryFn: () => GetHistoryPostTestByPostTestIdHandler(token, id),
+    queryFn: () => GetHistoryPostTestByPostTestIdHandler(id, token),
     ...options,
   });
 };
