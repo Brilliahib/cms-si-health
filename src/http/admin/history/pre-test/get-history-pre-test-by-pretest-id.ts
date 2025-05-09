@@ -32,7 +32,7 @@ export const useGetHistoryPreTestByPretestId = (
 ) => {
   return useQuery({
     queryKey: ["history-pretest-by-pretest-id", id],
-    queryFn: () => GetHistoryPreTestByPretestIdHandler(token, id),
+    queryFn: () => GetHistoryPreTestByPretestIdHandler(id, token),
     ...options,
   });
 };

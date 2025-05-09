@@ -32,7 +32,7 @@ export const useGetHistoryScreeningByScreeningId = (
 ) => {
   return useQuery({
     queryKey: ["history-screening-by-screening-id", id],
-    queryFn: () => GetHistoryScreeningByScreeningIdHandler(token, id),
+    queryFn: () => GetHistoryScreeningByScreeningIdHandler(id, token),
     ...options,
   });
 };
