@@ -33,20 +33,23 @@ import {
   subModuleSchema,
   SubModuleType,
 } from "@/validators/sub-modules/sub-modules-validator";
-import { useAddNewSubModules } from "@/http/sub-modules/create-sub-modules";
 import { useGetAllModules } from "@/http/modulels/get-all-modules";
 import { SubModules } from "@/types/modules/modules";
+import { useEditSubModules } from "@/http/sub-modules/edit-sub-modules";
+import { useEffect } from "react";
 
 interface DialogEditSubModuleProps {
   open: boolean;
   setOpen: (open: boolean) => void;
   data: SubModules;
+  id: string;
 }
 
 export default function DialogEditSubModule({
   open,
   setOpen,
   data,
+  id,
 }: DialogEditSubModuleProps) {
   const form = useForm<SubModuleType>({
     resolver: zodResolver(subModuleSchema),
@@ -58,9 +61,17 @@ export default function DialogEditSubModule({
     mode: "onChange",
   });
 
+  useEffect(() => {
+    form.reset({
+      module_id: data.module_id,
+      name: data.name,
+      description: data.description,
+    });
+  }, [data, form]);
+
   const queryClient = useQueryClient();
 
-  const { mutate: addNewSubModulesHandler, isPending } = useAddNewSubModules({
+  const { mutate: editSubModulesHandler, isPending } = useEditSubModules({
     onError: () => {
       toast.error("Gagal memperbarui materi!");
     },
@@ -74,7 +85,7 @@ export default function DialogEditSubModule({
   });
 
   const onSubmit = (body: SubModuleType) => {
-    addNewSubModulesHandler(body);
+    editSubModulesHandler({ body, id });
   };
 
   const { data: session, status } = useSession();
@@ -165,7 +176,7 @@ export default function DialogEditSubModule({
               />
               <div className="flex justify-end">
                 <Button type="submit" disabled={isPending}>
-                  {isPending ? "Loading..." : "Tambahkan"}
+                  {isPending ? "Loading..." : "Simpan"}
                 </Button>
               </div>
             </form>

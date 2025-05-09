@@ -8,7 +8,14 @@ import { Eye, SquarePen, Trash2 } from "lucide-react";
 import ActionButton from "@/components/molecules/datatable/ActionButton";
 import { SubModules } from "@/types/modules/modules";
 
-export const subModuleColumns: ColumnDef<SubModules>[] = [
+interface SubModuleColumnProps {
+  onEditHandler: (data: SubModules) => void;
+  deleteSubModulesHandler: (data: SubModules) => void;
+}
+
+export const subModuleColumns = (
+  props: SubModuleColumnProps,
+): ColumnDef<SubModules>[] => [
   {
     accessorKey: "index",
     header: "No",
@@ -82,20 +89,20 @@ export const subModuleColumns: ColumnDef<SubModules>[] = [
             <Eye className="h-4 w-4" />
             <span className="ml-2">Detail</span>
           </Link>
-          <Link
-            href={`/dashboard/admin/sub-modules/${data.id}/edit`}
-            className="flex items-center text-yellow-600 hover:text-yellow-800 hover:underline"
+          <div
+            onClick={() => props.onEditHandler(data)}
+            className="flex cursor-pointer items-center text-yellow-600 hover:text-yellow-800 hover:underline"
           >
             <SquarePen className="h-4 w-4" />
             <span className="ml-2">Edit</span>
-          </Link>
-          <Link
-            href={`/dashboard/admin/sub-modules/${data.id}/edit`}
-            className="flex items-center text-red-600 hover:text-red-800 hover:underline"
+          </div>
+          <div
+            onClick={() => props.deleteSubModulesHandler(data)}
+            className="flex cursor-pointer items-center text-red-600 hover:text-red-800 hover:underline"
           >
             <Trash2 className="h-4 w-4" />
             <span className="ml-2">Hapus</span>
-          </Link>
+          </div>
         </ActionButton>
       );
     },
