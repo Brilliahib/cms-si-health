@@ -24,7 +24,7 @@ export const useGetAllScreening = (
   options?: Partial<UseQueryOptions<GetAllScreeningResponse, AxiosError>>,
 ) => {
   return useQuery({
-    queryKey: ["post-test-list"],
+    queryKey: ["screening-list"],
     queryFn: () => GetAllScreeningHandler(token),
     ...options,
   });
