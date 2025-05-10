@@ -113,7 +113,9 @@ export default function CardPersonalInformationUserId({
               </div>
             </div>
             <div className="flex flex-col gap-1">
-              <div className="text-muted-foreground">Asal Rumah Sakit</div>
+              <div className="text-muted-foreground">
+                Riwayat Rumah Sakit Sebelumnya
+              </div>
               <div>
                 {isLoading ? (
                   <Skeleton className="w-32" />
@@ -149,6 +151,20 @@ export default function CardPersonalInformationUserId({
                   <Skeleton className="w-32" />
                 ) : (
                   data?.dialisis_duration
+                )}
+              </div>
+            </div>
+            <div className="flex flex-col gap-1">
+              <div className="text-muted-foreground">
+                Terapi Yang Pernah Dijalani
+              </div>
+              <div className="uppercase">
+                {isLoading ? (
+                  <Skeleton className="w-32" />
+                ) : data?.history_therapy?.toLowerCase() === "nothing" ? (
+                  "Tidak ada"
+                ) : (
+                  data?.history_therapy
                 )}
               </div>
             </div>
