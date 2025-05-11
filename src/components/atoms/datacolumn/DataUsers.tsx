@@ -9,6 +9,7 @@ import ActionButton from "@/components/molecules/datatable/ActionButton";
 import { User } from "@/types/user/user";
 
 interface UserColumnProps {
+  deleteUserHandler: (data: User) => void;
   resetPasswordUserHandler: (data: User) => void;
 }
 
@@ -86,13 +87,13 @@ export const usersColumns = (props: UserColumnProps): ColumnDef<User>[] => [
             <KeyRound className="h-4 w-4" />
             <span className="ml-2">Reset Password</span>
           </div>
-          <Link
-            href={`/dashboard/admin/users/${data.id}/edit`}
-            className="flex items-center text-red-600 hover:text-red-800 hover:underline"
+          <div
+            onClick={() => props.deleteUserHandler(data)}
+            className="flex cursor-pointer items-center text-red-600 hover:text-red-800 hover:underline"
           >
             <Trash2 className="h-4 w-4" />
             <span className="ml-2">Hapus</span>
-          </Link>
+          </div>
         </ActionButton>
       );
     },
