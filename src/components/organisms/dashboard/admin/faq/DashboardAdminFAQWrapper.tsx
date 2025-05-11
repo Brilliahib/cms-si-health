@@ -2,6 +2,8 @@
 
 import AlertDeleteFAQDiscussionDialog from "@/components/atoms/alert/AlertDialogDeleteFAQDiscussion";
 import { faqDiscussionColumns } from "@/components/atoms/datacolumn/DataFAQDiscussion";
+import DialogDetailFAQDiscussion from "@/components/atoms/dialog/DialogDetailFAQDiscussion";
+import DialogEditFAQDiscussion from "@/components/atoms/dialog/DialogEditFAQDIscussion";
 import { DataTable } from "@/components/molecules/datatable/DataTable";
 import { Button } from "@/components/ui/button";
 import { useDeleteFAQDiscussion } from "@/http/faq/delete-faq";
@@ -19,6 +21,8 @@ export default function DashboardAdminFAQWrapper() {
   const [selectedFAQDiscussion, setSelectedFAQDiscussion] =
     useState<FAQDiscussion | null>(null);
   const [openAlertDelete, setOpenAlertDelete] = useState<boolean>(false);
+  const [openDialogEdit, setOpenDialogEdit] = useState<boolean>(false);
+  const [openDialogDetail, setOpenDialogDetail] = useState<boolean>(false);
 
   const { data, isPending } = useGetAllFAQDiscussion(
     session?.access_token as string,
@@ -30,6 +34,16 @@ export default function DashboardAdminFAQWrapper() {
   const deleteFAQDiscussionHandler = (data: FAQDiscussion) => {
     setSelectedFAQDiscussion(data);
     setOpenAlertDelete(true);
+  };
+
+  const handleDialogEditOpen = (data: FAQDiscussion) => {
+    setSelectedFAQDiscussion(data);
+    setOpenDialogEdit(true);
+  };
+
+  const handleDialogDetailOpen = (data: FAQDiscussion) => {
+    setSelectedFAQDiscussion(data);
+    setOpenDialogDetail(true);
   };
 
   const queryClient = useQueryClient();
@@ -70,16 +84,32 @@ export default function DashboardAdminFAQWrapper() {
         data={data?.data ?? []}
         isLoading={isPending}
         columns={faqDiscussionColumns({
+          detailFAQDiscussionHandler: handleDialogDetailOpen,
+          editFAQDiscussionHandler: handleDialogEditOpen,
           deleteFAQDiscussionHandler: deleteFAQDiscussionHandler,
         })}
       />
-
-      <AlertDeleteFAQDiscussionDialog
-        open={openAlertDelete}
-        setOpen={setOpenAlertDelete}
-        confirmDelete={handleDeleteQuestion}
-        isPending={isDeletePending}
-      />
+      {selectedFAQDiscussion && (
+        <>
+          <DialogEditFAQDiscussion
+            open={openDialogEdit}
+            setOpen={setOpenDialogEdit}
+            id={selectedFAQDiscussion.id}
+            data={selectedFAQDiscussion}
+          />
+          <DialogDetailFAQDiscussion
+            open={openDialogDetail}
+            setOpen={setOpenDialogDetail}
+            id={selectedFAQDiscussion.id}
+          />
+          <AlertDeleteFAQDiscussionDialog
+            open={openAlertDelete}
+            setOpen={setOpenAlertDelete}
+            confirmDelete={handleDeleteQuestion}
+            isPending={isDeletePending}
+          />
+        </>
+      )}
     </div>
   );
 }
