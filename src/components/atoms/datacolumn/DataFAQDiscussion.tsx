@@ -3,12 +3,13 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-import Link from "next/link";
 import { Eye, SquarePen, Trash2 } from "lucide-react";
 import ActionButton from "@/components/molecules/datatable/ActionButton";
 import { FAQDiscussion } from "@/types/faq/faq";
 
 interface FAQDiscussionColumnProps {
+  detailFAQDiscussionHandler: (data: FAQDiscussion) => void;
+  editFAQDiscussionHandler: (data: FAQDiscussion) => void;
   deleteFAQDiscussionHandler: (data: FAQDiscussion) => void;
 }
 
@@ -28,9 +29,9 @@ export const faqDiscussionColumns = (
     cell: ({ row }) => {
       const data = row.original;
       return (
-        <p suppressHydrationWarning className="line-clamp-1 md:line-clamp-2">
-          {data.question}
-        </p>
+        <div className="max-w-[200px] truncate">
+          <p className="truncate">{data.question}</p>
+        </div>
       );
     },
   },
@@ -40,9 +41,9 @@ export const faqDiscussionColumns = (
     cell: ({ row }) => {
       const data = row.original;
       return (
-        <p suppressHydrationWarning className="line-clamp-1 md:line-clamp-2">
-          {data.answer}
-        </p>
+        <div className="max-w-[200px] truncate">
+          <p className="truncate">{data.answer}</p>
+        </div>
       );
     },
   },
@@ -81,20 +82,20 @@ export const faqDiscussionColumns = (
 
       return (
         <ActionButton>
-          <Link
-            href={`/dashboard/admin/faqs/${data.id}`}
-            className="flex items-center text-gray-700 hover:underline"
+          <div
+            onClick={() => props.detailFAQDiscussionHandler(data)}
+            className="flex cursor-pointer items-center text-gray-700 hover:underline"
           >
             <Eye className="h-4 w-4" />
             <span className="ml-2">Detail</span>
-          </Link>
-          <Link
-            href={`/dashboard/admin/faqs/${data.id}/edit`}
-            className="flex items-center text-yellow-600 hover:text-yellow-800 hover:underline"
+          </div>
+          <div
+            onClick={() => props.editFAQDiscussionHandler(data)}
+            className="flex cursor-pointer items-center text-yellow-600 hover:text-yellow-800 hover:underline"
           >
             <SquarePen className="h-4 w-4" />
             <span className="ml-2">Edit</span>
-          </Link>
+          </div>
           <div
             onClick={() => props.deleteFAQDiscussionHandler(data)}
             className="flex cursor-pointer items-center text-red-600 hover:text-red-800 hover:underline"
