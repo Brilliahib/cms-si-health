@@ -11,30 +11,30 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { buttonVariants } from "@/components/ui/button";
-import { HistoryScreening } from "@/types/screening/screening";
+import { DiscussionComment } from "@/types/discussions/discussion";
 
-interface AlertDialogDeleteHistoryScreeningProps {
+interface AlertDialogDeleteDiscussionCommentProps {
   confirmDelete: () => void;
   open: boolean;
   setOpen: (open: boolean) => void;
   isPending?: boolean;
-  data?: HistoryScreening | null;
+  data?: DiscussionComment | null;
 }
 
-const AlertDialogDeleteHistoryScreening = ({
+const AlertDialogDeleteDiscussionComment = ({
   open,
   setOpen,
   confirmDelete,
   isPending,
   data,
-}: AlertDialogDeleteHistoryScreeningProps) => {
+}: AlertDialogDeleteDiscussionCommentProps) => {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Hapus Data?</AlertDialogTitle>
           <AlertDialogDescription>
-            Apakah anda yakin ingin menghapus history screening dari pasien{" "}
+            Apakah anda yakin ingin menghapus pesan diskusi{""}
             <b className="text-black">{data?.user.name}</b>? Data yang sudah
             dihapus tidak dapat dikembalikan.
           </AlertDialogDescription>
@@ -54,4 +54,4 @@ const AlertDialogDeleteHistoryScreening = ({
   );
 };
 
-export default AlertDialogDeleteHistoryScreening;
+export default AlertDialogDeleteDiscussionComment;
