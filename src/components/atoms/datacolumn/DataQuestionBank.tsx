@@ -8,7 +8,14 @@ import { Eye, SquarePen, Trash2 } from "lucide-react";
 import { QuestionBank } from "@/types/question-bank/question-bank";
 import ActionButton from "@/components/molecules/datatable/ActionButton";
 
-export const questionBankColumns: ColumnDef<QuestionBank>[] = [
+interface QuestionBankColumnProps {
+  deleteQuestionBankHandler: (data: QuestionBank) => void;
+  updateQuestionBankHandler?: (data: QuestionBank) => void;
+}
+
+export const questionBankColumns = (
+  props: QuestionBankColumnProps,
+): ColumnDef<QuestionBank>[] => [
   {
     accessorKey: "index",
     header: "No",
@@ -70,20 +77,20 @@ export const questionBankColumns: ColumnDef<QuestionBank>[] = [
             <Eye className="h-4 w-4" />
             <span className="ml-2">Detail</span>
           </Link>
-          <Link
-            href={`/dashboard/admin/question-banks/${data.id}/edit`}
-            className="flex items-center text-yellow-600 hover:text-yellow-800 hover:underline"
+          <div
+            onClick={() => props.updateQuestionBankHandler?.(data)}
+            className="flex cursor-pointer items-center text-yellow-600 hover:text-yellow-800 hover:underline"
           >
             <SquarePen className="h-4 w-4" />
             <span className="ml-2">Edit</span>
-          </Link>
-          <Link
-            href={`/dashboard/admin/question-banks/${data.id}/edit`}
-            className="flex items-center text-red-600 hover:text-red-800 hover:underline"
+          </div>
+          <div
+            onClick={() => props.deleteQuestionBankHandler(data)}
+            className="flex cursor-pointer items-center text-red-600 hover:text-red-800 hover:underline"
           >
             <Trash2 className="h-4 w-4" />
             <span className="ml-2">Hapus</span>
-          </Link>
+          </div>
         </ActionButton>
       );
     },
